@@ -1,0 +1,35 @@
+@font-face {
+  font-family: "Pretendard-Regular";
+  font-weight: normal;
+  src: url("./fonts/Pretendard-Regular.woff") format("truetype");
+}
+
+@font-face {
+  font-family: "Pretendard-Bold";
+  font-weight: bold;
+  src: url("./fonts/Pretendard-Bold.woff") format("truetype");
+}
+
+@font-face {
+  font-family: "Pretendard-ExtraBold";
+  font-weight: bolder;
+  src: url("./fonts/Pretendard-ExtraBold.woff") format("truetype");
+}
+
+@font-face {
+  font-family: "Pretendard-Light";
+  font-weight: lighter;
+  src: url("./fonts/Pretendard-Light.woff") format("truetype");
+}
+
+body {
+  margin: 0;
+  font-family: "Pretendard-Regular";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
