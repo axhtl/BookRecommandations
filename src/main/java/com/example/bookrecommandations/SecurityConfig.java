@@ -16,10 +16,11 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers("/book/signup") // CSRF 보호에서 회원가입 경로 제외
                 )
-                .authorizeRequests(authorize -> authorize
+                .authorizeHttpRequests(authorize -> authorize // authorizeRequests() 대신 authorizeHttpRequests() 사용
                         .requestMatchers("/book/signup").permitAll() // 회원가입 경로 허용
                         .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요
                 );
+
         return http.build();
     }
 }
