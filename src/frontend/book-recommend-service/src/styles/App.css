@@ -1,0 +1,223 @@
+/* Intro Page */
+.PageWrapper{
+  background-color: #f2f2f2;
+  height: 100vh;
+  font-family: 'Pretendard-Regular';
+}
+
+.header{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.signInButton{
+  margin: 16px;
+  padding: 8px 24px;
+  cursor: pointer;
+}
+
+.signInButton button {
+  border: none;
+  outline: none;
+  color:inherit;
+  background-color: inherit;
+  background: none;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: '300';
+  color: #4A00AA;
+  font-family: 'Pretendard-Light';
+}
+
+button:hover{
+  color:#fff;
+}
+
+.titleArea{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items:flex-start;
+}
+
+.title{
+  font-family: 'Pretendard-ExtraBold';
+  font-weight:700;
+  font-size: 96px;
+  margin:0;
+  color: #4A00AA;
+  /* line-height: 0; */
+  /* padding: 16px 10px; */
+}
+
+.introImage{
+  width: 40%;
+  height: 40%;
+  border: solid 1px #4A00AA;
+  margin: 50px;
+}
+
+/* authModal */
+
+.modalOpen{
+  background: rgba(0, 0, 0, 0.2);
+  /* background-color: black; */
+
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: 101;
+  top:0;
+
+}
+
+.modalWrapper{
+  width: 600px;
+  height:max-content;
+  background-color: #fbfbfb;
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 102;
+  border-radius: 12px;
+}
+
+.modalWrapperMobile{
+  width: 80vw;
+  height:max-content;
+  background-color: #fbfbfb;
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 102;
+  border-radius: 12px;
+}
+
+.isClosed{
+  display: none;
+}
+
+.signInModal{
+  padding: 12px 12px 70px 12px;
+}
+
+.modalCloseButton{
+  padding: 8px;
+}
+
+.modalCloseButton button {
+  border: none;
+  outline: none;
+  color:inherit;
+  background-color: inherit;
+  background: none;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: '300';
+  color: #666;
+  font-family: 'Pretendard-Light';
+}
+
+.signInInfos{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 70px;
+  margin-bottom: 50px;
+}
+
+.inputWrapper{
+  display: flex;
+  width: 50%;
+  background-color: #F1E7FF;
+  padding:16px 20px 16px 8px;
+  border-radius: 12px;
+  margin:4px;
+}
+
+.inputWrapperMobile{
+  display: flex;
+  width: 65%;
+  background-color: #F1E7FF;
+  padding:16px 8px;
+  border-radius: 12px;
+  margin:4px;
+}
+
+.inputBox{
+  width: 100%;
+  border:none;
+  background: none;
+}
+
+.basicButtonWrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin-bottom: px; */
+}
+
+.basicButtonWrapper button{
+  border: none;
+  outline: none;
+  color: #fff;
+  background-color: #4A00AA;
+  cursor: pointer;
+  padding: 16px 100px;
+  border-radius: 16px;
+  font-family: 'Pretendard-Bold';
+  font-size: 16px;
+}
+
+.goSignUpWrapper{
+  margin: 16px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.goSignUpWrapper p{
+  margin:0px;
+  font-size: 14px;
+  font-family: 'Pretendard-Light';
+  color:#666;
+}
+
+.goSignUpWrapper button{
+  /* margin:0px; */
+  border: none;
+  outline: none;
+  color: #666;
+  background-color:inherit;
+  cursor: pointer;
+  font-family: 'Pretendard-SemiBold';
+  font-size: 14px;
+}
+
+.goKakaoWrapper{
+  /* margin: 16px; */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  gap:20px;
+}
+
+.goKakaoWrapper p{
+  margin:0px;
+  font-size: 14px;
+  font-family: 'Pretendard-Light';
+  color:#666;
+}
+
+.goKakaoWrapper button{
+  border: none;
+  outline: none;
+  color: #666;
+  background-color:inherit;
+  cursor: pointer;
+  font-family: 'Pretendard-SemiBold';
+  font-size: 14px;
+}
