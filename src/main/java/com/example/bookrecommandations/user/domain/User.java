@@ -21,13 +21,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @Column(nullable = false, unique = true)
+    @Column
     private String username;
 
     @Column(nullable = true)
     private String password;
 
-    @Column(nullable = false, unique = true)
+    @Column
     private String nickname;
 
     @Enumerated(EnumType.STRING)

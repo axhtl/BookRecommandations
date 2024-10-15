@@ -1,5 +1,7 @@
 package com.example.bookrecommandations.user.service;
 
+import com.example.bookrecommandations.common.exception.ErrorCode;
+import com.example.bookrecommandations.common.exception.DeuplicatedUsernameException;
 import com.example.bookrecommandations.user.domain.User;
 import com.example.bookrecommandations.user.dto.CreateUserRequest;
 import com.example.bookrecommandations.user.repository.UserRepository;
@@ -16,6 +18,11 @@ public class UserService {
 
     @Transactional
     public Long saveUser(CreateUserRequest createUserRequest) {
+        // 아이디 중복 체크
+        if (userRepository.findByUsername(createUserRequest.getUsername()).isPresent()) {
+            throw new DeuplicatedUsernameException(ErrorCode.DUPLICATED_USERNAME);
+        }
+
         String encodedPassword = passwordEncoder.encode(createUserRequest.getPassword());
         User user = createUserRequest.toUser(encodedPassword);
         userRepository.save(user);
