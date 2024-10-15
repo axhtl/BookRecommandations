@@ -11,8 +11,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(DeuplicatedUsernameException.class)
-    public ResponseEntity<ErrorResponseDTO> handleDeuplicatedUsernameException(DeuplicatedUsernameException e) {
+    @ExceptionHandler(DuplicatedUsernameException.class)
+    public ResponseEntity<ErrorResponseDTO> handleDeuplicatedUsernameException(DuplicatedUsernameException e) {
+        ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponseDTO);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(DuplicatedNicknameException.class)
+    public ResponseEntity<ErrorResponseDTO> handleuplicatedNicknameException(DuplicatedNicknameException e) {
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.BAD_REQUEST.value(), e.getMessage());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponseDTO);

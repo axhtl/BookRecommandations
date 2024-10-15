@@ -1,9 +1,9 @@
 package com.example.bookrecommandations.common.exception;
 
-public class DeuplicatedUsernameException extends  RuntimeException{
+public class DuplicatedUsernameException extends  RuntimeException{
     private final ErrorCode errorCode;
 
-    public DeuplicatedUsernameException(ErrorCode errorCode) {
+    public DuplicatedUsernameException(ErrorCode errorCode) {
         super(errorCode.getMessage());
         this.errorCode = errorCode;
     }

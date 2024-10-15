@@ -5,7 +5,8 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 public enum ErrorCode {
-    DUPLICATED_USERNAME(HttpStatus.BAD_REQUEST, "이미 사용중인 아이디입니다.");
+    DUPLICATED_USERNAME(HttpStatus.BAD_REQUEST, "이미 사용중인 아이디입니다."),
+    DUPLICATED_NICKNAME(HttpStatus.BAD_REQUEST, "이미 사용중인 닉네임입니다.");
 
     private final HttpStatus status;
     private final String message;
