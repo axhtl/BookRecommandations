@@ -20,10 +20,10 @@ public class CreateUserRequest {
     private String password;
     private String nickname;
 
-    public User toUser() {
+    public User toUser(String encodedPassword) {
         return User.builder()
                 .username(username)
-                .password(password)
+                .password(encodedPassword)
                 .nickname(nickname)
                 .role(Role.USER)
                 .userStatus(UserStatus.ACTIVE)

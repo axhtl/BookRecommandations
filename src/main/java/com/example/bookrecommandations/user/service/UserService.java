@@ -4,6 +4,7 @@ import com.example.bookrecommandations.user.domain.User;
 import com.example.bookrecommandations.user.dto.CreateUserRequest;
 import com.example.bookrecommandations.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,10 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder; ;
 
     @Transactional
     public Long saveUser(CreateUserRequest createUserRequest) {
-        User user = createUserRequest.toUser();
+        String encodedPassword = passwordEncoder.encode(createUserRequest.getPassword());
+        User user = createUserRequest.toUser(encodedPassword);
         userRepository.save(user);
         return user.getUserId();
     }
