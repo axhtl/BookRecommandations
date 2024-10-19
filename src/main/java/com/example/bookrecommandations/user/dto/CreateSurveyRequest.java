@@ -1,5 +1,7 @@
 package com.example.bookrecommandations.user.dto;
 
+import com.example.bookrecommandations.user.domain.PreferredBook;
+import com.example.bookrecommandations.user.domain.PreferredGenre;
 import com.example.bookrecommandations.user.domain.Survey;
 import com.example.bookrecommandations.user.vo.Age;
 import com.example.bookrecommandations.user.vo.Gender;
@@ -9,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @AllArgsConstructor
@@ -27,5 +30,23 @@ public class CreateSurveyRequest {
                 .gender(gender)
                 .age(age)
                 .build();
+    }
+
+    public List<PreferredGenre> toPreferredGenres() {
+        return preferredGenres.stream()
+                .map(genre -> PreferredGenre.builder()
+                        .userId(userId)
+                        .genre(genre)
+                        .build())
+                .collect(Collectors.toList());
+    }
+
+    public List<PreferredBook> toPreferredBooks() {
+        return preferredBooks.stream()
+                .map(isbn -> PreferredBook.builder()
+                        .userId(userId)
+                        .isbn(isbn)
+                        .build())
+                .collect(Collectors.toList());
     }
 }

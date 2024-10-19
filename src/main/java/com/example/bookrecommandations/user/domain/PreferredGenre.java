@@ -13,12 +13,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "prefered_genre")
+@Entity(name = "preferred_genre")
 public class PreferredGenre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long preferedGenreId;
-
+    private Long preferredGenreId;
     private Long userId;
-    private String preferedGenreName;
+    private String genre;
 }

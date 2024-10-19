@@ -13,12 +13,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "prefered_book")
+@Entity(name = "preferred_book")
 public class PreferredBook {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long preferedBookId;
-
+    private Long preferredBookId;
     private Long userId;
     private String isbn;
 }
