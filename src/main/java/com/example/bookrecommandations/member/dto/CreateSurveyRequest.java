@@ -1,10 +1,10 @@
-package com.example.bookrecommandations.user.dto;
+package com.example.bookrecommandations.member.dto;
 
-import com.example.bookrecommandations.user.domain.PreferredBook;
-import com.example.bookrecommandations.user.domain.PreferredGenre;
-import com.example.bookrecommandations.user.domain.Survey;
-import com.example.bookrecommandations.user.vo.Age;
-import com.example.bookrecommandations.user.vo.Gender;
+import com.example.bookrecommandations.member.domain.PreferredBook;
+import com.example.bookrecommandations.member.domain.PreferredGenre;
+import com.example.bookrecommandations.member.domain.Survey;
+import com.example.bookrecommandations.member.vo.Age;
+import com.example.bookrecommandations.member.vo.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Builder
 public class CreateSurveyRequest {
-    private Long userId;
+    private Long memberId;
     private Gender gender;
     private Age age;
     private List<String> preferredGenres;
@@ -26,7 +26,7 @@ public class CreateSurveyRequest {
 
     public Survey toSurvey() {
         return Survey.builder()
-                .userId(userId)
+                .memberId(memberId)
                 .gender(gender)
                 .age(age)
                 .build();
@@ -35,7 +35,7 @@ public class CreateSurveyRequest {
     public List<PreferredGenre> toPreferredGenres() {
         return preferredGenres.stream()
                 .map(genre -> PreferredGenre.builder()
-                        .userId(userId)
+                        .memberId(memberId)
                         .genre(genre)
                         .build())
                 .collect(Collectors.toList());
@@ -44,7 +44,7 @@ public class CreateSurveyRequest {
     public List<PreferredBook> toPreferredBooks() {
         return preferredBooks.stream()
                 .map(isbn -> PreferredBook.builder()
-                        .userId(userId)
+                        .memberId(memberId)
                         .isbn(isbn)
                         .build())
                 .collect(Collectors.toList());

@@ -1,12 +1,12 @@
-package com.example.bookrecommandations.user.service;
+package com.example.bookrecommandations.member.service;
 
-import com.example.bookrecommandations.user.domain.PreferredBook;
-import com.example.bookrecommandations.user.domain.PreferredGenre;
-import com.example.bookrecommandations.user.domain.Survey;
-import com.example.bookrecommandations.user.dto.CreateSurveyRequest;
-import com.example.bookrecommandations.user.repository.PreferredBookRepository;
-import com.example.bookrecommandations.user.repository.PreferredGenreRepository;
-import com.example.bookrecommandations.user.repository.SurveyRepository;
+import com.example.bookrecommandations.member.domain.PreferredBook;
+import com.example.bookrecommandations.member.domain.PreferredGenre;
+import com.example.bookrecommandations.member.domain.Survey;
+import com.example.bookrecommandations.member.dto.CreateSurveyRequest;
+import com.example.bookrecommandations.member.repository.PreferredBookRepository;
+import com.example.bookrecommandations.member.repository.PreferredGenreRepository;
+import com.example.bookrecommandations.member.repository.SurveyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

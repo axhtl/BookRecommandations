@@ -1,8 +1,8 @@
-package com.example.bookrecommandations.user.controller;
+package com.example.bookrecommandations.member.controller;
 
-import com.example.bookrecommandations.user.dto.CreateSurveyRequest;
-import com.example.bookrecommandations.user.dto.SaveResponseDTO;
-import com.example.bookrecommandations.user.service.SurveyService;
+import com.example.bookrecommandations.member.dto.CreateSurveyRequest;
+import com.example.bookrecommandations.member.dto.SaveResponseDTO;
+import com.example.bookrecommandations.member.service.SurveyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

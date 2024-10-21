@@ -1,7 +1,7 @@
-package com.example.bookrecommandations.user.domain;
+package com.example.bookrecommandations.member.domain;
 
-import com.example.bookrecommandations.user.vo.Role;
-import com.example.bookrecommandations.user.vo.UserStatus;
+import com.example.bookrecommandations.member.vo.Role;
+import com.example.bookrecommandations.member.vo.MemberStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,14 +15,14 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "user")
-public class User {
+@Entity(name = "member")
+public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long memberId;
 
     @Column
-    private String username;
+    private String membername;
 
     @Column(nullable = true)
     private String password;
@@ -34,7 +34,7 @@ public class User {
     private Role role;
 
     @Enumerated(EnumType.STRING)
-    private UserStatus userStatus;
+    private MemberStatus memberStatus;
 
     @CreatedDate
     private LocalDateTime createdAt;

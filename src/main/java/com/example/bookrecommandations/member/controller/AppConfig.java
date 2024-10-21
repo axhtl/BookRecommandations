@@ -1,4 +1,4 @@
-package com.example.bookrecommandations.user.controller;
+package com.example.bookrecommandations.member.controller;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

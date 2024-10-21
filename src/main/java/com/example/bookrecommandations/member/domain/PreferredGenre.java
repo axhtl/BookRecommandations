@@ -1,4 +1,4 @@
-package com.example.bookrecommandations.user.domain;
+package com.example.bookrecommandations.member.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,11 +13,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "preferred_book")
-public class PreferredBook {
+@Entity(name = "preferred_genre")
+public class PreferredGenre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long preferredBookId;
-    private Long userId;
-    private String isbn;
+    private Long preferredGenreId;
+    private Long memberId;
+    private String genre;
 }

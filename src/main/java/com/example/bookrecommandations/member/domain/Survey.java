@@ -1,7 +1,7 @@
-package com.example.bookrecommandations.user.domain;
+package com.example.bookrecommandations.member.domain;
 
-import com.example.bookrecommandations.user.vo.Age;
-import com.example.bookrecommandations.user.vo.Gender;
+import com.example.bookrecommandations.member.vo.Age;
+import com.example.bookrecommandations.member.vo.Gender;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +19,7 @@ public class Survey {
     private Long surveyId;
 
     @Column
-    private Long userId;
+    private Long memberId;
 
     @Column
     @Enumerated(EnumType.STRING)
