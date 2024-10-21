@@ -1,6 +1,6 @@
-package com.example.bookrecommandations.user.repository;
+package com.example.bookrecommandations.member.repository;
 
-import com.example.bookrecommandations.user.domain.Member;
+import com.example.bookrecommandations.member.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

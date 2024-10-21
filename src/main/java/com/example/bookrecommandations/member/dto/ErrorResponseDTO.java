@@ -1,4 +1,4 @@
-package com.example.bookrecommandations.user.dto;
+package com.example.bookrecommandations.member.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

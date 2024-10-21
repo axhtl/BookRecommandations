@@ -1,11 +1,11 @@
-package com.example.bookrecommandations.user.service;
+package com.example.bookrecommandations.member.service;
 
 import com.example.bookrecommandations.common.exception.DuplicatedNicknameException;
 import com.example.bookrecommandations.common.exception.ErrorCode;
-import com.example.bookrecommandations.common.exception.DuplicatedUsernameException;
-import com.example.bookrecommandations.user.domain.Member;
-import com.example.bookrecommandations.user.dto.CreateMemberRequest;
-import com.example.bookrecommandations.user.repository.MemberRepository;
+import com.example.bookrecommandations.common.exception.DuplicatedMembernameException;
+import com.example.bookrecommandations.member.domain.Member;
+import com.example.bookrecommandations.member.dto.CreateMemberRequest;
+import com.example.bookrecommandations.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class MemberService {
     public Long saveMember(CreateMemberRequest createMemberRequest) {
         // 아이디 중복 체크
         if (memberRepository.findByMembername(createMemberRequest.getMembername()).isPresent()) {
-            throw new DuplicatedUsernameException(ErrorCode.DUPLICATED_USERNAME);
+            throw new DuplicatedMembernameException(ErrorCode.DUPLICATED_MEMBERNAME);
         }
 
         // 닉네임 중복 체크
@@ -31,9 +31,9 @@ public class MemberService {
 
         // 비밀번호 암호화 후 DB에 회원정보 저장
         String encodedPassword = passwordEncoder.encode(createMemberRequest.getPassword());
-        Member user = createMemberRequest.toMember(encodedPassword);
-        memberRepository.save(user);
+        Member member = createMemberRequest.toMember(encodedPassword);
+        memberRepository.save(member);
 
-        return user.getMemberId();
+        return member.getMemberId();
     }
 }

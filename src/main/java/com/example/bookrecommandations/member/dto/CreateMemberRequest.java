@@ -1,8 +1,8 @@
-package com.example.bookrecommandations.user.dto;
+package com.example.bookrecommandations.member.dto;
 
-import com.example.bookrecommandations.user.domain.Member;
-import com.example.bookrecommandations.user.vo.Role;
-import com.example.bookrecommandations.user.vo.MemberStatus;
+import com.example.bookrecommandations.member.domain.Member;
+import com.example.bookrecommandations.member.vo.Role;
+import com.example.bookrecommandations.member.vo.MemberStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class CreateMemberRequest {
-    private Long userId;
+    private Long memberId;
     private String membername;
     private String password;
     private String nickname;
@@ -26,7 +26,7 @@ public class CreateMemberRequest {
                 .password(encodedPassword)
                 .nickname(nickname)
                 .role(Role.USER)
-                .userStatus(MemberStatus.ACTIVE)
+                .memberStatus(MemberStatus.ACTIVE)
                 .createdAt(LocalDateTime.now())
                 .build();
     }

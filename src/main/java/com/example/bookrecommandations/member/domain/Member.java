@@ -1,7 +1,7 @@
-package com.example.bookrecommandations.user.domain;
+package com.example.bookrecommandations.member.domain;
 
-import com.example.bookrecommandations.user.vo.Role;
-import com.example.bookrecommandations.user.vo.MemberStatus;
+import com.example.bookrecommandations.member.vo.Role;
+import com.example.bookrecommandations.member.vo.MemberStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,7 +34,7 @@ public class Member {
     private Role role;
 
     @Enumerated(EnumType.STRING)
-    private MemberStatus userStatus;
+    private MemberStatus memberStatus;
 
     @CreatedDate
     private LocalDateTime createdAt;

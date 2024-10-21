@@ -1,10 +1,10 @@
-package com.example.bookrecommandations.user.dto;
+package com.example.bookrecommandations.member.dto;
 
-import com.example.bookrecommandations.user.domain.PreferredBook;
-import com.example.bookrecommandations.user.domain.PreferredGenre;
-import com.example.bookrecommandations.user.domain.Survey;
-import com.example.bookrecommandations.user.vo.Age;
-import com.example.bookrecommandations.user.vo.Gender;
+import com.example.bookrecommandations.member.domain.PreferredBook;
+import com.example.bookrecommandations.member.domain.PreferredGenre;
+import com.example.bookrecommandations.member.domain.Survey;
+import com.example.bookrecommandations.member.vo.Age;
+import com.example.bookrecommandations.member.vo.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
