@@ -1,8 +1,8 @@
 package com.example.bookrecommandations.user.controller;
 
-import com.example.bookrecommandations.user.dto.CreateUserRequest;
+import com.example.bookrecommandations.user.dto.CreateMemberRequest;
 import com.example.bookrecommandations.user.dto.SaveResponseDTO;
-import com.example.bookrecommandations.user.service.UserService;
+import com.example.bookrecommandations.user.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/book")
-public class UserController {
+public class MemberController {
 
-    private final UserService userService;
+    private final MemberService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<SaveResponseDTO> signup(@Validated @RequestBody CreateUserRequest createUserRequest) {
-        Long userId = userService.saveUser(createUserRequest);
+    public ResponseEntity<SaveResponseDTO> signup(@Validated @RequestBody CreateMemberRequest createMemberRequest) {
+        Long memberId = userService.saveMember(createMemberRequest);
         return ResponseEntity.ok(new SaveResponseDTO(
-                userId, HttpStatus.OK.value(), "회원가입이 정상적으로 진행되었습니다."
+                memberId, HttpStatus.OK.value(), "회원가입이 정상적으로 진행되었습니다."
         ));
     }
 }

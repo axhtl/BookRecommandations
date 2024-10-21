@@ -19,7 +19,7 @@ public class Survey {
     private Long surveyId;
 
     @Column
-    private Long userId;
+    private Long memberId;
 
     @Column
     @Enumerated(EnumType.STRING)

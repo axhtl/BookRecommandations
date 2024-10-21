@@ -18,6 +18,6 @@ public class PreferredBook {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long preferredBookId;
-    private Long userId;
+    private Long memberId;
     private String isbn;
 }

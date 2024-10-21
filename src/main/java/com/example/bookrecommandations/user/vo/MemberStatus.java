@@ -1,6 +1,6 @@
 package com.example.bookrecommandations.user.vo;
 
-public enum UserStatus {
+public enum MemberStatus {
     ACTIVE,
     WITHDRAWN,
     SUSPENDED

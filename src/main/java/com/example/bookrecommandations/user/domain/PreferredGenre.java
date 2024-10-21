@@ -18,6 +18,6 @@ public class PreferredGenre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long preferredGenreId;
-    private Long userId;
+    private Long memberId;
     private String genre;
 }
