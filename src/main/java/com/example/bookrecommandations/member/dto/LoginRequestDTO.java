@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SaveResponseDTO {
-    private Long id;
-    private int statusCode;
-    private String message;
+@Builder
+public class LoginRequestDTO {
+    private String membername;
+    private String password;
 }

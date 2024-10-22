@@ -1,7 +1,10 @@
 package com.example.bookrecommandations.member.controller;
 
 import com.example.bookrecommandations.member.dto.CreateMemberRequest;
+import com.example.bookrecommandations.member.dto.LoginRequestDTO;
+import com.example.bookrecommandations.member.dto.LoginResponseDTO;
 import com.example.bookrecommandations.member.dto.SaveResponseDTO;
+import com.example.bookrecommandations.member.service.AuthenticationService;
 import com.example.bookrecommandations.member.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberController {
 
     private final MemberService memberService;
+    private final AuthenticationService authenticationService;
 
     @Operation(summary = "회원가입")
     @PostMapping("/signup")
@@ -29,5 +33,11 @@ public class MemberController {
         return ResponseEntity.ok(new SaveResponseDTO(
                 memberId, HttpStatus.OK.value(), "회원가입이 정상적으로 진행되었습니다."
         ));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO loginRequestDTO) {
+        LoginResponseDTO response = authenticationService.login(loginRequestDTO);
+        return ResponseEntity.ok(response);
     }
 }
