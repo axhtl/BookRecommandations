@@ -11,5 +11,6 @@ public class LoginResponseDTO {
     private Long memberId;
     private int statusCode;
     private String message;
-    private String token;
+    private String accessToken;
+    private String refreshToken;
 }

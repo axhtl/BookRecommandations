@@ -29,13 +29,20 @@ public class AuthenticationService {
         }
 
         // JWT 토큰 생성
-        String token = jwtTokenProvider.createToken(member.getMembername(), member.getRole());
+        String accessToken = jwtTokenProvider.createAccessToken(member.getMembername(), member.getRole());
+        String refreshToken = jwtTokenProvider.createRefreshToken(member.getMembername());
+
+        // 리프레쉬 토큰 업데이트
+        member.updateRefreshToken(refreshToken);
+        // refreshToken을 memeber 테이블에 저장
+        memberRepository.save(member);
 
         // LoginResponseDTO 반환
         return new LoginResponseDTO(
                 member.getMemberId(),
                 HttpStatus.OK.value(),
                 "로그인이 정상적으로 진행되었습니다.",
-                token);
+                accessToken,
+                refreshToken);
     }
 }

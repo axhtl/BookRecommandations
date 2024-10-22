@@ -21,13 +21,10 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
 
-    @Column
     private String membername;
 
-    @Column(nullable = true)
     private String password;
 
-    @Column
     private String nickname;
 
     @Enumerated(EnumType.STRING)
@@ -39,6 +36,11 @@ public class Member {
     @CreatedDate
     private LocalDateTime createdAt;
 
-    @Column(nullable = true)
     private LocalDateTime deletedAt;
+
+    private String refreshToken;
+
+    public void updateRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
 }
