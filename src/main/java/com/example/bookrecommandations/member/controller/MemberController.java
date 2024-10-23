@@ -1,9 +1,6 @@
 package com.example.bookrecommandations.member.controller;
 
-import com.example.bookrecommandations.member.dto.CreateMemberRequest;
-import com.example.bookrecommandations.member.dto.LoginRequestDTO;
-import com.example.bookrecommandations.member.dto.LoginResponseDTO;
-import com.example.bookrecommandations.member.dto.SaveResponseDTO;
+import com.example.bookrecommandations.member.dto.*;
 import com.example.bookrecommandations.member.service.AuthenticationService;
 import com.example.bookrecommandations.member.service.MemberService;
 import com.example.bookrecommandations.security.JwtTokenProvider;
@@ -28,7 +25,7 @@ public class MemberController {
 
     @Operation(summary = "회원가입")
     @PostMapping("/signup")
-    public ResponseEntity<SaveResponseDTO> signup(@Validated @RequestBody CreateMemberRequest createMemberRequest) {
+    public ResponseEntity<SaveResponseDTO> signup(@Validated @RequestBody CreateMemberRequestDTO createMemberRequest) {
         Long memberId = memberService.saveMember(createMemberRequest);
         return ResponseEntity.ok(new SaveResponseDTO(
                 memberId, HttpStatus.OK.value(), "회원가입이 정상적으로 진행되었습니다."
@@ -68,5 +65,25 @@ public class MemberController {
         SecurityContextHolder.clearContext();
 
         return ResponseEntity.ok("로그아웃이 성공적으로 처리되었습니다.");
+    }
+
+    @Operation(summary = "비밀번호 수정")
+    @PutMapping("/members/{memberId}/password")
+    public ResponseEntity<String> updatePassword(
+            @PathVariable Long memberId,
+            @RequestBody PasswordUpdateRequestDTO passwordUpdateRequest) {
+
+        memberService.updatePassword(memberId, passwordUpdateRequest);
+        return ResponseEntity.ok("비밀번호가 성공적으로 수정되었습니다.");
+    }
+
+    @Operation(summary = "닉네임 수정")
+    @PutMapping("/members/{memberId}/nickname")
+    public ResponseEntity<String> updateNickname(
+            @PathVariable Long memberId,
+            @RequestBody NicknameUpdateRequestDTO nicknameUpdateRequest) {
+
+        memberService.updateNickname(memberId, nicknameUpdateRequest);
+        return ResponseEntity.ok("닉네임이 성공적으로 수정되었습니다.");
     }
 }

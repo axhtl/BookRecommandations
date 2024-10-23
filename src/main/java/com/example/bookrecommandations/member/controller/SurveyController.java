@@ -1,6 +1,6 @@
 package com.example.bookrecommandations.member.controller;
 
-import com.example.bookrecommandations.member.dto.CreateSurveyRequest;
+import com.example.bookrecommandations.member.dto.CreateSurveyRequestDTO;
 import com.example.bookrecommandations.member.dto.SaveResponseDTO;
 import com.example.bookrecommandations.member.service.SurveyService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,7 +23,7 @@ public class SurveyController {
 
     @Operation(summary = "설문조사 등록")
     @PostMapping("/survey")
-    public ResponseEntity<SaveResponseDTO> saveSurvey(@RequestBody CreateSurveyRequest request) {
+    public ResponseEntity<SaveResponseDTO> saveSurvey(@RequestBody CreateSurveyRequestDTO request) {
         Long surveyId = surveyService.saveSurvey(request);
         return ResponseEntity.ok(new SaveResponseDTO(
                 surveyId, HttpStatus.OK.value(), "설문조사가 정상적으로 등록되었습니다."

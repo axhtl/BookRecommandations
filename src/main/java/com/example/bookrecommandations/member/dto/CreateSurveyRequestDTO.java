@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CreateSurveyRequest {
+public class CreateSurveyRequestDTO {
     private Long memberId;
     private Gender gender;
     private Age age;

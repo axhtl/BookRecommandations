@@ -3,7 +3,7 @@ package com.example.bookrecommandations.member.service;
 import com.example.bookrecommandations.member.domain.PreferredBook;
 import com.example.bookrecommandations.member.domain.PreferredGenre;
 import com.example.bookrecommandations.member.domain.Survey;
-import com.example.bookrecommandations.member.dto.CreateSurveyRequest;
+import com.example.bookrecommandations.member.dto.CreateSurveyRequestDTO;
 import com.example.bookrecommandations.member.repository.PreferredBookRepository;
 import com.example.bookrecommandations.member.repository.PreferredGenreRepository;
 import com.example.bookrecommandations.member.repository.SurveyRepository;
@@ -21,7 +21,7 @@ public class SurveyService {
     private final PreferredBookRepository preferredBookRepository;
 
     @Transactional
-    public Long saveSurvey(CreateSurveyRequest request) {
+    public Long saveSurvey(CreateSurveyRequestDTO request) {
         // 설문조사 저장
         Survey survey = request.toSurvey();
         surveyRepository.save(survey);

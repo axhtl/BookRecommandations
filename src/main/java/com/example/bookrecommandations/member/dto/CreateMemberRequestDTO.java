@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CreateMemberRequest {
+public class CreateMemberRequestDTO {
     private Long memberId;
     private String membername;
     private String password;
