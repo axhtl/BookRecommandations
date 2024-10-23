@@ -1,9 +1,7 @@
 package com.example.bookrecommandations.security;
 
 import com.example.bookrecommandations.member.vo.Role;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -47,6 +45,31 @@ public class JwtTokenProvider {
                 .setExpiration(validity)
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
+    }
+
+    // JWT 검증
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(secretKey)
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+        } catch (ExpiredJwtException e) {
+            System.out.println("토큰이 만료되었습니다.");
+            return false;
+        } catch (JwtException e) {
+            System.out.println("토큰 서명 오류: " + e.getMessage());
+            return false;
+        } catch (IllegalArgumentException e) {
+            System.out.println("잘못된 토큰입니다: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // JWT에서 사용자 정보 추출
+    public String getMembername(String token) {
+        return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().getSubject();
     }
 }
 
