@@ -22,7 +22,7 @@ public class JwtTokenProvider {
         claims.put("role", role);
 
         // access 토큰 유효시간 => 1시간 (60분 * 60초 * 1000밀리초 = 3600000밀리초)
-        long accessTokenValidityInMilliseconds = 30000;
+        long accessTokenValidityInMilliseconds = 3600000;
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + accessTokenValidityInMilliseconds);
