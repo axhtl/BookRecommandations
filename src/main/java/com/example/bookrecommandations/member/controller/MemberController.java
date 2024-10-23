@@ -35,12 +35,14 @@ public class MemberController {
         ));
     }
 
+    @Operation(summary = "로그인")
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO loginRequestDTO) {
         LoginResponseDTO response = authenticationService.login(loginRequestDTO);
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "로그아웃")
     @PostMapping("/logout")
     public ResponseEntity<String> logout(
             @RequestHeader("Authorization") String token
