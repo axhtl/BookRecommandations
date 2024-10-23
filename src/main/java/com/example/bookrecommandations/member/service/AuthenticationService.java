@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +22,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
+    @Transactional
     public LoginResponseDTO login(LoginRequestDTO loginRequestDTO) {
         // 사용자 조회
         Member member = memberRepository.findByMembername(loginRequestDTO.getMembername())
@@ -49,6 +51,7 @@ public class AuthenticationService {
                 refreshToken);
     }
 
+    @Transactional
     public LoginResponseDTO refreshAccessToken(String refreshToken) {
         // 1. Refresh Token 유효성 검증
         log.info("리프레쉬 토큰: {}", refreshToken);
@@ -82,5 +85,14 @@ public class AuthenticationService {
                 "새로운 Access Token이 발급되었습니다.",
                 newAccessToken,
                 refreshToken);  // 기존 Refresh Token 그대로 유지
+    }
+
+    @Transactional
+    public void deleteRefreshToken(Long memberId) {
+        // member 정보를 삭제하지 않고 refreshToken 필드를 null로 업데이트
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
+
+        member.updateRefreshToken(null); // refreshToken 필드를 null로 업데이트
     }
 }
