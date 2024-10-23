@@ -1,9 +1,13 @@
 package com.example.bookrecommandations.member.service;
 
+import com.example.bookrecommandations.common.exception.DuplicatedMembernameException;
+import com.example.bookrecommandations.common.exception.ErrorCode;
+import com.example.bookrecommandations.common.exception.NotActiveMemberException;
 import com.example.bookrecommandations.member.domain.Member;
 import com.example.bookrecommandations.member.dto.LoginRequestDTO;
 import com.example.bookrecommandations.member.dto.LoginResponseDTO;
 import com.example.bookrecommandations.member.repository.MemberRepository;
+import com.example.bookrecommandations.member.vo.MemberStatus;
 import com.example.bookrecommandations.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -27,6 +31,11 @@ public class AuthenticationService {
         // 사용자 조회
         Member member = memberRepository.findByMembername(loginRequestDTO.getMembername())
                 .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
+
+        // 회원상태가 'ACTIVE'가 아니라면 예외처리
+        if (member.getMemberStatus()!= MemberStatus.ACTIVE) {
+            throw new NotActiveMemberException(ErrorCode.NOT_ACTIVE_MEMBER);
+        }
 
         // 비밀번호 검증
         if (!passwordEncoder.matches(loginRequestDTO.getPassword(), member.getPassword())) {

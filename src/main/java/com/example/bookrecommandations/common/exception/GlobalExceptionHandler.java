@@ -20,7 +20,15 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(DuplicatedNicknameException.class)
-    public ResponseEntity<ErrorResponseDTO> handleuplicatedNicknameException(DuplicatedNicknameException e) {
+    public ResponseEntity<ErrorResponseDTO> handleDuplicatedNicknameException(DuplicatedNicknameException e) {
+        ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponseDTO);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NotActiveMemberException.class)
+    public ResponseEntity<ErrorResponseDTO> handleNotActiceMemberException(NotActiveMemberException e) {
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.BAD_REQUEST.value(), e.getMessage());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponseDTO);
