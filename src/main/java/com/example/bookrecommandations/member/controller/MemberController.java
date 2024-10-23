@@ -86,4 +86,10 @@ public class MemberController {
         memberService.updateNickname(memberId, nicknameUpdateRequest);
         return ResponseEntity.ok("닉네임이 성공적으로 수정되었습니다.");
     }
+
+    @PutMapping("/withdraw/{memberId}")
+    public ResponseEntity<String> withdrawMember(@PathVariable Long memberId) {
+        memberService.withdrawMember(memberId);
+        return ResponseEntity.ok("회원탈퇴가 성공적으로 처리되었습니다.");
+    }
 }

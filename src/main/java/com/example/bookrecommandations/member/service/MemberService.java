@@ -8,6 +8,7 @@ import com.example.bookrecommandations.member.dto.CreateMemberRequestDTO;
 import com.example.bookrecommandations.member.dto.NicknameUpdateRequestDTO;
 import com.example.bookrecommandations.member.dto.PasswordUpdateRequestDTO;
 import com.example.bookrecommandations.member.repository.MemberRepository;
+import com.example.bookrecommandations.member.vo.MemberStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -68,5 +69,16 @@ public class MemberService {
 
         // 닉네임 업데이트
         member.updateNickname(nicknameUpdateRequest.getNickname());
+    }
+
+    @Transactional
+    public void withdrawMember(Long memberId) {
+        // 회원 정보 조회
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
+
+        // refreshToken을 NULL로 설정하고, 회원 상태를 WITHDRAWN으로 변경
+        member.updateRefreshToken(null); // refreshToken을 null로 설정
+        member.updateMemberStatus(MemberStatus.WITHDRAWN); // 회원 상태를 WITHDRAWN으로 변경
     }
 }
