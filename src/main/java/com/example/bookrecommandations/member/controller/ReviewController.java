@@ -25,4 +25,13 @@ public class ReviewController {
                 surveyId, HttpStatus.OK.value(), "읽은 도서와 후기가 정상적으로 등록되었습니다."
         ));
     }
+
+    @Operation(summary = "사용자가 등록한 도서 삭제")
+    @DeleteMapping("/review/{reviewId}")
+    public ResponseEntity<SaveResponseDTO> deleteReview(@PathVariable Long reviewId) {
+        reviewService.deleteReview(reviewId);
+        return ResponseEntity.ok(new SaveResponseDTO(
+                reviewId, HttpStatus.OK.value(), "등록한 도서가 정상적으로 삭제되었습니다."
+        ));
+    }
 }

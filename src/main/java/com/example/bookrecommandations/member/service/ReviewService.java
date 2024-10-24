@@ -1,9 +1,7 @@
 package com.example.bookrecommandations.member.service;
 
 import com.example.bookrecommandations.member.domain.Review;
-import com.example.bookrecommandations.member.domain.Survey;
 import com.example.bookrecommandations.member.dto.CreateReviewRequestDTO;
-import com.example.bookrecommandations.member.dto.CreateSurveyRequestDTO;
 import com.example.bookrecommandations.member.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,5 +21,15 @@ public class ReviewService {
         // 추후 isbn13을 이용하여, 카테고리 ID와 책소개도 DB에 저장하는 로직 추가
 
         return review.getReviewId();
+    }
+
+    @Transactional
+    public void deleteReview(Long reviewId) {
+        // 존재 여부 확인 후 삭제
+        if (reviewRepository.existsById(reviewId)) {
+            reviewRepository.deleteById(reviewId);
+        } else {
+            throw new IllegalArgumentException("해당 리뷰가 존재하지 않습니다.");
+        }
     }
 }
