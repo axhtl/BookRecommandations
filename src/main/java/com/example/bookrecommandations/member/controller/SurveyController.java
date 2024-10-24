@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Survey", description = "설문조사에 대한 API 입니다.")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/book")
+@RequestMapping("/book/survey")
 public class SurveyController {
 
     private final SurveyService surveyService;
 
     @Operation(summary = "설문조사 등록")
-    @PostMapping("/survey/{memberId}")
+    @PostMapping("/{memberId}")
     public ResponseEntity<SaveResponseDTO> saveSurvey(@PathVariable Long memberId, @RequestBody CreateSurveyRequestDTO request) {
         Long surveyId = surveyService.saveSurvey(memberId, request);
         return ResponseEntity.ok(new SaveResponseDTO(

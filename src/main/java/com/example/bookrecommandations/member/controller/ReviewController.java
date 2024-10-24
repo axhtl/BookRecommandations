@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Review", description = "후기에 대한 API 입니다.")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/book")
+@RequestMapping("/book/review")
 public class ReviewController {
     private final ReviewService reviewService;
 
     @Operation(summary = "읽은 도서, 후기 등록")
-    @PostMapping("review/{memberId}")
+    @PostMapping("/{memberId}")
     public ResponseEntity<SaveResponseDTO> saveReview(@PathVariable Long memberId, @RequestBody CreateReviewRequestDTO request) {
         Long surveyId = reviewService.saveReview(memberId, request);
         return ResponseEntity.ok(new SaveResponseDTO(
@@ -27,7 +27,7 @@ public class ReviewController {
     }
 
     @Operation(summary = "사용자가 등록한 도서 삭제")
-    @DeleteMapping("/review/{reviewId}")
+    @DeleteMapping("/{reviewId}")
     public ResponseEntity<SaveResponseDTO> deleteReview(@PathVariable Long reviewId) {
         reviewService.deleteReview(reviewId);
         return ResponseEntity.ok(new SaveResponseDTO(
