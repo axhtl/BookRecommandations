@@ -1,19 +1,43 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { BasicButton } from "./basicButton";
 import { useNavigate } from "react-router-dom";
 import { Mobile, Pc } from "./reponsiveCheck";
 import { AuthInput } from "./inputComponents";
-import { AuthContext } from "../contexts/AuthContext";
 
 export const AuthModal = ({ isClosed }) => {
   const navigation = useNavigate();
-  const { authInfo, setAuthInfo } = useContext(AuthContext);
-  const [localUsername, setLocalUsername] = useState(authInfo.username);
-  const [localPassword, setLocalPassword] = useState(authInfo.password);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleSignIn = () => {
-    setAuthInfo({ username: localUsername, password: localPassword });
-    navigation("/home");
+  const handleSignIn = async () => {
+    const data = {
+      membername: username,
+      password: password,
+    };
+
+    try {
+      const response = await fetch("http://localhost:8080/book/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error:" + response.statusText);
+      }
+
+      const responseData = await response.json();
+      console.log("login successful:", responseData);
+      if (responseData.statusCode === 200) {
+        localStorage.setItem("accessToken", responseData.accessToken);
+        localStorage.setItem("refreshToken", responseData.refreshToken);
+        navigation("/home");
+      }
+    } catch (error) {
+      console.error("fetch error:", error);
+    }
   };
 
   const onClickSignUp = () => {
@@ -21,11 +45,11 @@ export const AuthModal = ({ isClosed }) => {
   };
 
   const onChangeUsername = (e) => {
-    setLocalUsername(e.target.value);
+    setUsername(e.target.value);
   };
 
   const onChangePassword = (e) => {
-    setLocalPassword(e.target.value);
+    setPassword(e.target.value);
   };
 
   return (
@@ -54,12 +78,6 @@ export const AuthModal = ({ isClosed }) => {
                 <p>아직 회원이 아니신가요?</p>
                 <button onClick={onClickSignUp}>회원가입</button>
               </div>
-              <div className="goKakaoWrapper">
-                <p>OR</p>
-                <div>
-                  <button>카카오로그인</button>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -85,12 +103,6 @@ export const AuthModal = ({ isClosed }) => {
               <div className="goSignUpWrapper">
                 <p>아직 회원이 아니신가요?</p>
                 <button onClick={onClickSignUp}>회원가입</button>
-              </div>
-              <div className="goKakaoWrapper">
-                <p>OR</p>
-                <div>
-                  <button>카카오로그인</button>
-                </div>
               </div>
             </div>
           </div>
