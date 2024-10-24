@@ -1,6 +1,5 @@
 package com.example.bookrecommandations.member.dto;
 
-import com.example.bookrecommandations.member.domain.PreferredGenre;
 import com.example.bookrecommandations.member.domain.PreferredKeyword;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,3 +26,4 @@ public class CreatePreferredKeywordRequestDTO {
                 .collect(Collectors.toList());
     }
 }
+
