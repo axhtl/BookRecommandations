@@ -1,7 +1,10 @@
 package com.example.bookrecommandations.aladin;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -28,6 +31,21 @@ public class AladinService {
                 .queryParam("Version", "20131101") // API 버전
                 .toUriString();
 
-        return restTemplate.getForObject(url, String.class); // API 호출
+        // API 호출: XML 형식으로 응답 받기
+        String xmlResponse = restTemplate.getForObject(url, String.class);
+
+        try {
+            // XML을 JSON으로 변환
+            XmlMapper xmlMapper = new XmlMapper();
+            Object json = xmlMapper.readValue(xmlResponse, Object.class);
+
+            // JSON을 pretty print로 변환
+            ObjectMapper jsonMapper = new ObjectMapper();
+            jsonMapper.enable(SerializationFeature.INDENT_OUTPUT); // pretty print 설정
+            return jsonMapper.writeValueAsString(json);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "XML to JSON conversion failed";
+        }
     }
 }
