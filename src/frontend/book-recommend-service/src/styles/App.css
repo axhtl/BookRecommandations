@@ -1,9 +1,13 @@
+body{
+  background-color: #f2f2f2;
+  height:100vh;
+}
+
 /* Intro Page */
 .PageWrapper{
   display: flex;
   flex-direction: column;
-  background-color: #f2f2f2;
-  height:100vh;
+  /* height:100vh; */
 }
 
 .header{
@@ -33,18 +37,37 @@ button:hover{
   color:#fff;
 }
 
-.titleArea{
+.introContainer{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items:flex-start;
+
+}
+
+.titleArea{
+  display: flex;
+  flex-direction: column;
+  margin-left: 24px;
 }
 
 .title{
   font-weight:800;
-  font-size: 96px;
+  font-size: 72px;
   margin:0;
   color: #4A00AA;
+}
+
+.subTitle{
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 0;
+}
+
+.subContents{
+  font-size: 16px;
+  font-weight: 400;
+
 }
 
 .introImage{
@@ -58,8 +81,6 @@ button:hover{
 
 .modalOpen{
   background: rgba(0, 0, 0, 0.2);
-  /* background-color: black; */
-
   width: 100vw;
   height: 100vh;
   position: absolute;
@@ -78,6 +99,7 @@ button:hover{
   transform: translate(-50%, -50%);
   z-index: 102;
   border-radius: 12px;
+  overflow: hidden;
 }
 
 .modalWrapperMobile{
@@ -90,15 +112,17 @@ button:hover{
   transform: translate(-50%, -50%);
   z-index: 102;
   border-radius: 12px;
+  overflow: hidden;
 }
 
 .isClosed{
   display: none;
 }
 
-.signInModal{
+.modalBox{
   padding: 12px 12px 70px 12px;
 }
+
 
 .modalCloseButton{
   padding: 8px;
@@ -126,7 +150,8 @@ button:hover{
 
 .inputWrapper{
   display: flex;
-  width: 50%;
+  width: 45%;
+  max-width: 360px;
   background-color: #F1E7FF;
   padding:16px 20px 16px 8px;
   border-radius: 12px;
@@ -135,7 +160,7 @@ button:hover{
 
 .inputWrapperMobile{
   display: flex;
-  width: 65%;
+  width: 60%;
   background-color: #F1E7FF;
   padding:16px 8px;
   border-radius: 12px;
@@ -152,7 +177,6 @@ button:hover{
   display: flex;
   justify-content: center;
   align-items: center;
-  /* margin-bottom: px; */
 }
 
 .basicButtonWrapper button{
@@ -163,17 +187,16 @@ button:hover{
   cursor: pointer;
   padding: 16px 100px;
   border-radius: 16px;
-  /* font-family: 'Pretendard-Bold'; */
   font-weight: 700;
   font-size: 16px;
 }
 
 .goSignUpWrapper{
-  margin: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 24px;
+  margin-top: 8px;
 }
 
 .goSignUpWrapper p{
@@ -184,7 +207,6 @@ button:hover{
 }
 
 .goSignUpWrapper button{
-  /* margin:0px; */
   border: none;
   outline: none;
   color: #666;
@@ -195,11 +217,10 @@ button:hover{
 }
 
 .goKakaoWrapper{
-  /* margin: 16px; */
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
+  margin-top:16px;
   gap:20px;
 }
 
@@ -218,4 +239,421 @@ button:hover{
   cursor: pointer;
   font-weight: 600;
   font-size: 14px;
+}
+
+/* Progress Bar */
+.progressBarWrapper{
+  width: 100vw;
+  position: fixed;
+  top:0
+}
+
+.progressBar{
+  width: 100%;
+  height: 16px;
+  border-top: 1px solid #4A00AA;
+  border-bottom: 1px solid #4A00AA;
+  background-color: #f2f2f2;
+}
+
+.progressBar-fill{
+  height: 100%;
+  background-color: #4A00AA;
+  transition: width 0.3s ease-out;
+}
+
+/* Survey Page */
+.surveyWrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100vw;
+  height: 100vh;
+}
+
+.surveyContentsWrapper{
+
+  margin-top: 42px;
+
+}
+
+.question{
+  margin-left: 24px;
+}
+
+.surveyQuestion p{
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.surveyOptionsWrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 40px;
+}
+
+.surveyOption{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap:16px;
+}
+
+.surveyOptionSelected{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap:16px;
+}
+
+.surveyOption button{
+  border: 1.5px solid #DDD;
+  background-color: #FFF;
+  border-radius: 100px;
+  width: 40px;
+  height: 40px;
+  outline: none;
+  color: #DDD;
+  cursor: pointer;
+}
+
+.surveyOptionSelected button{
+  border: 1.5px solid #4A00AA;
+  background-color: #FFF;
+  border-radius: 100px;
+  width: 40px;
+  height: 40px;
+  outline: none;
+  color: #4A00AA;
+  cursor: pointer;
+}
+
+.surveyOption button:hover{
+  border:2px solid #4A00AA;
+  color: #4A00AA;
+}
+
+.surveyOption p{
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.surveyOptionSelected p{
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.surveyButton button{
+  position: fixed;
+  bottom: 60px;
+  border: none;
+  border-radius: 100px;
+  background-color: #4A00AA;
+  width: 60px;
+  height: 60px;
+  color: #FFF;
+}
+
+/* SignUpStartButton */
+.signUpStartButtonWrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signUpStartButtonWrapper button{
+  border: none;
+  outline: none;
+  color: #fff;
+  background-color: #4A00AA;
+  cursor: pointer;
+  padding: 16px 46px;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+/* survey intro page */
+.SurveyIntroWrapper{
+  display: flex;
+  flex-direction: column;
+}
+
+.surveyIntroContents{
+  margin-top: 80px;
+  margin-left: 60px;
+}
+
+.surveyIntroContentsMobile{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.surveyTitleTextMobile{
+  align-items: center;
+  margin-top: 50px;
+}
+
+.surveyTitleTextMobile p{
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.surveyTitleText{
+  margin-bottom: 24px;
+}
+
+.surveyTitleText p{
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.surveyContentText p{
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.buttonWrapper{
+  display: flex;
+  margin-left: 60px;
+  margin-top: 20%;
+}
+
+.buttonWrapperMobile{
+  margin-top:20%;
+}
+
+.imageWrapper{
+  margin-top: 120px;
+}
+
+.buttonsWrapper{
+  display: flex;
+}
+
+.prevButton button{
+  position: fixed;
+  left:24px;
+  border: none;
+  bottom: 100px;
+  bottom: 60px;
+  border: none;
+  border-radius: 100px;
+  background-color: #4A00AA;
+  width: 60px;
+  height: 60px;
+  color: #FFF;
+}
+
+.nextButton button{
+  position: fixed;
+  right: 24px;
+  border: none;
+  bottom: 60px;
+  border: none;
+  border-radius: 100px;
+  background-color: #4A00AA;
+  width: 60px;
+  height: 60px;
+  color: #FFF;
+}
+
+/* sign up */
+
+.signUpPageWrapper{
+  display: flex;
+  flex-direction: column;
+}
+
+.signUpTitle{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top:60px;
+}
+
+.signUpTitle p{
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.signUpInfos{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 70px;
+  margin-bottom: 50px;
+}
+
+/* NavBar */
+.navBarWrapper{
+  /* width: 50%; */
+  display: flex;
+  justify-content: center;
+  background-color: inherit;
+  margin-top:16px;
+  margin-left: 80px;
+  margin-right: 80px;
+  margin-bottom: 40px;
+  padding:8px 80px 8px 80px;
+  border-top:1px solid #DDD;
+  border-bottom: 1px solid #DDD;
+}
+
+.navBarTabs{
+  width: 100%;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap:100px;
+}
+
+.navTab a:hover{
+  background-color: #ececec;
+}
+
+/* HomePage */
+
+.homeTitle{
+  display: flex;
+  justify-content: center;
+}
+
+.homeTitle h1{
+  color:#4A00AA;
+  font-size: 52px;
+}
+
+/* SearchInput */
+.searchInput{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.searchInputWrapper{
+  display: flex;
+  justify-content: space-between;
+  gap:20px;
+  width: 80%;
+  background-color: #FFF;
+  padding:12px 8px 12px 8px;
+  border-radius: 12px;
+  border:1px solid #DDD;
+}
+
+.searchInputWrapper input{
+  border: none;
+  background-color: inherit;
+  font-size: 16px;
+  width: 80%;
+}
+
+.searchInput button{
+  border:none;
+  background-color: #4A00AA;
+  color:#FFF;
+  border-radius: 8px;
+  padding:8px 12px 8px 12px;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.searchInput button:hover{
+  cursor: pointer;
+}
+
+/* SearchPage */
+
+.searchPageWrapper{
+  padding-bottom: 80px;
+}
+
+.resultWrapper{
+  display: flex;
+  flex-direction: column;
+  margin: 80px 80px 0px 80px;
+  gap:12px;
+}
+
+.resultContainer{
+  display: flex;
+  flex-direction: row;
+  background-color: #fbfbfb;
+  border:1px solid #DDD;
+  border-radius: 12px;
+  padding:12px 20px 12px 20px;
+  gap:28px;
+  align-items: flex-start;
+  /* justify-content: flex-start; */
+  
+}
+
+.resultCoverImage{
+  width: 140px;
+  height: auto;
+  border-radius: 4px;
+  border:1px solid #DDD;
+}
+
+.bookInfo{
+  /* margin-top:8px; */
+  margin-bottom: 8px;
+}
+
+.resultInfos{
+  width: 80%;
+  height: auto;
+  margin-top: 12px; /*��...??*/
+}
+
+.resultInfos p{
+  color: #333;
+}
+
+.resultInfos .bookTitle{
+  font-size: 18px;
+  font-weight: 500;
+  margin:4px 0px 4px 0px;
+}
+
+.resultInfos .bookAuthor{
+  font-size: 14px;
+  font-weight: 400;
+  margin:4px 0px 4px 0px;
+}
+
+.resultInfos .bookISBN{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap:4px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.bookISBN p{
+  margin:4px 0px 4px 0px;
+}
+
+.bookDescription{
+  
+  
+}
+
+.bookDescription p{
+  width: 100%;
+  font-size: 12px;
+  font-weight: 300;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  margin:0px;
 }
