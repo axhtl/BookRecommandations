@@ -21,17 +21,17 @@ public class SurveyService {
     private final PreferredBookRepository preferredBookRepository;
 
     @Transactional
-    public Long saveSurvey(CreateSurveyRequestDTO request) {
+    public Long saveSurvey(Long memberId, CreateSurveyRequestDTO request) {
         // 설문조사 저장
-        Survey survey = request.toSurvey();
+        Survey survey = request.toSurvey(memberId);
         surveyRepository.save(survey);
 
         // 선호 장르 저장
-        List<PreferredGenre> preferredGenres = request.toPreferredGenres();
+        List<PreferredGenre> preferredGenres = request.toPreferredGenres(memberId);
         preferredGenreRepository.saveAll(preferredGenres);
 
         // 선호 도서 저장
-        List<PreferredBook> preferredBooks = request.toPreferredBooks();
+        List<PreferredBook> preferredBooks = request.toPreferredBooks(memberId);
         preferredBookRepository.saveAll(preferredBooks);
 
         return survey.getSurveyId();

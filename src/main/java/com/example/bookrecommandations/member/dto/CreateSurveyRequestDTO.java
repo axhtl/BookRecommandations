@@ -18,13 +18,12 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Builder
 public class CreateSurveyRequestDTO {
-    private Long memberId;
     private Gender gender;
     private Age age;
     private List<String> preferredGenres;
     private List<String> preferredBooks;
 
-    public Survey toSurvey() {
+    public Survey toSurvey(Long memberId) {
         return Survey.builder()
                 .memberId(memberId)
                 .gender(gender)
@@ -32,7 +31,7 @@ public class CreateSurveyRequestDTO {
                 .build();
     }
 
-    public List<PreferredGenre> toPreferredGenres() {
+    public List<PreferredGenre> toPreferredGenres(Long memberId) {
         return preferredGenres.stream()
                 .map(genre -> PreferredGenre.builder()
                         .memberId(memberId)
@@ -41,7 +40,7 @@ public class CreateSurveyRequestDTO {
                 .collect(Collectors.toList());
     }
 
-    public List<PreferredBook> toPreferredBooks() {
+    public List<PreferredBook> toPreferredBooks(Long memberId) {
         return preferredBooks.stream()
                 .map(isbn -> PreferredBook.builder()
                         .memberId(memberId)
