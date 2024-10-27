@@ -6,12 +6,24 @@ import { AuthInput } from "./inputComponents";
 
 export const AuthModal = ({ isClosed }) => {
   const navigation = useNavigate();
-  const [username, setUsername] = useState("");
+  const [membername, setMembername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignIn = async () => {
+  const onClickSignUp = () => {
+    navigation("/surveyintro");
+  };
+
+  const onChangeUsername = (e) => {
+    setMembername(e.target.value);
+  };
+
+  const onChangePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleLogin = async () => {
     const data = {
-      membername: username,
+      membername: membername,
       password: password,
     };
 
@@ -40,18 +52,6 @@ export const AuthModal = ({ isClosed }) => {
     }
   };
 
-  const onClickSignUp = () => {
-    navigation("/surveyintro");
-  };
-
-  const onChangeUsername = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const onChangePassword = (e) => {
-    setPassword(e.target.value);
-  };
-
   return (
     <>
       <Pc>
@@ -73,7 +73,7 @@ export const AuthModal = ({ isClosed }) => {
                   onChange={onChangePassword}
                 />
               </div>
-              <BasicButton text={"로그인"} onClick={handleSignIn} />
+              <BasicButton text={"로그인"} onClick={handleLogin} />
               <div className="goSignUpWrapper">
                 <p>아직 회원이 아니신가요?</p>
                 <button onClick={onClickSignUp}>회원가입</button>
@@ -99,7 +99,7 @@ export const AuthModal = ({ isClosed }) => {
                   isPassword={true}
                 />
               </div>
-              <BasicButton text={"로그인"} onClick={handleSignIn} />
+              <BasicButton text={"로그인"} onClick={handleLogin} />
               <div className="goSignUpWrapper">
                 <p>아직 회원이 아니신가요?</p>
                 <button onClick={onClickSignUp}>회원가입</button>
