@@ -9,7 +9,7 @@ const HomePage = () => {
   return (
     <div className="HomeWrapper">
       <div className="homeTitle">
-        <h1>책PICK</h1>
+        <h1>READING PLANNER</h1>
       </div>
       <NavBar />
       <RecommendPage />

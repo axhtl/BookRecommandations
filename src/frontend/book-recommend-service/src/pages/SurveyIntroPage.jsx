@@ -1,17 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Pc, Mobile } from "../components/reponsiveCheck";
 import { useNavigate } from "react-router-dom";
-import { AuthModal } from "../components/authModal";
 import { ReactComponent as SignUpImage } from "../images/survey/flyingBook.svg";
 
 const SurveyIntroPage = () => {
   const navigation = useNavigate();
-
-  const [isClicked, setIsClicked] = useState(false);
-
-  const controlModal = () => {
-    setIsClicked(!isClicked);
-  };
 
   const onClickStart = () => {
     navigation("/signup");
@@ -21,11 +14,7 @@ const SurveyIntroPage = () => {
     <>
       <Pc>
         <div className="SurveyIntroWrapper">
-          <header className="header">
-            <div className="signInButton">
-              <button onClick={controlModal}>SIGN IN</button>
-            </div>
-          </header>
+          {/* <header className="header"></header> */}
           <div className="surveyIntroContents">
             <div className="surveyTitleText">
               <p>아직 계정이 없으신가요?</p>
@@ -42,12 +31,6 @@ const SurveyIntroPage = () => {
               </button>
             </div>
           </div>
-          {isClicked && (
-            <AuthModal
-              authType={"signIn"}
-              isClosed={(e) => setIsClicked(!isClicked)}
-            />
-          )}
         </div>
       </Pc>
       <Mobile>
@@ -67,13 +50,6 @@ const SurveyIntroPage = () => {
               </div>
             </div>
           </div>
-
-          {isClicked && (
-            <AuthModal
-              authType={"signIn"}
-              isClosed={(e) => setIsClicked(!isClicked)}
-            />
-          )}
         </div>
       </Mobile>
     </>
