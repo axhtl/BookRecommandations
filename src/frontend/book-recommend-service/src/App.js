@@ -6,9 +6,11 @@ import SurveyPage from './pages/SurveyPage';
 import SurveyIntroPage from './pages/SurveyIntroPage';
 import SearchPage from './pages/SearchPage';
 import PersonalPage from './pages/PersonalPage';
-import { AuthProvider } from './contexts/AuthContext';
 import { SearchProvider } from './contexts/SearchContext';
 import SignUpPage from './pages/SignUpPage';
+import BookDetailPage from './pages/BookDetailPage';
+import AccessRequiredRoute from './routes/AccessRequiredRoute';
+import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
   return (
@@ -16,15 +18,22 @@ function App() {
       <SearchProvider>
         <Routes>
         <Route path='/intro' element={<IntroPage/>}/>
-        <Route path='/home/*' element={<HomePage/>}/>
-        <Route path='/signup' element={<SignUpPage/>}/>
-        <Route path='/surveyintro' element={<SurveyIntroPage/>}/>      
-        <Route path='/survey' element={<SurveyPage/>}/>
-        <Route path='/home/search' element={<SearchPage/>}/>
-        <Route path='/home/personal' element={<PersonalPage/>}/>
-      </Routes>
+          <Route element={<AccessRequiredRoute auth={false}/>}>
+            <Route path='/signup' element={<SignUpPage/>}/>
+            <Route path='/surveyintro' element={<SurveyIntroPage/>}/>
+            <Route path='/survey' element={<SurveyPage/>}/>
+          </Route>
+          <Route element={<AccessRequiredRoute auth={true}/>}>
+            <Route path='/home/*' element={<HomePage/>}/>
+            <Route path='/home/search' element={<SearchPage/>}/>
+            <Route path='/home/personal' element={<PersonalPage/>}/>
+            <Route path='/bookDetail/:id' element={<BookDetailPage/>}/>
+          </Route>
+          
+        </Routes>
       </SearchProvider>
     </AuthProvider>
+      
   );
 }
 
