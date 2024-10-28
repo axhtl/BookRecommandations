@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { AuthInput } from "../components/inputComponents";
 import { BasicButton } from "../components/basicButton";
 import { useNavigate } from "react-router-dom";
-import { useAtuh } from "../contexts/AuthContext";
+import { useAuth } from "../contexts/AuthContext";
 
 const SignUpPage = () => {
   const navigation = useNavigate();
-  const { signUp } = useAtuh();
+  const { signUp } = useAuth();
 
   const onClickSignUP = () => {
     if (password !== checkPw) {

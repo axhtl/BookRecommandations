@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useAtuh } from "../contexts/AuthContext";
+import { useAuth } from "../contexts/AuthContext";
 
 export const BookSaveModal = ({ isClosed, bookInfo }) => {
   const [starRate, setStarRate] = useState();
   const [content, setContent] = useState("");
   const isbn = bookInfo.isbn13;
-  const { authId } = useAtuh();
+  const { authId } = useAuth();
+  const token = localStorage.getItem("accessToken");
 
   const starHandler = (e) => {
     setStarRate(e.target.value);
@@ -16,8 +17,9 @@ export const BookSaveModal = ({ isClosed, bookInfo }) => {
   };
 
   useEffect(() => {
-    console.log(starRate);
-  }, [starRate]);
+    console.log("authId", authId);
+    console.log(token);
+  }, [authId]);
 
   const handleSubmit = async () => {
     const data = {
@@ -33,6 +35,7 @@ export const BookSaveModal = ({ isClosed, bookInfo }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(data),
         }
@@ -45,7 +48,7 @@ export const BookSaveModal = ({ isClosed, bookInfo }) => {
       const responseData = await response.json();
       console.log("submitted successful:", responseData);
     } catch (error) {
-      console.error("fetch error:", error);
+      console.error("fetch error:", error.message);
     }
   };
 

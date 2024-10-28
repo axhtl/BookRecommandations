@@ -3,11 +3,13 @@ import { BasicButton } from "./basicButton";
 import { useNavigate } from "react-router-dom";
 import { Mobile, Pc } from "./reponsiveCheck";
 import { AuthInput } from "./inputComponents";
+import { useAuth } from "../contexts/AuthContext";
 
 export const AuthModal = ({ isClosed }) => {
   const navigation = useNavigate();
   const [membername, setMembername] = useState("");
   const [password, setPassword] = useState("");
+  const { signIn } = useAuth();
 
   const onClickSignUp = () => {
     navigation("/surveyintro");
@@ -45,6 +47,7 @@ export const AuthModal = ({ isClosed }) => {
       if (responseData.statusCode === 200) {
         localStorage.setItem("accessToken", responseData.accessToken);
         localStorage.setItem("refreshToken", responseData.refreshToken);
+        signIn(responseData.memberId);
         navigation("/home");
       }
     } catch (error) {
