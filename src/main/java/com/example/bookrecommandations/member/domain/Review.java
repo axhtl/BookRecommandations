@@ -32,4 +32,10 @@ public class Review {
 
     @CreatedDate
     private LocalDateTime createdAt;
+
+    private String preferredGenre;
+
+    public void updatePreferredGenre(String preferredGenre) {
+        this.preferredGenre = preferredGenre;
+    }
 }

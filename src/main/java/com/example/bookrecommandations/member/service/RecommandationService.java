@@ -33,7 +33,6 @@ public class RecommandationService {
 
         // DTO를 생성하여 반환
         return PreferredKeywordResponseDTO.builder()
-                .reviewId(reviewId)
                 .preferredKeywords(preferredKeywords)
                 .preferredGenre(preferredGenre)
                 .build();

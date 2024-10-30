@@ -27,6 +27,12 @@ public class RecommandationController {
     private final BookRecommendationService bookRecommendationService;
 
     // 키워드 기반 추천 관련 API
+    //@Operation(summary = "워드 클라우드 관련 키워드 리스트 출력 API")
+    //@PostMapping("/keywords")
+//    public ResponseEntity<SaveResponseDTO> getKeywords(@RequestBody(String review) {
+//        관련 서비스 로직
+//    }
+
     @Operation(summary = "사용자가 워드클라우드에서 선택한 선호 키워드 리스트를 저장하는 API(후기별로 저장)")
     @PostMapping("/keywords/{reviewId}")
     public ResponseEntity<SaveResponseDTO> savePreferredKeywords(
@@ -52,9 +58,11 @@ public class RecommandationController {
 //    }
 
     @Operation(summary = "키워드 기반 추천 결과 조회")
-    @PostMapping("/recommend-by-keyword")
-    public ResponseEntity<List<String>> keywordRecommend(@RequestBody PreferredKeywordResponseDTO preferredKeywordResponseDTO) {
-        List<String> keywordIsbnList = keywordRecommendationService.recommendByKeywords(preferredKeywordResponseDTO);
+    @PostMapping("/recommend-by-keyword/{reviewId}")
+    public ResponseEntity<List<String>> keywordRecommend(
+            @PathVariable Long reviewId,
+            @RequestBody PreferredKeywordResponseDTO preferredKeywordResponseDTO) {
+        List<String> keywordIsbnList = keywordRecommendationService.recommendByKeywords(reviewId,preferredKeywordResponseDTO);
         // 전체 리스트 출력
         System.out.println("Received ISBN List from Flask (Keyword Recommendation): " + keywordIsbnList);
 
@@ -62,6 +70,7 @@ public class RecommandationController {
         return keywordIsbnList.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(keywordIsbnList);
     }
 
+    // 도서 기반 추천 관련 API
     @Operation(summary = "도서 기반 추천 결과 조회")
     @PostMapping("/recommend-by-book")
     public ResponseEntity<List<String>> bookRecommend(@RequestBody AladinResponseDTO aladinResponseDTO) {

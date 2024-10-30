@@ -12,7 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class PreferredKeywordResponseDTO {
-    private Long reviewId;
     private String preferredGenre;
     private List<String> preferredKeywords;
 }
