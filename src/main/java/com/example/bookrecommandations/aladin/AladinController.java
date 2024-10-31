@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AladinController {
     private final AladinService aladinService;
 
-    @Operation(summary = "알라딘 도서 검색 조회 API")
+    @Operation(summary = "알라딘 도서 검색 API")
     @GetMapping("/api/search")
     public String searchBooks(
             @RequestParam String query,
@@ -21,5 +21,11 @@ public class AladinController {
             @RequestParam(defaultValue = "10") int maxResults,
             @RequestParam(defaultValue = "1") int start) {
         return aladinService.searchItems(query, queryType, maxResults, start);
+    }
+
+    @Operation(summary = "알라딘 ISBN을 이용한 상품 조회 API")
+    @GetMapping("/api/item-lookup")
+    public String lookupItemByISBN(@RequestParam String isbn) {
+        return aladinService.lookupItemByISBN(isbn);
     }
 }

@@ -1,8 +1,14 @@
 package com.example.bookrecommandations.member.service;
 
+import com.example.bookrecommandations.aladin.AladinService;
+import com.example.bookrecommandations.member.domain.BookInfo;
 import com.example.bookrecommandations.member.domain.Review;
 import com.example.bookrecommandations.member.dto.CreateReviewRequestDTO;
+import com.example.bookrecommandations.member.repository.BookInfoRepository;
 import com.example.bookrecommandations.member.repository.ReviewRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ReviewService {
     private final ReviewRepository reviewRepository;
+    private final BookInfoRepository bookInfoRepository;
+    private final AladinService aladinService;
 
     @Transactional
     public Long saveReview(Long memberId, CreateReviewRequestDTO request) {
@@ -18,7 +26,28 @@ public class ReviewService {
         Review review = request.toReview(memberId);
         reviewRepository.save(review);
 
-        // 추후 isbn13을 이용하여, 카테고리 ID와 책소개도 DB에 저장하는 로직 추가
+        // 알라딘 API를 통해 ISBN 기반 도서 정보 조회
+        String bookInfoResponse = aladinService.lookupItemByISBN(request.getIsbn13());
+
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode bookInfoJson = objectMapper.readTree(bookInfoResponse);
+
+            String categoryId = bookInfoJson.get("categoryId").asText();
+            String description = bookInfoJson.get("description").asText();
+
+            // 새로운 BookInfo 엔티티 생성 및 저장 (reviewId 포함)
+            BookInfo bookInfo = BookInfo.builder()
+                    .reviewId(review.getReviewId())  // 생성된 reviewId 추가
+                    .isbn(request.getIsbn13())
+                    .categoryId(categoryId)
+                    .description(description)
+                    .build();
+            bookInfoRepository.save(bookInfo);
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
 
         return review.getReviewId();
     }

@@ -1,6 +1,7 @@
 package com.example.bookrecommandations.aladin;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -46,6 +47,34 @@ public class AladinService {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return "XML to JSON conversion failed";
+        }
+    }
+
+    public String lookupItemByISBN(String isbn) {
+        String url = UriComponentsBuilder.fromHttpUrl("http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx")
+                .queryParam("ttbkey", ttbKey)
+                .queryParam("ItemIdType", "ISBN13")
+                .queryParam("ItemId", isbn)
+                .queryParam("output", "xml")
+                .queryParam("Version", "20131101")
+                .toUriString();
+
+        String xmlResponse = restTemplate.getForObject(url, String.class);
+        System.out.println("Aladin API Response: " + xmlResponse);
+
+        try {
+            XmlMapper xmlMapper = new XmlMapper();
+            JsonNode rootNode = xmlMapper.readTree(xmlResponse);
+
+            // XML 응답에서 categoryId와 description 추출
+            String searchCategoryId = rootNode.at("/item/categoryId").asText();
+            String description = rootNode.at("/item/description").asText();
+
+            // JSON 형태로 반환
+            return String.format("{ \"categoryId\": \"%s\", \"description\": \"%s\" }", searchCategoryId, description);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "{\"error\": \"Failed to parse XML response\"}";
         }
     }
 }

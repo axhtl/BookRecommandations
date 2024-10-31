@@ -45,30 +45,19 @@ public class RecommandationController {
         ));
     }
 
-//    @Operation(summary = "키워드 기반 추천 조회")
-//    @GetMapping("/keywords/{reviewId}")
-//    public ResponseEntity<PreferredKeywordResponseDTO> getKeywordRecommandation(
-//            @PathVariable Long reviewId,
-//            @RequestParam String preferredGenre) {
-//
-//        // 서비스 계층을 통해 reviewId로 선호 키워드 리스트를 가져옴
-//        PreferredKeywordResponseDTO response = recommandationService.getKeywordRecommandation(reviewId, preferredGenre);
-//
-//        return ResponseEntity.ok(response);
-//    }
-
     @Operation(summary = "키워드 기반 추천 결과 조회")
     @PostMapping("/recommend-by-keyword/{reviewId}")
     public ResponseEntity<List<String>> keywordRecommend(
             @PathVariable Long reviewId,
             @RequestBody PreferredKeywordResponseDTO preferredKeywordResponseDTO) {
-        List<String> keywordIsbnList = keywordRecommendationService.recommendByKeywords(reviewId,preferredKeywordResponseDTO);
+        List<String> keywordIsbnList = keywordRecommendationService.recommendByKeywords(reviewId, preferredKeywordResponseDTO);
         // 전체 리스트 출력
         System.out.println("Received ISBN List from Flask (Keyword Recommendation): " + keywordIsbnList);
 
         //리턴 수정 필요
         return keywordIsbnList.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(keywordIsbnList);
     }
+
 
     // 도서 기반 추천 관련 API
     @Operation(summary = "도서 기반 추천 결과 조회")
