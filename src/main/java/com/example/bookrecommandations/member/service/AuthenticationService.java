@@ -1,6 +1,5 @@
 package com.example.bookrecommandations.member.service;
 
-import com.example.bookrecommandations.common.exception.DuplicatedMembernameException;
 import com.example.bookrecommandations.common.exception.ErrorCode;
 import com.example.bookrecommandations.common.exception.NotActiveMemberException;
 import com.example.bookrecommandations.member.domain.Member;
@@ -33,7 +32,7 @@ public class AuthenticationService {
                 .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
 
         // 회원상태가 'ACTIVE'가 아니라면 예외처리
-        if (member.getMemberStatus()!= MemberStatus.ACTIVE) {
+        if (member.getMemberStatus() != MemberStatus.ACTIVE) {
             throw new NotActiveMemberException(ErrorCode.NOT_ACTIVE_MEMBER);
         }
 

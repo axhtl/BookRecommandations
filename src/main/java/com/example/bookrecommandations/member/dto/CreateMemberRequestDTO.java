@@ -1,8 +1,8 @@
 package com.example.bookrecommandations.member.dto;
 
 import com.example.bookrecommandations.member.domain.Member;
-import com.example.bookrecommandations.member.vo.Role;
 import com.example.bookrecommandations.member.vo.MemberStatus;
+import com.example.bookrecommandations.member.vo.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

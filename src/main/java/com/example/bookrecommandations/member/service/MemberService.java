@@ -1,8 +1,8 @@
 package com.example.bookrecommandations.member.service;
 
+import com.example.bookrecommandations.common.exception.DuplicatedMembernameException;
 import com.example.bookrecommandations.common.exception.DuplicatedNicknameException;
 import com.example.bookrecommandations.common.exception.ErrorCode;
-import com.example.bookrecommandations.common.exception.DuplicatedMembernameException;
 import com.example.bookrecommandations.member.domain.Member;
 import com.example.bookrecommandations.member.dto.CreateMemberRequestDTO;
 import com.example.bookrecommandations.member.dto.NicknameUpdateRequestDTO;
