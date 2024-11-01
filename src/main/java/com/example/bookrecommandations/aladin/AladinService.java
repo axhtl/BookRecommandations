@@ -86,12 +86,23 @@ public class AladinService {
             headers.set("Content-Type", "application/xml; charset=UTF-8");
             HttpEntity<String> entity = new HttpEntity<>(headers);
 
+            // XML 응답 받아오기
             ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
-            return response.getBody();
+            String xmlResponse = response.getBody();
+
+            // XML to JSON 변환
+            XmlMapper xmlMapper = new XmlMapper();
+            JsonNode jsonNode = xmlMapper.readTree(xmlResponse.getBytes(StandardCharsets.UTF_8));
+
+            ObjectMapper jsonMapper = new ObjectMapper();
+            return jsonMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonNode);
 
         } catch (URISyntaxException e) {
             e.printStackTrace();
             return "URI 생성 실패";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "XML to JSON 변환 실패";
         }
     }
 
