@@ -30,11 +30,14 @@ module.exports = {
 
   // 개발 서버 설정
   devServer: {
-    contentBase: path.join(__dirname, 'public'),
+    static: {
+      directory: path.join(__dirname, 'public'),
+    },
     compress: true,
     port: 3000, // 개발 서버 포트
     allowedHosts: [
       'localhost',
+      'yourdomain.com', // 필요한 경우 다른 도메인 추가
       'ceprj.gachon.ac.kr', // 사용 중인 도메인 추가
     ],
   },
