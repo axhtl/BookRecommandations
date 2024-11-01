@@ -8,6 +8,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.logoText{
+	font-family: 'Chango', sans-serif;
+	color:#4A00AA;
+}
+
+@font-face {
+	font-family: 'Chango';
+	font-display: swap;
+	src: url('./fonts/ttf/Chango.ttf') format('truetype');
+}
+
 @font-face {
 	font-family: 'Pretendard';
 	font-weight: 900;
