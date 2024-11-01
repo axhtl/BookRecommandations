@@ -24,7 +24,9 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // CSRF 비활성화
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // JWT는 세션 사용 안 함
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/book/signup", "/book/survey/**", "/api/search", "/swagger-ui/**",
+                        .requestMatchers("/", "/index.html", "/static/**", "/intro", "/signup", "/surveyintro",
+                                "/survey", "/home/**", "/favicon.ico", "/manifest.json",
+                                "/book/signup", "/book/survey/**", "/api/search", "/swagger-ui/**",
                                 "/v3/api-docs/**", "/h2-console/**", "/book/login", "/api/auth/refresh-token",
                                 "/book/recommandation/**", "/api/item-lookup","/api/search/**").permitAll() // refresh-token 요청 허용
                         .requestMatchers("/book/logout", "book/members/**", "book/withdraw/**", "/book/review/**",
