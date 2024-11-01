@@ -30,7 +30,7 @@ const SignUpPage = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/book/signup", {
+      const response = await fetch("/book/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -45,7 +45,7 @@ const SignUpPage = () => {
       const responseData = await response.json();
       console.log("signup successful:", responseData);
       if (responseData.statusCode === 200) {
-        signUp(responseData.id);
+        signUp(responseData.id, nickname, membername);
         navigation("/survey");
       }
     } catch (error) {
@@ -60,22 +60,22 @@ const SignUpPage = () => {
       </div>
       <div className="signUpInfos">
         <AuthInput
-          placeholder={"닉네임을 입력하세요."}
+          placeholder={"nickname"}
           isPassword={false}
           onChange={(e) => setNickname(e.target.value)}
         />
         <AuthInput
-          placeholder={"아이디를 입력하세요."}
+          placeholder={"example@example.com"}
           isPassword={false}
           onChange={(e) => setMembername(e.target.value)}
         />
         <AuthInput
-          placeholder={"비밀번호를 입력하세요."}
+          placeholder={"password"}
           isPassword={true}
           onChange={(e) => setPassword(e.target.value)}
         />
         <AuthInput
-          placeholder={"비밀번호를 확인해주세요."}
+          placeholder={"check your password"}
           isPassword={true}
           onChange={(e) => setCheckPw(e.target.value)}
         />

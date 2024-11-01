@@ -16,20 +16,19 @@ function App() {
   return (
     <AuthProvider>
       <SearchProvider>
-        <Routes>
-        <Route path='/intro' element={<IntroPage/>}/>
-          <Route element={<AccessRequiredRoute auth={false}/>}>
-            <Route path='/signup' element={<SignUpPage/>}/>
-            <Route path='/surveyintro' element={<SurveyIntroPage/>}/>
-            <Route path='/survey' element={<SurveyPage/>}/>
-          </Route>
-          <Route element={<AccessRequiredRoute auth={true}/>}>
-            <Route path='/home/*' element={<HomePage/>}/>
-            <Route path='/home/search' element={<SearchPage/>}/>
-            <Route path='/home/personal' element={<PersonalPage/>}/>
-            <Route path='/bookDetail/:id' element={<BookDetailPage/>}/>
-          </Route>
-          
+          <Routes>
+            <Route path='/intro' element={<IntroPage/>}/>
+              <Route element={<AccessRequiredRoute auth={false}/>}>
+                <Route path='/signup' element={<SignUpPage/>}/>
+                <Route path='/surveyintro' element={<SurveyIntroPage/>}/>
+                <Route path='/survey' element={<SurveyPage/>}/>
+              </Route>
+              <Route element={<AccessRequiredRoute auth={true}/>}>
+                <Route path='/home/*' element={<HomePage/>}/>
+                <Route path='/home/search' element={<SearchPage/>}/>
+                <Route path='/home/personal' element={<PersonalPage/>}/>
+                <Route path='/bookDetail/:id' element={<BookDetailPage/>}/>
+              </Route>
         </Routes>
       </SearchProvider>
     </AuthProvider>
