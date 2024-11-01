@@ -8,9 +8,16 @@ export const AuthProvider = ({ children }) => {
     return savedAuthId ? JSON.parse(savedAuthId) : null;
   });
 
-  const signUp = (id) => {
+  const [nickname, setNickname] = useState();
+  const [membername, setMembername] = useState();
+
+  const signUp = (id, nickname, membername) => {
     setAuthId(id);
+    setNickname(nickname);
+    setMembername(membername);
     localStorage.setItem("authId", JSON.stringify(id));
+    localStorage.setItem("nickname", nickname);
+    localStorage.setItem("membername", membername);
   };
 
   const signIn = (id) => {
@@ -25,7 +32,9 @@ export const AuthProvider = ({ children }) => {
   }, [authId]);
 
   return (
-    <AuthContext.Provider value={{ authId, signUp, signIn }}>
+    <AuthContext.Provider
+      value={{ authId, signUp, signIn, membername, nickname }}
+    >
       {children}
     </AuthContext.Provider>
   );

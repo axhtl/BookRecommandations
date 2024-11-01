@@ -30,7 +30,7 @@ export const AuthModal = ({ isClosed }) => {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/book/login", {
+      const response = await fetch("/book/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -96,10 +96,12 @@ export const AuthModal = ({ isClosed }) => {
                 <AuthInput
                   placeholder={"아이디를 입력하세요."}
                   isPassword={false}
+                  onChange={onChangeUsername}
                 />
                 <AuthInput
                   placeholder={"비밀번호를 입력하세요."}
                   isPassword={true}
+                  onChange={onChangePassword}
                 />
               </div>
               <BasicButton text={"로그인"} onClick={handleLogin} />
