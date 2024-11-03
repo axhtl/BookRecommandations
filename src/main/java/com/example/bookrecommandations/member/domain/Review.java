@@ -1,9 +1,7 @@
 package com.example.bookrecommandations.member.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,7 +20,7 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
 
-    private Long memberId;
+//    private Long memberId;
 
     private String isbn13;
 
@@ -34,6 +32,12 @@ public class Review {
     private LocalDateTime createdAt;
 
     private String preferredGenre;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "memberId")
+    @JsonIgnore
+    private Member member;
+
 
     public void updatePreferredGenre(String preferredGenre) {
         this.preferredGenre = preferredGenre;

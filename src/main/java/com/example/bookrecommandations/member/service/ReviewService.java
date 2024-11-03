@@ -2,9 +2,11 @@ package com.example.bookrecommandations.member.service;
 
 import com.example.bookrecommandations.aladin.AladinService;
 import com.example.bookrecommandations.member.domain.BookInfo;
+import com.example.bookrecommandations.member.domain.Member;
 import com.example.bookrecommandations.member.domain.Review;
 import com.example.bookrecommandations.member.dto.CreateReviewRequestDTO;
 import com.example.bookrecommandations.member.repository.BookInfoRepository;
+import com.example.bookrecommandations.member.repository.MemberRepository;
 import com.example.bookrecommandations.member.repository.ReviewRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -18,12 +20,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final BookInfoRepository bookInfoRepository;
+    private final MemberRepository memberRepository;
     private final AladinService aladinService;
 
     @Transactional
     public Long saveReview(Long memberId, CreateReviewRequestDTO request) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("Member not found"));
+
         // 리뷰 저장
-        Review review = request.toReview(memberId);
+        Review review = request.toReview(member);
         reviewRepository.save(review);
 
         // 알라딘 API를 통해 ISBN 기반 도서 정보 조회

@@ -6,6 +6,7 @@ import com.example.bookrecommandations.member.service.MemberService;
 import com.example.bookrecommandations.security.JwtTokenProvider;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,13 @@ public class MemberController {
     private final MemberService memberService;
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationService authenticationService;
+
+    @Operation(summary = "회원 정보 조회")
+    @GetMapping( "/member/{memberId}")
+    public ResponseEntity<MemberResponse> getMemberWithReviews(@PathVariable Long memberId) {
+        MemberResponse response = memberService.getMemberWithReviews(memberId);
+        return ResponseEntity.ok(response);
+    }
 
     @Operation(summary = "회원가입")
     @PostMapping("/signup")

@@ -4,7 +4,9 @@ import com.example.bookrecommandations.common.exception.DuplicatedMembernameExce
 import com.example.bookrecommandations.common.exception.DuplicatedNicknameException;
 import com.example.bookrecommandations.common.exception.ErrorCode;
 import com.example.bookrecommandations.member.domain.Member;
+import com.example.bookrecommandations.member.domain.Review;
 import com.example.bookrecommandations.member.dto.CreateMemberRequestDTO;
+import com.example.bookrecommandations.member.dto.MemberResponse;
 import com.example.bookrecommandations.member.dto.NicknameUpdateRequestDTO;
 import com.example.bookrecommandations.member.dto.PasswordUpdateRequestDTO;
 import com.example.bookrecommandations.member.repository.MemberRepository;
@@ -14,11 +16,23 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+
+    @Transactional
+    public MemberResponse getMemberWithReviews(Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("Member not found"));
+
+        List<Review> reviews = member.getReviews();
+
+        return new MemberResponse(member, reviews);
+    }
 
     @Transactional
     public Long saveMember(CreateMemberRequestDTO createMemberRequest) {
