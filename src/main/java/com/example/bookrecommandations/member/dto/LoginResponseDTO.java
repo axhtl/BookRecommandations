@@ -1,5 +1,6 @@
 package com.example.bookrecommandations.member.dto;
 
+import com.example.bookrecommandations.member.vo.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,4 +14,5 @@ public class LoginResponseDTO {
     private String message;
     private String accessToken;
     private String refreshToken;
+    private Role role;
 }

@@ -56,7 +56,8 @@ public class AuthenticationService {
                 HttpStatus.OK.value(),
                 "로그인이 정상적으로 진행되었습니다.",
                 accessToken,
-                refreshToken);
+                refreshToken,
+                member.getRole());
     }
 
     @Transactional
@@ -92,7 +93,8 @@ public class AuthenticationService {
                 HttpStatus.OK.value(),
                 "새로운 Access Token이 발급되었습니다.",
                 newAccessToken,
-                refreshToken);  // 기존 Refresh Token 그대로 유지
+                refreshToken,
+                member.getRole());  // 기존 Refresh Token 그대로 유지
     }
 
     @Transactional
