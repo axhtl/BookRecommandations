@@ -21,4 +21,8 @@ public class PreferredGenre {
     private Member member;
 
     private String genre;
+
+    public void updatePreferredGenre(String genre) {
+        this.genre=genre;
+    }
 }

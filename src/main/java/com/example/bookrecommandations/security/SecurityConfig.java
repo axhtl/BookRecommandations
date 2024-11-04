@@ -24,7 +24,9 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // CSRF 비활성화
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/book/logout", "/book/members/**", "/book/withdraw/**", "/book/review/**",
-                                "/book/recommandation", "/book/recommandation/**", "/book/member/**").authenticated() // 특정 URL에 대해 인증 필요
+                                "/book/recommandation", "/book/recommandation/**", "/book/member/**",
+                                "/preferred-genres/**"
+                        ).authenticated() // 특정 URL에 대해 인증 필요
                         .requestMatchers("/**").permitAll()
                 )
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class) // JWT 필터 추가
@@ -32,45 +34,6 @@ public class SecurityConfig {
 
         return http.build();
     }
-
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .csrf(csrf -> csrf.disable()) // CSRF 비활성화
-//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // JWT는 세션 사용 안 함
-//                .authorizeHttpRequests(authorize -> authorize
-//                        .anyRequest().permitAll() // 모든 요청에 대해 접근 허용
-//                )
-//                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class) // JWT 필터 추가
-//                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin())); // 프레임 사용 허용
-//
-//        return http.build();
-//    }
-
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .csrf(csrf -> csrf.disable()) // CSRF 비활성화
-//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // JWT는 세션 사용 안 함
-//                .authorizeHttpRequests(authorize -> authorize
-//                        .requestMatchers("/", "/index.html",
-////                                "/static/**", "/intro", "/signup", "/surveyintro",
-////                                "/survey", "/home/**", "/favicon.ico", "/manifest.json",
-//                                "/book/signup", "/book/survey/**", "/api/search", "/swagger-ui/**",
-//                                "/v3/api-docs/**", "/h2-console/**", "/book/login", "/api/auth/refresh-token",
-//                                "/book/recommandation/**", "/api/item-lookup","/api/search/**").permitAll() // refresh-token 요청 허용
-//                        .requestMatchers("/book/logout", "book/members/**", "book/withdraw/**", "/book/review/**",
-//                                "/book/recommandation", "/book/recommandation/**",
-//                                "/book/member/**"
-//                        ).authenticated()
-//                        .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요
-//                )
-//                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class) // JWT 필터 추가
-//                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin())); // 프레임 사용 허용
-//
-//        return http.build();
-//    }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {

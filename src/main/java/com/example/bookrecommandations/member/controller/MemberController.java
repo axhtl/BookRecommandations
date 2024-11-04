@@ -95,9 +95,20 @@ public class MemberController {
         return ResponseEntity.ok("닉네임이 성공적으로 수정되었습니다.");
     }
 
+    @Operation(summary = "회원 탈퇴")
     @PutMapping("/withdraw/{memberId}")
     public ResponseEntity<String> withdrawMember(@PathVariable Long memberId) {
         memberService.withdrawMember(memberId);
         return ResponseEntity.ok("회원탈퇴가 성공적으로 처리되었습니다.");
+    }
+
+    @Operation(summary = "선호 장르 수정")
+    @PutMapping("/preferred-genres/{preferredGenreId}")
+    public ResponseEntity<String> updatePreferredGenre(
+            @PathVariable Long preferredGenreId,
+            @RequestBody String genre) {
+
+        memberService.updatePreferredGenre(preferredGenreId, genre);
+        return ResponseEntity.ok("선호 장르가 성공적으로 업데이트되었습니다.");
     }
 }
