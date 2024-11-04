@@ -22,15 +22,29 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable()) // CSRF 비활성화
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // JWT는 세션 사용 안 함
                 .authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().permitAll() // 모든 요청에 대해 접근 허용
-                )
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class) // JWT 필터 추가
-                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin())); // 프레임 사용 허용
+                        .requestMatchers("/**").permitAll() // 모든 URL에 대해 기본적으로 접근 허용
+                        .requestMatchers("/book/logout", "book/members/**", "book/withdraw/**", "/book/review/**",
+                                "/book/recommandation", "/book/recommandation/**",
+                                "/book/member/**").authenticated() // 특정 URL에 대해서만 인증 필요
+                );
 
         return http.build();
     }
+
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        http
+//                .csrf(csrf -> csrf.disable()) // CSRF 비활성화
+//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // JWT는 세션 사용 안 함
+//                .authorizeHttpRequests(authorize -> authorize
+//                        .anyRequest().permitAll() // 모든 요청에 대해 접근 허용
+//                )
+//                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class) // JWT 필터 추가
+//                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin())); // 프레임 사용 허용
+//
+//        return http.build();
+//    }
 
 //    @Bean
 //    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -62,5 +76,3 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
-
-
