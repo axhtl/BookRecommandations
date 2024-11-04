@@ -100,4 +100,15 @@ public class MemberService {
         member.updateRefreshToken(null); // refreshToken을 null로 설정
         member.updateMemberStatus(MemberStatus.WITHDRAWN); // 회원 상태를 WITHDRAWN으로 변경
     }
+
+    @Transactional
+    public void updatePreferredGenre(Long preferredGenreId, String genre) {
+        // 선호 장르 조회
+        PreferredGenre preferredGenre = preferredGenreRepository.findById(preferredGenreId)
+                .orElseThrow(() -> new RuntimeException("PreferredGenre not found"));
+
+        // 장르 업데이트
+        preferredGenre.updatePreferredGenre(genre);
+        preferredGenreRepository.save(preferredGenre);
+    }
 }
