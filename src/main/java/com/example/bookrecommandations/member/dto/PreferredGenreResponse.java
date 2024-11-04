@@ -9,9 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PreferredGenreResponse {
+    private Long preferredGenreId;
     private String preferredGenre;
 
     public PreferredGenreResponse(PreferredGenre preferredGenre) {
+        this.preferredGenreId = preferredGenre.getPreferredGenreId();
         this.preferredGenre = preferredGenre.getGenre();
     }
 }
