@@ -49,10 +49,10 @@ public class KeywordRecommendationService {
                     .collect(Collectors.toList());
 
             // reviewId에 해당하는 Review의 preferredGenre 업데이트
-            Review review = reviewRepository.findById(reviewId)
-                    .orElseThrow(() -> new RuntimeException("해당 Review ID를 찾을 수 없습니다: " + reviewId));
-            review.updatePreferredGenre(preferredKeywordResponseDTO.getPreferredGenre());  // Review 엔티티의 메서드 호출
-            reviewRepository.save(review);  // 변경된 Review 객체 저장
+//            Review review = reviewRepository.findById(reviewId)
+//                    .orElseThrow(() -> new RuntimeException("해당 Review ID를 찾을 수 없습니다: " + reviewId));
+//            review.updatePreferredGenre(preferredKeywordResponseDTO.getPreferredGenre());  // Review 엔티티의 메서드 호출
+//            reviewRepository.save(review);  // 변경된 Review 객체 저장
 
             return isbnList;
         } else {

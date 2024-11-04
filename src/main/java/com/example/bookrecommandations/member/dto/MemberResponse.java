@@ -1,6 +1,7 @@
 package com.example.bookrecommandations.member.dto;
 
 import com.example.bookrecommandations.member.domain.Member;
+import com.example.bookrecommandations.member.domain.PreferredGenre;
 import com.example.bookrecommandations.member.domain.Review;
 import com.example.bookrecommandations.member.vo.MemberStatus;
 import com.example.bookrecommandations.member.vo.Role;
@@ -23,8 +24,9 @@ public class MemberResponse {
     private MemberStatus memberStatus;
     private LocalDateTime createdAt;
     private List<ReviewResponse> reviews;
+    private List<PreferredGenreResponse> preferredGenres;
 
-    public MemberResponse(Member member, List<Review> reviews) {
+    public MemberResponse(Member member, List<Review> reviews, List<PreferredGenre> preferredGenres) {
         this.memberId = member.getMemberId();
         this.membername = member.getMembername();
         this.nickname = member.getNickname();
@@ -33,6 +35,9 @@ public class MemberResponse {
         this.createdAt = member.getCreatedAt();
         this.reviews = reviews.stream()
                 .map(ReviewResponse::new)
+                .collect(Collectors.toList());
+        this.preferredGenres = preferredGenres.stream()
+                .map(PreferredGenreResponse::new)
                 .collect(Collectors.toList());
     }
 }

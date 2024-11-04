@@ -1,9 +1,6 @@
 package com.example.bookrecommandations.member.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,6 +15,10 @@ public class PreferredGenre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long preferredGenreId;
-    private Long memberId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "memberId", nullable = false)
+    private Member member;
+
     private String genre;
 }

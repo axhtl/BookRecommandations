@@ -23,11 +23,12 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // CSRF 비활성화
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/**").permitAll() // 모든 URL에 대해 기본적으로 접근 허용
-                        .requestMatchers("/book/logout", "book/members/**", "book/withdraw/**", "/book/review/**",
-                                "/book/recommandation", "/book/recommandation/**",
-                                "/book/member/**").authenticated() // 특정 URL에 대해서만 인증 필요
-                );
+                        .requestMatchers("/book/logout", "/book/members/**", "/book/withdraw/**", "/book/review/**",
+                                "/book/recommandation", "/book/recommandation/**", "/book/member/**").authenticated() // 특정 URL에 대해 인증 필요
+                        .requestMatchers("/**").permitAll()
+                )
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class) // JWT 필터 추가
+                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin())); // 프레임 사용 허용
 
         return http.build();
     }

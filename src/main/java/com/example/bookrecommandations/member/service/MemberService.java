@@ -4,12 +4,14 @@ import com.example.bookrecommandations.common.exception.DuplicatedMembernameExce
 import com.example.bookrecommandations.common.exception.DuplicatedNicknameException;
 import com.example.bookrecommandations.common.exception.ErrorCode;
 import com.example.bookrecommandations.member.domain.Member;
+import com.example.bookrecommandations.member.domain.PreferredGenre;
 import com.example.bookrecommandations.member.domain.Review;
 import com.example.bookrecommandations.member.dto.CreateMemberRequestDTO;
 import com.example.bookrecommandations.member.dto.MemberResponse;
 import com.example.bookrecommandations.member.dto.NicknameUpdateRequestDTO;
 import com.example.bookrecommandations.member.dto.PasswordUpdateRequestDTO;
 import com.example.bookrecommandations.member.repository.MemberRepository;
+import com.example.bookrecommandations.member.repository.PreferredGenreRepository;
 import com.example.bookrecommandations.member.vo.MemberStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,6 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final PreferredGenreRepository preferredGenreRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
@@ -30,8 +33,10 @@ public class MemberService {
                 .orElseThrow(() -> new RuntimeException("Member not found"));
 
         List<Review> reviews = member.getReviews();
+//        List<PreferredGenre> preferredGenres = preferredGenreRepository.findByMember_MemberId(memberId); // 선호 장르 조회
+        List<PreferredGenre> preferredGenres = member.getPreferredGenres();
 
-        return new MemberResponse(member, reviews);
+        return new MemberResponse(member, reviews, preferredGenres);
     }
 
     @Transactional

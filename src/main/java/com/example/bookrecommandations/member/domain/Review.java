@@ -20,8 +20,6 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
 
-//    private Long memberId;
-
     private String isbn13;
 
     private String content;
@@ -31,15 +29,8 @@ public class Review {
     @CreatedDate
     private LocalDateTime createdAt;
 
-    private String preferredGenre;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberId")
     @JsonIgnore
     private Member member;
-
-
-    public void updatePreferredGenre(String preferredGenre) {
-        this.preferredGenre = preferredGenre;
-    }
 }

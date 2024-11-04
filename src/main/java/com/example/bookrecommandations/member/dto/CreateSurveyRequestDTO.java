@@ -1,5 +1,6 @@
 package com.example.bookrecommandations.member.dto;
 
+import com.example.bookrecommandations.member.domain.Member;
 import com.example.bookrecommandations.member.domain.PreferredBook;
 import com.example.bookrecommandations.member.domain.PreferredGenre;
 import com.example.bookrecommandations.member.domain.Survey;
@@ -31,10 +32,10 @@ public class CreateSurveyRequestDTO {
                 .build();
     }
 
-    public List<PreferredGenre> toPreferredGenres(Long memberId) {
+    public List<PreferredGenre> toPreferredGenres(Member member) {
         return preferredGenres.stream()
                 .map(genre -> PreferredGenre.builder()
-                        .memberId(memberId)
+                        .member(member)  // Member 객체 설정
                         .genre(genre)
                         .build())
                 .collect(Collectors.toList());

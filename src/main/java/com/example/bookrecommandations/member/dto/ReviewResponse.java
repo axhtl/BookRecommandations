@@ -16,7 +16,6 @@ public class ReviewResponse {
     private String content;
     private Integer star;
     private LocalDateTime createdAt;
-    private String preferredGenre;
 
     public ReviewResponse(Review review) {
         this.reviewId = review.getReviewId();
@@ -24,6 +23,5 @@ public class ReviewResponse {
         this.content = review.getContent();
         this.star = review.getStar();
         this.createdAt = review.getCreatedAt();
-        this.preferredGenre = review.getPreferredGenre();
     }
 }
