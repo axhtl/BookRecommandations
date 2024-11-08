@@ -8,6 +8,7 @@ import com.example.bookrecommandations.member.dto.admin.MemberReviewsWithKeyword
 import com.example.bookrecommandations.member.dto.admin.MemberSurveyWithGenresDTO;
 import com.example.bookrecommandations.member.dto.admin.ReviewWithKeywordsDTO;
 import com.example.bookrecommandations.member.repository.*;
+import com.example.bookrecommandations.member.vo.MemberStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -96,5 +97,13 @@ public class AdminService {
             throw new RuntimeException("해당 reviewId에 대한 리뷰가 존재하지 않습니다.");
         }
         reviewRepository.deleteById(reviewId);
+    }
+
+    public void suspendMemberById(Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("해당 memberId에 대한 회원이 존재하지 않습니다."));
+
+        member.updateMemberStatus(MemberStatus.SUSPENDED);
+        memberRepository.save(member);
     }
 }

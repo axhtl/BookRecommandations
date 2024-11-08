@@ -50,4 +50,12 @@ public class AdminController {
         adminService.deleteReviewById(reviewId);
         return ResponseEntity.ok("후기가 성공적으로 삭제되었습니다.");
     }
+
+    // 특정 회원 정지
+    @Operation(summary = "특정 회원 정지")
+    @PutMapping("/members/{memberId}/suspend")
+    public ResponseEntity<String> suspendMember(@PathVariable Long memberId) {
+        adminService.suspendMemberById(memberId);
+        return ResponseEntity.ok("회원이 성공적으로 정지되었습니다.");
+    }
 }
