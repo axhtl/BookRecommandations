@@ -8,10 +8,7 @@ import com.example.bookrecommandations.member.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -44,5 +41,13 @@ public class AdminController {
     public ResponseEntity<List<MemberDTO>> getAllMembers() {
         List<MemberDTO> response = adminService.getAllMembers();
         return ResponseEntity.ok(response);
+    }
+
+    // 특정 리뷰 삭제
+    @Operation(summary = "특정 후기 삭제")
+    @DeleteMapping("/reviews/{reviewId}")
+    public ResponseEntity<String> deleteReview(@PathVariable Long reviewId) {
+        adminService.deleteReviewById(reviewId);
+        return ResponseEntity.ok("후기가 성공적으로 삭제되었습니다.");
     }
 }

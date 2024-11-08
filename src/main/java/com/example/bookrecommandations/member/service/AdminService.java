@@ -7,10 +7,7 @@ import com.example.bookrecommandations.member.dto.admin.MemberDTO;
 import com.example.bookrecommandations.member.dto.admin.MemberReviewsWithKeywordsDTO;
 import com.example.bookrecommandations.member.dto.admin.MemberSurveyWithGenresDTO;
 import com.example.bookrecommandations.member.dto.admin.ReviewWithKeywordsDTO;
-import com.example.bookrecommandations.member.repository.MemberRepository;
-import com.example.bookrecommandations.member.repository.PreferredGenreRepository;
-import com.example.bookrecommandations.member.repository.PreferredKeywordRepository;
-import com.example.bookrecommandations.member.repository.SurveyRepository;
+import com.example.bookrecommandations.member.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +22,7 @@ public class AdminService {
     private final PreferredKeywordRepository preferredKeywordRepository;
     private final SurveyRepository surveyRepository;
     private final PreferredGenreRepository preferredGenreRepository;
+    private final ReviewRepository reviewRepository;
 
     public List<MemberReviewsWithKeywordsDTO> getAllMembersReviewsWithKeywords() {
         List<Member> members = memberRepository.findAll(); // 모든 사용자 조회
@@ -90,5 +88,13 @@ public class AdminService {
         }
 
         return result;
+    }
+
+    public void deleteReviewById(Long reviewId) {
+        // 존재 여부 확인 후 삭제
+        if (!reviewRepository.existsById(reviewId)) {
+            throw new RuntimeException("해당 reviewId에 대한 리뷰가 존재하지 않습니다.");
+        }
+        reviewRepository.deleteById(reviewId);
     }
 }
