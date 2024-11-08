@@ -33,7 +33,6 @@ public class MemberService {
                 .orElseThrow(() -> new RuntimeException("Member not found"));
 
         List<Review> reviews = member.getReviews();
-//        List<PreferredGenre> preferredGenres = preferredGenreRepository.findByMember_MemberId(memberId); // 선호 장르 조회
         List<PreferredGenre> preferredGenres = member.getPreferredGenres();
 
         return new MemberResponse(member, reviews, preferredGenres);

@@ -1,12 +1,10 @@
 package com.example.bookrecommandations.member.service;
 
 import com.example.bookrecommandations.member.domain.Member;
-import com.example.bookrecommandations.member.domain.PreferredBook;
 import com.example.bookrecommandations.member.domain.PreferredGenre;
 import com.example.bookrecommandations.member.domain.Survey;
 import com.example.bookrecommandations.member.dto.CreateSurveyRequestDTO;
 import com.example.bookrecommandations.member.repository.MemberRepository;
-import com.example.bookrecommandations.member.repository.PreferredBookRepository;
 import com.example.bookrecommandations.member.repository.PreferredGenreRepository;
 import com.example.bookrecommandations.member.repository.SurveyRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +18,6 @@ import java.util.List;
 public class SurveyService {
     private final SurveyRepository surveyRepository;
     private final PreferredGenreRepository preferredGenreRepository;
-    private final PreferredBookRepository preferredBookRepository;
     private final MemberRepository memberRepository;
 
     @Transactional
@@ -36,10 +33,6 @@ public class SurveyService {
         // 선호 장르 저장
         List<PreferredGenre> preferredGenres = request.toPreferredGenres(member);
         preferredGenreRepository.saveAll(preferredGenres);
-
-        // 선호 도서 저장
-//        List<PreferredBook> preferredBooks = request.toPreferredBooks(memberId);
-//        preferredBookRepository.saveAll(preferredBooks);
 
         return survey.getSurveyId();
     }

@@ -1,7 +1,6 @@
 package com.example.bookrecommandations.member.dto;
 
 import com.example.bookrecommandations.member.domain.Member;
-import com.example.bookrecommandations.member.domain.PreferredBook;
 import com.example.bookrecommandations.member.domain.PreferredGenre;
 import com.example.bookrecommandations.member.domain.Survey;
 import com.example.bookrecommandations.member.vo.Gender;
@@ -21,7 +20,6 @@ public class CreateSurveyRequestDTO {
     private Gender gender;
     private String age;
     private List<String> preferredGenres;
-//    private List<String> preferredBooks;
 
     public Survey toSurvey(Long memberId) {
         return Survey.builder()
@@ -39,13 +37,4 @@ public class CreateSurveyRequestDTO {
                         .build())
                 .collect(Collectors.toList());
     }
-
-//    public List<PreferredBook> toPreferredBooks(Long memberId) {
-//        return preferredBooks.stream()
-//                .map(isbn -> PreferredBook.builder()
-//                        .memberId(memberId)
-//                        .isbn(isbn)
-//                        .build())
-//                .collect(Collectors.toList());
-//    }
 }
