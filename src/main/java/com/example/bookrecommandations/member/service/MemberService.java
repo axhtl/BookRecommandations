@@ -41,6 +41,9 @@ public class MemberService {
 
     @Transactional
     public Long saveMember(CreateMemberRequestDTO createMemberRequest) {
+        // 입력값 검증
+        validateCreateMemberRequest(createMemberRequest);
+
         // 아이디 중복 체크
         if (memberRepository.findByMembername(createMemberRequest.getMembername()).isPresent()) {
             throw new DuplicatedMembernameException(ErrorCode.DUPLICATED_MEMBERNAME);
@@ -132,5 +135,17 @@ public class MemberService {
                 .orElseThrow(() -> new RuntimeException("해당 preferredGenreId에 대한 선호 장르가 존재하지 않습니다."));
 
         preferredGenreRepository.delete(preferredGenre);
+    }
+
+    private void validateCreateMemberRequest(CreateMemberRequestDTO request) {
+        if (request.getMembername() == null || request.getMembername().length() < 4) {
+            throw new IllegalArgumentException("아이디는 최소 4자 이상이어야 합니다.");
+        }
+        if (request.getPassword() == null || request.getPassword().length() < 8) {
+            throw new IllegalArgumentException("비밀번호는 최소 8자 이상이어야 합니다.");
+        }
+        if (request.getNickname() == null || request.getNickname().length() < 2) {
+            throw new IllegalArgumentException("닉네임은 최소 2자 이상이어야 합니다.");
+        }
     }
 }
