@@ -25,6 +25,11 @@ public class SurveyService {
         // 입력값 검증 - NULL 체크
         validateCreateSurveyRequest(request);
 
+        // memberId로 이미 설문조사가 등록되었는지 확인
+        if (surveyRepository.existsByMemberId(memberId)) {
+            throw new IllegalStateException("이미 해당 회원에 대한 설문조사가 등록되어 있습니다.");
+        }
+
         // memberId로 Member 조회
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new RuntimeException("Member not found"));
