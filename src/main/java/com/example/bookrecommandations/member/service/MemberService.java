@@ -68,6 +68,19 @@ public class MemberService {
     }
 
     @Transactional
+    public void addPreferredGenre(Long memberId, String genre) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("해당 memberId에 대한 Member가 존재하지 않습니다."));
+
+        PreferredGenre preferredGenre = PreferredGenre.builder()
+                .member(member)
+                .genre(genre)
+                .build();
+
+        preferredGenreRepository.save(preferredGenre);
+    }
+
+    @Transactional
     public void updatePassword(Long memberId, PasswordUpdateRequestDTO passwordUpdateRequest) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
@@ -110,5 +123,13 @@ public class MemberService {
         // 장르 업데이트
         preferredGenre.updatePreferredGenre(genre);
         preferredGenreRepository.save(preferredGenre);
+    }
+
+    @Transactional
+    public void deletePreferredGenre(Long preferredGenreId) {
+        PreferredGenre preferredGenre = preferredGenreRepository.findById(preferredGenreId)
+                .orElseThrow(() -> new RuntimeException("해당 preferredGenreId에 대한 선호 장르가 존재하지 않습니다."));
+
+        preferredGenreRepository.delete(preferredGenre);
     }
 }

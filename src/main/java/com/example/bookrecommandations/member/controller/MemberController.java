@@ -75,6 +75,16 @@ public class MemberController {
         return ResponseEntity.ok("로그아웃이 성공적으로 처리되었습니다.");
     }
 
+    @Operation(summary = "선호 장르 추가")
+    @PostMapping("/members/{memberId}/preferred-genres")
+    public ResponseEntity<String> addPreferredGenre(
+            @PathVariable Long memberId,
+            @RequestBody String genre) {
+
+        memberService.addPreferredGenre(memberId, genre);
+        return ResponseEntity.ok("선호 장르가 성공적으로 추가되었습니다.");
+    }
+
     @Operation(summary = "비밀번호 수정")
     @PutMapping("/members/{memberId}/password")
     public ResponseEntity<String> updatePassword(
@@ -110,5 +120,12 @@ public class MemberController {
 
         memberService.updatePreferredGenre(preferredGenreId, genre);
         return ResponseEntity.ok("선호 장르가 성공적으로 업데이트되었습니다.");
+    }
+
+    @Operation(summary = "선호 장르 삭제")
+    @DeleteMapping("/preferred-genres/{preferredGenreId}")
+    public ResponseEntity<String> deletePreferredGenre(@PathVariable Long preferredGenreId) {
+        memberService.deletePreferredGenre(preferredGenreId);
+        return ResponseEntity.ok("선호 장르가 성공적으로 삭제되었습니다.");
     }
 }
