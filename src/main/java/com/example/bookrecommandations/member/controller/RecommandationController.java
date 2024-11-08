@@ -92,15 +92,32 @@ public class RecommandationController {
 //    }
 
     @Operation(summary = "설문 조사 기반 추천 결과 조회")
-    @PostMapping("/recommend-by-survey")
-    public ResponseEntity<String> surveyRecommend(@RequestBody SurveyResponseDTO surveyResponseDTO) {
-        // Python 스크립트를 통해 키워드 추천 결과를 가져옵니다.
+    @PostMapping("/recommend-by-survey/{memberId}")
+    public ResponseEntity<String> surveyRecommend(@PathVariable Long memberId) {
+        // memberId를 사용하여 필요한 데이터를 조회
+        SurveyResponseDTO surveyResponseDTO = surveyRecommendationService.getSurveyDataByMemberId(memberId);
+
+        // Python 스크립트를 통해 추천 결과를 가져옴
         String surveyRecommendations = surveyRecommendationService.recommendBySurvey(surveyResponseDTO);
 
-        // 추천 결과 출력 (테스트용)
-        System.out.println("Survey_Received ISBN from Python" + surveyRecommendations);
+        // 전체 JSON 추천 결과 출력 (테스트용)
+        System.out.println("Survey Received Data from Python: " + surveyRecommendations);
 
-        // 빈 결과일 경우 noContent() 반환, 결과가 있을 경우 OK 응답과 함께 반환
+        // 결과 반환
         return surveyRecommendations.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(surveyRecommendations);
     }
+
+
+
+//    @PostMapping("/recommend-by-survey")
+//    public ResponseEntity<String> surveyRecommend(@RequestBody SurveyResponseDTO surveyResponseDTO) {
+//        // Python 스크립트를 통해 키워드 추천 결과를 가져옵니다.
+//        String surveyRecommendations = surveyRecommendationService.recommendBySurvey(surveyResponseDTO);
+//
+//        // 추천 결과 출력 (테스트용)
+//        System.out.println("Survey_Received ISBN from Python" + surveyRecommendations);
+//
+//        // 빈 결과일 경우 noContent() 반환, 결과가 있을 경우 OK 응답과 함께 반환
+//        return surveyRecommendations.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(surveyRecommendations);
+//    }
 }

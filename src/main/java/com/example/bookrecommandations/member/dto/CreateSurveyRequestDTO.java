@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Builder
 public class CreateSurveyRequestDTO {
     private Gender gender;
-    private int age;
+    private String age;
     private List<String> preferredGenres;
 //    private List<String> preferredBooks;
 

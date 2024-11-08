@@ -24,5 +24,5 @@ public class Survey {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    private int age;
+    private String age;
 }
