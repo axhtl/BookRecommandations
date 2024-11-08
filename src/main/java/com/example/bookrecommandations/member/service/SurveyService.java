@@ -38,8 +38,8 @@ public class SurveyService {
         preferredGenreRepository.saveAll(preferredGenres);
 
         // 선호 도서 저장
-        List<PreferredBook> preferredBooks = request.toPreferredBooks(memberId);
-        preferredBookRepository.saveAll(preferredBooks);
+//        List<PreferredBook> preferredBooks = request.toPreferredBooks(memberId);
+//        preferredBookRepository.saveAll(preferredBooks);
 
         return survey.getSurveyId();
     }

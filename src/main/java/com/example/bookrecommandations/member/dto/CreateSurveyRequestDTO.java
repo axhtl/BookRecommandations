@@ -21,7 +21,7 @@ public class CreateSurveyRequestDTO {
     private Gender gender;
     private int age;
     private List<String> preferredGenres;
-    private List<String> preferredBooks;
+//    private List<String> preferredBooks;
 
     public Survey toSurvey(Long memberId) {
         return Survey.builder()
@@ -40,12 +40,12 @@ public class CreateSurveyRequestDTO {
                 .collect(Collectors.toList());
     }
 
-    public List<PreferredBook> toPreferredBooks(Long memberId) {
-        return preferredBooks.stream()
-                .map(isbn -> PreferredBook.builder()
-                        .memberId(memberId)
-                        .isbn(isbn)
-                        .build())
-                .collect(Collectors.toList());
-    }
+//    public List<PreferredBook> toPreferredBooks(Long memberId) {
+//        return preferredBooks.stream()
+//                .map(isbn -> PreferredBook.builder()
+//                        .memberId(memberId)
+//                        .isbn(isbn)
+//                        .build())
+//                .collect(Collectors.toList());
+//    }
 }

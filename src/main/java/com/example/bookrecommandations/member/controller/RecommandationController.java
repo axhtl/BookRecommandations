@@ -12,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 @Tag(name = "Recommandation", description = "도서 추천 알고리즘에 대한 API 입니다.")
 @RestController
 @RequiredArgsConstructor
@@ -37,17 +40,29 @@ public class RecommandationController {
     }
 
     @Operation(summary = "키워드 기반 추천 결과 조회")
-    @PostMapping("/recommend-by-keyword")
-    public ResponseEntity<String> keywordRecommend(@RequestBody PreferredKeywordResponseDTO preferredKeywordResponseDTO) {
-        // Python 스크립트를 통해 키워드 추천 결과를 가져옵니다.
-        String keywordRecommendations = keywordRecommendationService.recommendByKeywords(preferredKeywordResponseDTO);
+    @PostMapping("/recommend-by-keyword/{memberId}/{reviewId}")
+    public List<Map<String, Object>> recommendByKeywords(
+            @PathVariable Long memberId,
+            @PathVariable Long reviewId) {
 
-        // 전체 JSON 추천 결과 출력 (테스트용)
-        System.out.println("Keyword_Received ISBN from Python" + keywordRecommendations);
+        // 서비스 호출하여 추천 키워드 생성
+        String recommendations = keywordRecommendationService.recommendByMemberAndReview(memberId, reviewId);
 
-        // 빈 결과일 경우 noContent() 반환, 결과가 있을 경우 OK 응답과 함께 반환
-        return keywordRecommendations.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(keywordRecommendations);
+        // 추천 결과 변환 및 반환 (필요시 추가 처리 가능)
+        // 예시로 결과를 리스트 형태로 반환
+        return List.of(Map.of("recommendations", recommendations));
     }
+//    @PostMapping("/recommend-by-keyword")
+//    public ResponseEntity<String> keywordRecommend(@RequestBody PreferredKeywordResponseDTO preferredKeywordResponseDTO) {
+//        // Python 스크립트를 통해 키워드 추천 결과를 가져옵니다.
+//        String keywordRecommendations = keywordRecommendationService.recommendByKeywords(preferredKeywordResponseDTO);
+//
+//        // 전체 JSON 추천 결과 출력 (테스트용)
+//        System.out.println("Keyword_Received ISBN from Python" + keywordRecommendations);
+//
+//        // 빈 결과일 경우 noContent() 반환, 결과가 있을 경우 OK 응답과 함께 반환
+//        return keywordRecommendations.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(keywordRecommendations);
+//    }
 
     @Operation(summary = "도서 기반 추천 결과 조회")
     @PostMapping("/recommend-by-book")

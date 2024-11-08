@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Builder
 public class CreatePreferredKeywordRequestDTO {
-    private Long reviewId;
     private List<String> preferredKeywords;
 
     public List<PreferredKeyword> toPreferredKeywords(Long reviewId) {
