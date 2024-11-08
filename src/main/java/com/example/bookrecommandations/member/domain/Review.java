@@ -22,6 +22,7 @@ public class Review {
 
     private String isbn13;
 
+    @Column(length = 1000)
     private String content;
 
     private Integer star;
