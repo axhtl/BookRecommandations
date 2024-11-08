@@ -12,6 +12,7 @@ import com.example.bookrecommandations.member.vo.MemberStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,6 +105,7 @@ public class AdminService {
                 .orElseThrow(() -> new RuntimeException("해당 memberId에 대한 회원이 존재하지 않습니다."));
 
         member.updateMemberStatus(MemberStatus.SUSPENDED);
+        member.updateDeletedAt(LocalDateTime.now());
         memberRepository.save(member);
     }
 }

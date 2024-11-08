@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -111,6 +112,7 @@ public class MemberService {
         // refreshToken을 NULL로 설정하고, 회원 상태를 WITHDRAWN으로 변경
         member.updateRefreshToken(null); // refreshToken을 null로 설정
         member.updateMemberStatus(MemberStatus.WITHDRAWN); // 회원 상태를 WITHDRAWN으로 변경
+        member.updateDeletedAt(LocalDateTime.now());
     }
 
     @Transactional

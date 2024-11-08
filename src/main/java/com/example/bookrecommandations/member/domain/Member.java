@@ -63,4 +63,8 @@ public class Member {
     public void updateMemberStatus(MemberStatus memberStatus) {
         this.memberStatus = memberStatus;
     }
+
+    public void updateDeletedAt(LocalDateTime deletedAt) {
+        this.deletedAt = deletedAt;
+    }
 }
