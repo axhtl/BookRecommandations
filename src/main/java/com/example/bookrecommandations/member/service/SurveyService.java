@@ -22,6 +22,9 @@ public class SurveyService {
 
     @Transactional
     public Long saveSurvey(Long memberId, CreateSurveyRequestDTO request) {
+        // 입력값 검증 - NULL 체크
+        validateCreateSurveyRequest(request);
+
         // memberId로 Member 조회
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new RuntimeException("Member not found"));
@@ -35,5 +38,17 @@ public class SurveyService {
         preferredGenreRepository.saveAll(preferredGenres);
 
         return survey.getSurveyId();
+    }
+
+    private void validateCreateSurveyRequest(CreateSurveyRequestDTO request) {
+        if (request.getGender() == null) {
+            throw new IllegalArgumentException("성별이 입력되지 않았습니다.");
+        }
+        if (request.getAge() == null || request.getAge().trim().isEmpty()) {
+            throw new IllegalArgumentException("나이가 입력되지 않았습니다.");
+        }
+        if (request.getPreferredGenres() == null || request.getPreferredGenres().isEmpty()) {
+            throw new IllegalArgumentException("선호장르가 선택되지 않았습니다.");
+        }
     }
 }
