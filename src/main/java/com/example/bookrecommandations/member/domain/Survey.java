@@ -1,6 +1,5 @@
 package com.example.bookrecommandations.member.domain;
 
-import com.example.bookrecommandations.member.vo.Age;
 import com.example.bookrecommandations.member.vo.Gender;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,7 +24,5 @@ public class Survey {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @Column
-    @Enumerated(EnumType.STRING)
-    private Age age;
+    private int age;
 }

@@ -4,7 +4,6 @@ import com.example.bookrecommandations.member.domain.Member;
 import com.example.bookrecommandations.member.domain.PreferredBook;
 import com.example.bookrecommandations.member.domain.PreferredGenre;
 import com.example.bookrecommandations.member.domain.Survey;
-import com.example.bookrecommandations.member.vo.Age;
 import com.example.bookrecommandations.member.vo.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +19,7 @@ import java.util.stream.Collectors;
 @Builder
 public class CreateSurveyRequestDTO {
     private Gender gender;
-    private Age age;
+    private int age;
     private List<String> preferredGenres;
     private List<String> preferredBooks;
 
