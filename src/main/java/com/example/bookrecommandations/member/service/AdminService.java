@@ -2,10 +2,14 @@ package com.example.bookrecommandations.member.service;
 
 import com.example.bookrecommandations.member.domain.Member;
 import com.example.bookrecommandations.member.domain.Review;
+import com.example.bookrecommandations.member.domain.Survey;
 import com.example.bookrecommandations.member.dto.admin.MemberReviewsWithKeywordsDTO;
+import com.example.bookrecommandations.member.dto.admin.MemberSurveyWithGenresDTO;
 import com.example.bookrecommandations.member.dto.admin.ReviewWithKeywordsDTO;
 import com.example.bookrecommandations.member.repository.MemberRepository;
+import com.example.bookrecommandations.member.repository.PreferredGenreRepository;
 import com.example.bookrecommandations.member.repository.PreferredKeywordRepository;
+import com.example.bookrecommandations.member.repository.SurveyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +22,8 @@ public class AdminService {
 
     private final MemberRepository memberRepository;
     private final PreferredKeywordRepository preferredKeywordRepository;
+    private final SurveyRepository surveyRepository;
+    private final PreferredGenreRepository preferredGenreRepository;
 
     public List<MemberReviewsWithKeywordsDTO> getAllMembersReviewsWithKeywords() {
         List<Member> members = memberRepository.findAll(); // 모든 사용자 조회
@@ -35,6 +41,31 @@ public class AdminService {
 
             // 사용자 정보와 리뷰 정보를 DTO로 추가
             result.add(new MemberReviewsWithKeywordsDTO(member.getMemberId(), member.getMembername(), reviewDetails));
+        }
+
+        return result;
+    }
+
+    public List<MemberSurveyWithGenresDTO> getAllMembersSurveyWithGenres() {
+        List<Member> members = memberRepository.findAll(); // 모든 사용자 조회
+        List<MemberSurveyWithGenresDTO> result = new ArrayList<>();
+
+        for (Member member : members) {
+            // 설문조사 정보 조회
+            Survey survey = surveyRepository.findByMemberId(member.getMemberId())
+                    .orElse(null); // 설문조사가 없을 수도 있으므로 Optional로 처리
+
+            // 선호 장르 정보 조회
+            List<String> preferredGenres = preferredGenreRepository.findGenresByMemberId(member.getMemberId());
+
+            // 사용자 정보와 설문조사, 선호 장르를 DTO로 추가
+            result.add(new MemberSurveyWithGenresDTO(
+                    member.getMemberId(),
+                    member.getMembername(),
+                    survey != null ? survey.getAge() : null,
+                    survey != null ? survey.getGender().name() : null,
+                    preferredGenres
+            ));
         }
 
         return result;
