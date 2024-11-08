@@ -1,5 +1,6 @@
 package com.example.bookrecommandations.member.controller;
 
+import com.example.bookrecommandations.member.dto.admin.MemberDTO;
 import com.example.bookrecommandations.member.dto.admin.MemberReviewsWithKeywordsDTO;
 import com.example.bookrecommandations.member.dto.admin.MemberSurveyWithGenresDTO;
 import com.example.bookrecommandations.member.service.AdminService;
@@ -34,6 +35,14 @@ public class AdminController {
     @GetMapping("/members/survey-with-genres")
     public ResponseEntity<List<MemberSurveyWithGenresDTO>> getAllMembersSurveyWithGenres() {
         List<MemberSurveyWithGenresDTO> response = adminService.getAllMembersSurveyWithGenres();
+        return ResponseEntity.ok(response);
+    }
+
+    // 전체 사용자 조회
+    @Operation(summary = "모든 사용자의 회원 정보 조회")
+    @GetMapping("/members")
+    public ResponseEntity<List<MemberDTO>> getAllMembers() {
+        List<MemberDTO> response = adminService.getAllMembers();
         return ResponseEntity.ok(response);
     }
 }

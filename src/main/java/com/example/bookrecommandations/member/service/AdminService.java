@@ -3,6 +3,7 @@ package com.example.bookrecommandations.member.service;
 import com.example.bookrecommandations.member.domain.Member;
 import com.example.bookrecommandations.member.domain.Review;
 import com.example.bookrecommandations.member.domain.Survey;
+import com.example.bookrecommandations.member.dto.admin.MemberDTO;
 import com.example.bookrecommandations.member.dto.admin.MemberReviewsWithKeywordsDTO;
 import com.example.bookrecommandations.member.dto.admin.MemberSurveyWithGenresDTO;
 import com.example.bookrecommandations.member.dto.admin.ReviewWithKeywordsDTO;
@@ -65,6 +66,26 @@ public class AdminService {
                     survey != null ? survey.getAge() : null,
                     survey != null ? survey.getGender().name() : null,
                     preferredGenres
+            ));
+        }
+
+        return result;
+    }
+
+    public List<MemberDTO> getAllMembers() {
+        List<Member> members = memberRepository.findAll(); // 모든 사용자 조회
+        List<MemberDTO> result = new ArrayList<>();
+
+        for (Member member : members) {
+            // 각 회원 정보를 DTO로 변환하여 추가
+            result.add(new MemberDTO(
+                    member.getMemberId(),
+                    member.getMembername(),
+                    member.getNickname(),
+                    member.getRole().name(),
+                    member.getMemberStatus().name(),
+                    member.getCreatedAt(),
+                    member.getDeletedAt()
             ));
         }
 
