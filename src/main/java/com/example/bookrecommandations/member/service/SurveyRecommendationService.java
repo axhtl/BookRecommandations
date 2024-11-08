@@ -6,6 +6,8 @@ import com.example.bookrecommandations.member.dto.SurveyResponseDTO;
 import com.example.bookrecommandations.member.repository.MemberRepository;
 import com.example.bookrecommandations.member.repository.PreferredGenreRepository;
 import com.example.bookrecommandations.member.repository.SurveyRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -16,6 +18,8 @@ import java.util.Random;
 
 @Service
 public class SurveyRecommendationService {
+
+    private static final Logger logger = LoggerFactory.getLogger(SurveyRecommendationService.class);
 
     private final MemberRepository memberRepository;
     private final PreferredGenreRepository preferredGenreRepository;
@@ -45,6 +49,9 @@ public class SurveyRecommendationService {
 
         // 랜덤으로 하나의 genre 선택
         String randomGenre = genres.get(new Random().nextInt(genres.size()));
+
+        // 선택된 장르를 로그로 출력
+        logger.info("선택된 랜덤 선호 장르: {}", randomGenre);
 
         // DTO에 매핑하여 반환 (userAge, userSex, userGenre 형식)
         return SurveyResponseDTO.builder()
