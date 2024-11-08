@@ -1,51 +1,112 @@
 package com.example.bookrecommandations.member.service;
 
 import com.example.bookrecommandations.member.dto.AladinResponseDTO;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 @Service
 public class BookRecommendationService {
 
-    //Spring 애플리케이션에서 Http 요청을 보내고 받는데 사용하는 도구
-    private final RestTemplate restTemplate = new RestTemplate();
+    public String recommendByBooks(AladinResponseDTO aladinResponseDTO) {
+        String pythonExecutablePath = "C:\\Users\\axhtl\\anaconda3\\envs\\env1107\\python.exe";
+        String pythonScriptPath = "C:\\workspace\\1107backclone\\AI\\book.py";
+        String result;
 
-    public List<String> recommendByBooks(AladinResponseDTO aladinResponseDTO) {
-        String flaskUrl = "http://localhost:5000/book_recommend";
+        try {
+            // 사용자 입력 데이터
+            String book_summary = aladinResponseDTO.getSummary();
+            String cid = String.valueOf(aladinResponseDTO.getCid());
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+            // ProcessBuilder에 파이썬 경로, 스크립트 경로, 인자 설정
+            ProcessBuilder pb = new ProcessBuilder(
+                    pythonExecutablePath,
+                    pythonScriptPath,
+                    book_summary,
+                    cid
+            );
 
-        // 요청 데이터 구성
-        Map<String, Object> requestBody = new HashMap<>();
-        requestBody.put("summary", aladinResponseDTO.getSummary());
-        requestBody.put("cid", aladinResponseDTO.getCid());
+            pb.redirectErrorStream(true);
+            Process process = pb.start();
 
-        // HTTP 요청 생성
-        HttpEntity<Map<String, Object>> request = new HttpEntity<>(requestBody, headers);
+            // 파이썬 스크립트의 표준 출력을 읽어옴
+            StringBuilder output = new StringBuilder();
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_8))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    output.append(line);
+                }
+            }
 
-        // Flask 서버에 요청 전송
-        ResponseEntity<Map> response = restTemplate.postForEntity(flaskUrl, request, Map.class);
+            // 프로세스의 종료 코드 확인
+            int exitCode = process.waitFor();
+            if (exitCode != 0) {
+                throw new RuntimeException("Python 스크립트 실행 중 오류가 발생했습니다. 오류 내용: " + output);
+            }
 
-        if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
-            Map responseBody = response.getBody();
-            List<Map<String, String>> bookRecommendations = (List<Map<String, String>>) responseBody.get("book_recommendations");
+            // 파이썬 스크립트의 출력 결과를 문자열로 저장
+            result = output.toString().trim();
 
-            // ISBN 리스트 생성하여 반환
-            return bookRecommendations.stream()
-                    .map(item -> item.get("ISBN"))
-                    .collect(Collectors.toList());
-        } else {
-            throw new RuntimeException("Flask 서버에서 도서 추천 결과를 가져오는 데 실패했습니다.");
+            // 결과를 그대로 반환 (쉼표로 구분된 ISBN 문자열)
+            return result;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Python 스크립트 실행 중 오류가 발생했습니다: " + e.getMessage());
         }
     }
 }
+
+//package com.example.bookrecommandations.member.service;
+//
+//import com.example.bookrecommandations.member.dto.AladinResponseDTO;
+//import org.springframework.http.HttpEntity;
+//import org.springframework.http.HttpHeaders;
+//import org.springframework.http.MediaType;
+//import org.springframework.http.ResponseEntity;
+//import org.springframework.stereotype.Service;
+//import org.springframework.web.client.RestTemplate;
+//
+//import java.util.HashMap;
+//import java.util.List;
+//import java.util.Map;
+//import java.util.stream.Collectors;
+//
+//@Service
+//public class BookRecommendationService {
+//
+//    //Spring 애플리케이션에서 Http 요청을 보내고 받는데 사용하는 도구
+//    private final RestTemplate restTemplate = new RestTemplate();
+//
+//    public List<String> recommendByBooks(AladinResponseDTO aladinResponseDTO) {
+//        String flaskUrl = "http://localhost:5000/book_recommend";
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//
+//        // 요청 데이터 구성
+//        Map<String, Object> requestBody = new HashMap<>();
+//        requestBody.put("summary", aladinResponseDTO.getSummary());
+//        requestBody.put("cid", aladinResponseDTO.getCid());
+//
+//        // HTTP 요청 생성
+//        HttpEntity<Map<String, Object>> request = new HttpEntity<>(requestBody, headers);
+//
+//        // Flask 서버에 요청 전송
+//        ResponseEntity<Map> response = restTemplate.postForEntity(flaskUrl, request, Map.class);
+//
+//        if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+//            Map responseBody = response.getBody();
+//            List<Map<String, String>> bookRecommendations = (List<Map<String, String>>) responseBody.get("book_recommendations");
+//
+//            // ISBN 리스트 생성하여 반환
+//            return bookRecommendations.stream()
+//                    .map(item -> item.get("ISBN"))
+//                    .collect(Collectors.toList());
+//        } else {
+//            throw new RuntimeException("Flask 서버에서 도서 추천 결과를 가져오는 데 실패했습니다.");
+//        }
+//    }
+//}

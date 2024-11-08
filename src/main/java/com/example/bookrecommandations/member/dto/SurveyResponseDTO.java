@@ -5,13 +5,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PreferredKeywordResponseDTO {
-    private List<String> preferredGenre;
-    private List<String> preferredKeywords;
+public class SurveyResponseDTO {
+    private String userAge;
+    private String userSex;
+    private String userGenre;
 }
