@@ -65,8 +65,11 @@ public class RecommandationController {
 //    }
 
     @Operation(summary = "도서 기반 추천 결과 조회")
-    @PostMapping("/recommend-by-book")
-    public ResponseEntity<String> bookRecommend(@RequestBody AladinResponseDTO aladinResponseDTO) {
+    @PostMapping("/recommend-by-book/{reviewId}")
+    public ResponseEntity<String> bookRecommend(@PathVariable Long reviewId) {
+        // reviewId를 사용하여 bookInfo 테이블에서 summary와 cid를 가져옴
+        AladinResponseDTO aladinResponseDTO = bookRecommendationService.getBookInfoByReviewId(reviewId);
+
         // Python 스크립트를 통해 키워드 추천 결과를 가져옵니다.
         String bookRecommendations = bookRecommendationService.recommendByBooks(aladinResponseDTO);
 
@@ -76,6 +79,17 @@ public class RecommandationController {
         // 빈 결과일 경우 noContent() 반환, 결과가 있을 경우 OK 응답과 함께 반환
         return bookRecommendations.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(bookRecommendations);
     }
+//    @PostMapping("/recommend-by-book")
+//    public ResponseEntity<String> bookRecommend(@RequestBody AladinResponseDTO aladinResponseDTO) {
+//        // Python 스크립트를 통해 키워드 추천 결과를 가져옵니다.
+//        String bookRecommendations = bookRecommendationService.recommendByBooks(aladinResponseDTO);
+//
+//        // 전체 JSON 추천 결과 출력 (테스트용)
+//        System.out.println("Book_Received ISBN from Python" + bookRecommendations);
+//
+//        // 빈 결과일 경우 noContent() 반환, 결과가 있을 경우 OK 응답과 함께 반환
+//        return bookRecommendations.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(bookRecommendations);
+//    }
 
     @Operation(summary = "설문 조사 기반 추천 결과 조회")
     @PostMapping("/recommend-by-survey")
