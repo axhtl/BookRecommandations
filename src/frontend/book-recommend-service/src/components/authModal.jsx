@@ -51,6 +51,7 @@ export const AuthModal = ({ isClosed }) => {
         navigation("/home");
       } else {
         localStorage.setItem("role", responseData.role);
+        localStorage.setItem("memberId", responseData.memberId);
         localStorage.setItem("accessToken", responseData.accessToken);
         localStorage.setItem("refreshToken", responseData.refreshToken);
         navigation("/admin");

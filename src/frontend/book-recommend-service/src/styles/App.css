@@ -2061,97 +2061,6 @@ input::placeholder{
   color: #fbfbfb;
 }
 
-/* AdminPage */
-.adminWrapper{
-  display: flex;
-  width: 100%;
-  height: 100%;
-}
-
-.adminNavBarWrapper{
-  width: 280px;
-  background-color: #fbfbfb;
-  border-right: 1px solid #DDD;
-}
-
-.adminPagesWrapper{
-  width: 100%;
-}
-
-.adminProfile{
-  /* background-color: #DDD; */
-  padding: 40px 20px;
-  display: flex;
-  flex-direction: column;
-  gap:8px;
-  border-bottom: 1px solid #DDD;
-}
-
-.adminProfile p{
-  margin:0px;
-  margin-bottom: 4px;
-  font-weight: 300;
-}
-
-/* adminTabs */
-.userManagePageWrapper{
-  display: flex;
-  flex-direction: column;
-  margin:40px 24px;
-}
-
-.userManagePageWrapper h1{
-  margin:0px;
-  font-weight: 600;
-  font-size: 32px;
-}
-
-.userListSection{
-  margin-top: 40px;
-}
-
-.userContainer{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  /* gap:16px; */
-  background-color: #fbfbfb;
-  margin-bottom: 16px;
-  padding: 20px 20px;
-  border-radius: 8px;
-  border:1px solid #DDD;
-}
-
-.elementContainer{
-  width: 150px;
-  /* background-color: #666; */
-}
-.elementContainer p{
-  font-size: 14px;
-  font-weight: 300;
-  margin:4px 0px 4px 0px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: break-word;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-}
-
-.elementButton{
-  border:1px solid #DDD;
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: 300;
-  border-radius: 4px;
-}
-
-.elementButton:hover{
-  cursor: pointer;
-  color: #FFF;
-  background-color: #DDD;
-}
-
 /* EditProfileModal */
 .editProfileWrapper{
   width: 40%;
@@ -2576,4 +2485,134 @@ input[type="checkbox"]:checked + .custom-checkbox {
   font-size: 14px;
   color: #666;
   font-weight: 300;
+}
+
+/* AdminPage */
+.adminWrapper{
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+.adminNavBarWrapper{
+  width: 280px;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  background-color: #fbfbfb;
+  border-right: 1px solid #DDD;
+}
+
+.adminPagesWrapper{
+  width: 100%;
+  overflow-y: auto;
+}
+
+.adminProfile{
+  /* background-color: #DDD; */
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap:8px;
+  border-bottom: 1px solid #DDD;
+}
+
+.adminProfile p{
+  margin:0px;
+  margin-bottom: 4px;
+  font-weight: 300;
+}
+
+/* adminTabs */
+.userManagePageWrapper{
+  display: flex;
+  flex-direction: column;
+  margin:40px 24px;
+}
+
+.userManagePageWrapper h1{
+  margin:0px;
+  font-weight: 600;
+  font-size: 32px;
+}
+
+.userListSection{
+  margin-top: 40px;
+}
+
+.userContainer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* gap:16px; */
+  background-color: #fbfbfb;
+  margin-bottom: 16px;
+  padding: 20px 20px;
+  border-radius: 8px;
+  border:1px solid #DDD;
+}
+
+.elementContainer{
+  width: 150px;
+  /* background-color: #666; */
+}
+
+.elementContainer p{
+  font-size: 14px;
+  font-weight: 300;
+  margin:4px 0px 4px 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.elementButton{
+  border:1px solid #DDD;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 300;
+  border-radius: 4px;
+}
+
+.elementButton:hover{
+  cursor: pointer;
+  color: #FFF;
+  background-color: #DDD;
+}
+
+.adminTabsWrapper{
+  display: flex;
+  flex-direction: column;
+}
+
+.adminTabsWrapper .adminTab{
+  /* background-color: #555; */
+  padding: 24px;
+  /* border-bottom: 1px solid #DDD; */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap:8px;
+}
+
+.adminTabsWrapper .selectedAdminTab{
+  padding: 24px;
+  background-color: #EEE;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap:8px;
+}
+
+.adminTabsWrapper p{
+  font-size: 18px;
+  margin:0px;
+  font-weight: 400;
+}
+
+.adminTabsWrapper .selectedAdminTab p{
+  font-weight: 500;
 }
