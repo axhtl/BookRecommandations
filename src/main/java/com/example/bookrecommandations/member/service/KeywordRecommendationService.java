@@ -57,6 +57,8 @@ public class KeywordRecommendationService {
                     choiceGenres
             );
 
+            pb.environment().put("PYTHONIOENCODING", "UTF-8");
+
             pb.redirectErrorStream(true);
             Process process = pb.start();
 
