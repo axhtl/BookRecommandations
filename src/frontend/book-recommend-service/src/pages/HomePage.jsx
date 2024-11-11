@@ -6,7 +6,7 @@ import { MobileNavBar, NavBar } from "../components/navBar";
 import RecommendPage from "./RecommendPage";
 import { Mobile, Pc } from "../components/reponsiveCheck";
 import { ReactComponent as MenuIcon } from "../assets/menu.svg";
-import { ReactComponent as Logo } from "../assets/logo.svg";
+// import { ReactComponent as Logo } from "../assets/logo.svg";
 // import LogoPath from "../assets/logo.png";
 
 const HomePage = () => {
@@ -17,7 +17,16 @@ const HomePage = () => {
       <Pc>
         <div className="HomeWrapper">
           <div className="homeTitle">
-            <Logo style={{ height: 200 }} />
+            <p
+              style={{
+                fontFamily: "RiaSans-ExtraBold",
+                fontSize: 36,
+                color: "#4A00AA",
+              }}
+            >
+              READING PLANNER
+            </p>
+            {/* <Logo style={{ height: 200 }} /> */}
             {/* <h1>READING PLANNER</h1> */}
           </div>
           <NavBar />
