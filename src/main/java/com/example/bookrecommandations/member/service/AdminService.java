@@ -1,16 +1,19 @@
 package com.example.bookrecommandations.member.service;
 
+import com.example.bookrecommandations.common.exception.DuplicatedMembernameException;
+import com.example.bookrecommandations.common.exception.DuplicatedNicknameException;
+import com.example.bookrecommandations.common.exception.ErrorCode;
 import com.example.bookrecommandations.member.domain.Member;
 import com.example.bookrecommandations.member.domain.Review;
 import com.example.bookrecommandations.member.domain.Survey;
-import com.example.bookrecommandations.member.dto.admin.MemberDTO;
-import com.example.bookrecommandations.member.dto.admin.MemberReviewsWithKeywordsDTO;
-import com.example.bookrecommandations.member.dto.admin.MemberSurveyWithGenresDTO;
-import com.example.bookrecommandations.member.dto.admin.ReviewWithKeywordsDTO;
+import com.example.bookrecommandations.member.dto.CreateMemberRequestDTO;
+import com.example.bookrecommandations.member.dto.admin.*;
 import com.example.bookrecommandations.member.repository.*;
 import com.example.bookrecommandations.member.vo.MemberStatus;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -25,7 +28,9 @@ public class AdminService {
     private final SurveyRepository surveyRepository;
     private final PreferredGenreRepository preferredGenreRepository;
     private final ReviewRepository reviewRepository;
+    private final PasswordEncoder passwordEncoder;
 
+    @Transactional(readOnly = true)
     public List<MemberReviewsWithKeywordsDTO> getAllMembersReviewsWithKeywords() {
         List<Member> members = memberRepository.findAll(); // 모든 사용자 조회
         List<MemberReviewsWithKeywordsDTO> result = new ArrayList<>();
@@ -47,6 +52,7 @@ public class AdminService {
         return result;
     }
 
+    @Transactional(readOnly = true)
     public List<MemberSurveyWithGenresDTO> getAllMembersSurveyWithGenres() {
         List<Member> members = memberRepository.findAll(); // 모든 사용자 조회
         List<MemberSurveyWithGenresDTO> result = new ArrayList<>();
@@ -72,6 +78,7 @@ public class AdminService {
         return result;
     }
 
+    @Transactional(readOnly = true)
     public List<MemberDTO> getAllMembers() {
         List<Member> members = memberRepository.findAll(); // 모든 사용자 조회
         List<MemberDTO> result = new ArrayList<>();
@@ -92,6 +99,40 @@ public class AdminService {
         return result;
     }
 
+    @Transactional
+    public Long saveAdmin(CreateAdminRequestDTO createAdminRequest) {
+        // 입력값 검증
+        validateCreateAdminRequest(createAdminRequest);
+
+        // 아이디 중복 체크
+        if (memberRepository.findByMembername(createAdminRequest.getMembername()).isPresent()) {
+            throw new DuplicatedMembernameException(ErrorCode.DUPLICATED_MEMBERNAME);
+        }
+
+        // 닉네임 중복 체크
+        if (memberRepository.findByNickname(createAdminRequest.getNickname()).isPresent()) {
+            throw new DuplicatedNicknameException(ErrorCode.DUPLICATED_NICKNAME);
+        }
+
+        // 비밀번호 암호화 후 DB에 회원정보 저장
+        String encodedPassword = passwordEncoder.encode(createAdminRequest.getPassword());
+        Member member = createAdminRequest.toMember(encodedPassword);
+        memberRepository.save(member);
+
+        return member.getMemberId();
+    }
+
+    @Transactional
+    public void suspendMemberById(Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("해당 memberId에 대한 회원이 존재하지 않습니다."));
+
+        member.updateMemberStatus(MemberStatus.SUSPENDED);
+        member.updateDeletedAt(LocalDateTime.now());
+        memberRepository.save(member);
+    }
+
+    @Transactional
     public void deleteReviewById(Long reviewId) {
         // 존재 여부 확인 후 삭제
         if (!reviewRepository.existsById(reviewId)) {
@@ -100,12 +141,15 @@ public class AdminService {
         reviewRepository.deleteById(reviewId);
     }
 
-    public void suspendMemberById(Long memberId) {
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new RuntimeException("해당 memberId에 대한 회원이 존재하지 않습니다."));
-
-        member.updateMemberStatus(MemberStatus.SUSPENDED);
-        member.updateDeletedAt(LocalDateTime.now());
-        memberRepository.save(member);
+    private void validateCreateAdminRequest(CreateAdminRequestDTO request) {
+        if (request.getMembername() == null || request.getMembername().length() < 4) {
+            throw new IllegalArgumentException("아이디는 최소 4자 이상이어야 합니다.");
+        }
+        if (request.getPassword() == null || request.getPassword().length() < 8) {
+            throw new IllegalArgumentException("비밀번호는 최소 8자 이상이어야 합니다.");
+        }
+        if (request.getNickname() == null || request.getNickname().length() < 2) {
+            throw new IllegalArgumentException("닉네임은 최소 2자 이상이어야 합니다.");
+        }
     }
 }

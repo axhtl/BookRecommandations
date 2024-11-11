@@ -26,7 +26,7 @@ public class SecurityConfig {
                         .requestMatchers("/book/logout", "/book/members/**", "/book/withdraw/**", "/book/review/**",
                                 "/book/recommandation", "/book/recommandation/**", "/book/member/**",
                                 "book/preferred-genres/**", "/book/withdraw/**", "/book/member/**",
-                                "admin/**"
+                                "admin/members/**", "admin/reviews/**"
                         ).authenticated() // 특정 URL에 대해 인증 필요
                         .requestMatchers("/**").permitAll()
                 )
