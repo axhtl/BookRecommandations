@@ -18,7 +18,7 @@ const AccessRequiredRoute = ({ auth }) => {
     return <Navigate to="/home" />;
   } else if (!isLoggedIn && auth) {
     console.log("access false -> private route");
-    return <Navigate to="/intro" />;
+    return <Navigate to="/no-access" />;
   } else if (!isLoggedIn && !auth) {
     return <Outlet />;
   }

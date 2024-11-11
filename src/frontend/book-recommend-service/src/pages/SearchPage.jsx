@@ -4,7 +4,7 @@ import { MobileNavBar, NavBar } from "../components/navBar";
 import { useNavigate } from "react-router-dom";
 import { Mobile, Pc } from "../components/reponsiveCheck";
 import { ReactComponent as MenuIcon } from "../assets/menu.svg";
-import { ReactComponent as Logo } from "../assets/logo.svg";
+// import { ReactComponent as Logo } from "../assets/logo.svg";
 
 const SearchPage = () => {
   const [keyword, setKeyword] = useState();
@@ -42,7 +42,16 @@ const SearchPage = () => {
       <Pc>
         <div className="searchPageWrapper">
           <div className="homeTitle">
-            <Logo style={{ height: 200 }} />
+            <p
+              style={{
+                fontFamily: "RiaSans-ExtraBold",
+                fontSize: 36,
+                color: "#4A00AA",
+              }}
+            >
+              READING PLANNER
+            </p>
+            {/* <Logo style={{ height: 200 }} /> */}
           </div>
           <NavBar />
           <div className="searchInput">
