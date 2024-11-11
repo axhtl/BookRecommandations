@@ -34,7 +34,7 @@ const SearchPage = () => {
   };
 
   const onClickBook = (item) => {
-    navigation(`/bookDetail/${item.itemId}`, { state: { item } });
+    navigation("/bookDetail", { state: { item } });
   };
 
   return (

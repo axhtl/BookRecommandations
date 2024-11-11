@@ -86,7 +86,7 @@ const PersonalPage = () => {
   };
 
   const handleClickBook = (item) => {
-    navigation(`/bookDetail/${item.itemId}`, { state: { item } });
+    navigation("/bookDetail", { state: { item } });
   };
 
   const fetchMemberInfo = useCallback(async () => {

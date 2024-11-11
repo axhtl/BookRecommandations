@@ -103,7 +103,7 @@ const RecommendPage = () => {
   }, [isbnList, getRecommendBySurvey]); // isbnList가 변경되면 추천 도서 API를 호출
 
   const handleClickBook = (item) => {
-    navigation(`/bookDetail/${item.itemId}`, { state: { item } });
+    navigation("/bookDetail", { state: { item } });
   };
 
   return (
