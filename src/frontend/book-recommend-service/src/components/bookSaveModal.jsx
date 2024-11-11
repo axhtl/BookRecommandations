@@ -1,12 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../contexts/AuthContext";
 import { Mobile, Pc } from "./reponsiveCheck";
+import Box from "@mui/material/Box";
+import Rating from "@mui/material/Rating";
+import { styled } from "@mui/material/styles";
+
+const StyledRating = styled(Rating)({
+  "& .MuiRating-iconFilled": {
+    color: "#4A00AA",
+  },
+  "& .MuiRating-iconHover": {
+    color: "#4A00AA",
+  },
+});
 
 export const BookSaveModal = ({ isClosed, bookInfo }) => {
   const [starRate, setStarRate] = useState();
   const [content, setContent] = useState("");
   const isbn = bookInfo.isbn13;
-  const { authId } = useAuth();
+  const memberId = localStorage.getItem("memberId");
   const token = localStorage.getItem("accessToken");
 
   const starHandler = (e) => {
@@ -18,8 +29,8 @@ export const BookSaveModal = ({ isClosed, bookInfo }) => {
   };
 
   useEffect(() => {
-    console.log("authId", authId);
-  }, [authId]);
+    console.log("memberId", memberId);
+  }, [memberId]);
 
   const handleSubmit = async () => {
     const data = {
@@ -32,7 +43,7 @@ export const BookSaveModal = ({ isClosed, bookInfo }) => {
       alert("별점과 후기를 등록해주세요.");
     } else {
       try {
-        const response = await fetch(`/book/review/${authId}`, {
+        const response = await fetch(`/book/review/${memberId}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -48,6 +59,7 @@ export const BookSaveModal = ({ isClosed, bookInfo }) => {
         const responseData = await response.json();
         alert(responseData.message);
         isClosed();
+        window.location.reload();
       } catch (error) {
         console.error("fetch error:", error.message);
       }
@@ -60,14 +72,27 @@ export const BookSaveModal = ({ isClosed, bookInfo }) => {
         <div className="bookSaveModalWrapper">
           <div className="topWrapper">
             <div className="textsWrapper">
-              <p id="title">{bookInfo.title}</p>
-              <p id="author">{bookInfo.author}</p>
-              <p id="isbn">
+              <p className="title">{bookInfo.title}</p>
+              <p className="author">{bookInfo.author}</p>
+              <p className="isbn">
                 <span style={{ fontWeight: 500, marginRight: 4 }}>ISBN</span>
                 {bookInfo.isbn13}
               </p>
             </div>
             <div className="starsWrapper">
+              <Box sx={{ "& > legend": { mt: 2 } }}>
+                <StyledRating
+                  name="customized-color"
+                  value={starRate || 0}
+                  onChange={(event, newValue) => {
+                    setStarRate(newValue);
+                  }}
+                  size="large"
+                />
+              </Box>
+            </div>
+
+            {/* <div className="starsWrapper">
               <input
                 type="radio"
                 className="star"
@@ -98,7 +123,7 @@ export const BookSaveModal = ({ isClosed, bookInfo }) => {
                 value="5"
                 onClick={starHandler}
               />
-            </div>
+            </div> */}
           </div>
           <div className="modalLine" />
           <div className="midWrapper">
