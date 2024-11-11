@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { AuthInput } from "../components/inputComponents";
 import { BasicButton } from "../components/basicButton";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import { ReactComponent as Face } from "../assets/face.svg";
+import { ReactComponent as Person } from "../assets/person.svg";
+import { ReactComponent as Lock } from "../assets/lock.svg";
+import { ReactComponent as Check } from "../assets/check_circle_outline.svg";
 
 const SignUpPage = () => {
   const navigation = useNavigate();
-  const { signUp } = useAuth();
 
   const onClickSignUP = () => {
     if (password !== checkPw) {
@@ -45,8 +47,8 @@ const SignUpPage = () => {
       const responseData = await response.json();
       console.log("signup successful:", responseData);
       if (responseData.statusCode === 200) {
-        signUp(responseData.id, nickname, membername);
         navigation("/survey");
+        localStorage.setItem("memberId", responseData.id);
       }
     } catch (error) {
       console.error("fetch error:", error);
@@ -56,28 +58,32 @@ const SignUpPage = () => {
   return (
     <div className="signUpPageWrapper">
       <div className="signUpTitle">
-        <p>먼저, 회원 정보를 입력해주세요</p>
+        <p>회원 정보를 입력해 주세요. 😆</p>
       </div>
       <div className="signUpInfos">
         <AuthInput
-          placeholder={"nickname"}
+          placeholder={"닉네임"}
           isPassword={false}
           onChange={(e) => setNickname(e.target.value)}
+          Icon={<Face />}
         />
         <AuthInput
-          placeholder={"example@example.com"}
+          placeholder={"아이디"}
           isPassword={false}
           onChange={(e) => setMembername(e.target.value)}
+          Icon={<Person />}
         />
         <AuthInput
-          placeholder={"password"}
+          placeholder={"비밀번호"}
           isPassword={true}
           onChange={(e) => setPassword(e.target.value)}
+          Icon={<Lock />}
         />
         <AuthInput
-          placeholder={"check your password"}
+          placeholder={"비밀번호를 확인해주세요!"}
           isPassword={true}
           onChange={(e) => setCheckPw(e.target.value)}
+          Icon={<Check />}
         />
       </div>
       <BasicButton text={"회원가입"} onClick={onClickSignUP} />
