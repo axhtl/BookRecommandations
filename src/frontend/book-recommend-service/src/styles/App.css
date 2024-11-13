@@ -244,6 +244,33 @@ body{
   top:0;
 }
 
+.loadingModalWrapper{
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 102;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #fbfbfb;
+  padding: 36px;
+  border-radius: 8px;
+  border:1px solid #DDD;
+}
+
+.loadingModalWrapper p{
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 36px;
+}
+
+.loadingModalWrapper .subTitle{
+  font-size: 16px;
+  font-weight: 300;
+  margin-top: 8px;
+}
+
 .modalWrapper{
   width: 600px;
   height:max-content;
@@ -708,7 +735,7 @@ input::placeholder{
   width: 100%;
 }
 
-.searchInput button{
+.searchInputWrapper button{
   border:none;
   background-color: #4A00AA;
   color:#FFF;
@@ -716,9 +743,6 @@ input::placeholder{
   padding:8px 12px 8px 12px;
   font-size: 14px;
   font-weight: 300;
-}
-
-.searchInput button:hover{
   cursor: pointer;
 }
 
@@ -967,10 +991,26 @@ input::placeholder{
   display: flex;
   flex-direction: column;
   padding: 12px 16px;
-  /* background-color: #fbfbfb;
-  border:1px solid #DDD;
-  border-radius: 8px; */
   margin-top: 24px;
+  background-color: #fbfbfb;
+  border:1px solid #DDD;
+  /* gap:8px; */
+  overflow-x: auto;
+  width: 600px;
+  border-radius: 8px;
+}
+
+.recommendByBookContainer{
+  display: flex;
+  flex-direction: row;
+  /* padding: 12px 16px;
+  background-color: #fbfbfb;
+  border:1px solid #DDD;
+  gap:8px;
+  overflow-x: auto; */
+  gap: 16px;
+  /* overflow-x: auto; */
+  /* white-space: nowrap; */
 }
 
 .recommendByBookTitleWrapper{
@@ -1095,6 +1135,12 @@ input::placeholder{
   gap:4px;
 }
 
+.addButton{
+  display: flex;
+  justify-content: flex-end;
+  margin: 16px 0px;
+}
+
 .addButton button{
   border:none;
   border-radius: 8px;
@@ -1125,8 +1171,9 @@ input::placeholder{
 
 .descriptionContainer{
   background-color: #fbfbfb;
+  width: 600px;
   height: max-content;
-  padding: 16px 24px;
+  padding: 16px;
   border-radius: 8px;
   border:1px solid #DDD
 }
@@ -1284,8 +1331,8 @@ input::placeholder{
 
 .wordcloudsWrapper{
   display: flex;
-  align-items: center;
-  /* flex-direction: column; */
+  /* align-items: center; */
+  flex-direction: column;
   gap:24px;
   width: 100%;
 }
@@ -1296,12 +1343,21 @@ input::placeholder{
   gap:8px;
 }
 
-.keywordsWrapperTitles .createKeywordsRecommendButton,
-.keywordsWrapperTitles .createKeywordsRecommendButton:hover{
+.generateRecommendByKeywordsButton button{
+  background-color: #9C27B0;
+  color: #FFF;
+  border:none;
+  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+.keywordsWrapperTitles .createKeywordsRecommendButton{
   display: flex;
   gap:8px;
   align-items:center;
-  cursor: pointer;
 }
 
 .keywordsWrapperTitles .createKeywordsRecommendButton p{
@@ -1403,6 +1459,20 @@ input::placeholder{
   width: max-content;
 }
 
+.recommendedBookByKeywordsLoading{
+  background-color: #fbfbfb;
+  margin-top: 24px;
+  height: 200px;
+  border:1px solid #DDD;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 30px;
+  width: 600px;
+}
+
 .recommendedBookByKeywordsWrapper p{
   margin:0px;
   margin-bottom: 16px;
@@ -1438,6 +1508,14 @@ input::placeholder{
   margin-top: 4px;
   font-size: 14px;
   font-weight: 300;
+}
+
+.loadingRecommendByBook{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 600px;
+  height: 200px;
 }
 /* PersonalPage */
 .personalPageWrapper{
