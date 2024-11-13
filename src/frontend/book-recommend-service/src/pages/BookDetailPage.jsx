@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BookSaveModal } from "../components/bookSaveModal";
 import { Pc, Mobile } from "../components/reponsiveCheck";
@@ -7,7 +7,8 @@ import { MobileNavBar } from "../components/navBar";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
-import BeatLoader from "react-spinners/BeatLoader";
+import PulseLoader from "react-spinners/PulseLoader";
+import BounceLoader from "react-spinners/BounceLoader";
 
 const BookDetailPage = () => {
   const location = useLocation();
@@ -18,7 +19,14 @@ const BookDetailPage = () => {
   const [selectedKeywords, setSelectedKeywords] = useState([]);
   const [recommendedBooks, setRecommendedBooks] = useState();
   const [recommendByBooks, setRecommendByBooks] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loadingRecommendByBook, setLoadingRecommendByBook] = useState(false);
+  const [loadingKeywords, setLoadingKeywords] = useState(false);
+  const [loadingRecommendByKeyword, setLoadingRecommendByKeyword] =
+    useState(false);
+  const loadingColor = "#4A00AA";
+  const keywordRef = useRef(null);
+  const generateRef = useRef(null);
+  const keywordResRef = useRef(null);
 
   const navigation = useNavigate();
 
@@ -34,6 +42,24 @@ const BookDetailPage = () => {
     alert("잘못된 접근입니다.");
     navigation("/home/search");
   }
+
+  useEffect(() => {
+    if (wordclouds && wordclouds.length > 0) {
+      keywordRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [wordclouds]); // wordclouds 배열이 변경될 때마다 실행
+
+  useEffect(() => {
+    if (selectedKeywords && selectedKeywords.length > 1) {
+      generateRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [selectedKeywords]); // wordclouds 배열이 변경될 때마다 실행
+
+  useEffect(() => {
+    if (loadingRecommendByKeyword) {
+      keywordResRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [loadingRecommendByKeyword]); // wordclouds 배열이 변경될 때마다 실행
 
   const hanldeDeleteReview = async () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
@@ -94,6 +120,7 @@ const BookDetailPage = () => {
   useEffect(() => {
     if (userReview !== undefined) {
       const fetchGetKeyword = async () => {
+        setLoadingKeywords(true);
         try {
           const response = await fetch(
             `/book/wordcloud/words/${userReview.reviewId}`,
@@ -113,6 +140,8 @@ const BookDetailPage = () => {
           setWordclouds(responseData);
         } catch (error) {
           console.error("fetch error:", error);
+        } finally {
+          setLoadingKeywords(false);
         }
       };
       fetchGetKeyword();
@@ -128,6 +157,7 @@ const BookDetailPage = () => {
       alert("키워드를 2개 이상 선택해주세요.");
     } else {
       try {
+        setLoadingRecommendByKeyword(true);
         const response = await fetch(
           `/book/recommandation/keywords/${userReview.reviewId}`,
           {
@@ -177,11 +207,13 @@ const BookDetailPage = () => {
       console.log(recommendedBooks);
     } catch (error) {
       console.error("fetch error:", error);
+    } finally {
+      setLoadingRecommendByKeyword(false);
     }
   };
 
   const getRecommendListByBook = useCallback(async () => {
-    setLoading(true);
+    setLoadingRecommendByBook(true);
     try {
       const response = await fetch(
         `/book/recommandation/recommend-by-book/${userReview.reviewId}`,
@@ -226,7 +258,7 @@ const BookDetailPage = () => {
         }
       }
       setRecommendByBooks(newIsbnList);
-      setLoading(false);
+      setLoadingRecommendByBook(false);
     },
     [setRecommendByBooks]
   );
@@ -261,9 +293,9 @@ const BookDetailPage = () => {
                       {item.isbn13}
                     </p>
                   </div>
-                  <div className="addButton">
-                    <button onClick={controlModal}>추가하기</button>
-                  </div>
+                </div>
+                <div className="addButton">
+                  <button onClick={controlModal}>추가하기</button>
                 </div>
                 <div className="descriptionContainer">
                   <p>{item.description}</p>
@@ -279,32 +311,45 @@ const BookDetailPage = () => {
                       </p>
                     </div>
                     <div className="recommendByBookBottomWrapper">
-                      {recommendByBooks !== undefined &&
-                        recommendByBooks.map((item, index) => {
-                          return (
-                            <div className="recommendByBookElement" key={index}>
-                              <img
-                                src={item.cover.replace("coversum", "cover500")}
-                                style={{
-                                  width: 140,
-                                  height: 180,
-                                  border: "1px solid #DDD",
-                                  borderRadius: 4,
-                                }}
-                                alt="cover"
-                              />
-                              <p
-                                style={{
-                                  margin: 0,
-                                  fontSize: 14,
-                                  color: "#666",
-                                }}
+                      <div className="recommendByBookContainer">
+                        {recommendByBooks !== undefined &&
+                          recommendByBooks.map((item, index) => {
+                            return (
+                              <div
+                                className="recommendByBookElement"
+                                key={index}
                               >
-                                {item.title}
-                              </p>
-                            </div>
-                          );
-                        })}
+                                <img
+                                  src={item.cover.replace(
+                                    "coversum",
+                                    "cover500"
+                                  )}
+                                  style={{
+                                    width: 140,
+                                    height: 180,
+                                    border: "1px solid #DDD",
+                                    borderRadius: 4,
+                                  }}
+                                  alt="cover"
+                                />
+                                <p
+                                  style={{
+                                    margin: 0,
+                                    fontSize: 14,
+                                    color: "#666",
+                                  }}
+                                >
+                                  {item.title}
+                                </p>
+                              </div>
+                            );
+                          })}
+                        {loadingRecommendByBook && (
+                          <div className="loadingRecommendByBook">
+                            <PulseLoader loading={true} color={loadingColor} />
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 )}
@@ -344,17 +389,14 @@ const BookDetailPage = () => {
             <div className="keywordsWrapper">
               <div className="keywordsWrapperTitles">
                 <p className="title">추출 키워드</p>
-                <div
-                  className="createKeywordsRecommendButton"
-                  onClick={fetchKeywordSend}
-                >
+                <div className="createKeywordsRecommendButton">
                   <AutoFixHighIcon />
-                  <p>선택한 키워드로 AI 추천받기</p>
+                  <p>내 후기에서 추출된 키워드 선택하고 AI 추천받기</p>
                 </div>
               </div>
               <div className="wordcloudsWrapper">
                 <Stack direction="row" spacing={1}>
-                  <div className="wordcloudsContainer">
+                  <div className="wordcloudsContainer" ref={keywordRef}>
                     {wordclouds !== undefined ? (
                       wordclouds.map((item, index) => {
                         return (
@@ -386,9 +428,20 @@ const BookDetailPage = () => {
                     )}
                   </div>
                 </Stack>
+                {selectedKeywords.length > 1 &&
+                  recommendedBooks === undefined && (
+                    <div
+                      ref={generateRef}
+                      className="generateRecommendByKeywordsButton"
+                    >
+                      <button onClick={fetchKeywordSend}>
+                        선택한 키워드로 추천받기
+                      </button>
+                    </div>
+                  )}
               </div>
             </div>
-            <div>
+            <div ref={keywordResRef}>
               {recommendedBooks !== undefined ? (
                 <div className="recommendedBookByKeywordsWrapper">
                   <p className="title">
@@ -427,9 +480,27 @@ const BookDetailPage = () => {
               ) : (
                 <div></div>
               )}
+              {loadingRecommendByKeyword && (
+                <div className="recommendedBookByKeywordsLoading">
+                  <PulseLoader
+                    loading={loadingRecommendByKeyword}
+                    color={loadingColor}
+                  />
+                  <p>결과를 가져오는 중...</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
+        {loadingKeywords && (
+          <div className="modalOpen">
+            <div className="loadingModalWrapper">
+              <BounceLoader loading={loadingKeywords} color={loadingColor} />
+              <p>사용자님의 후기를 분석해 키워드를 추출하는 중이에요. 🔑</p>
+              <p className="subTitle">잠시만 기다려 주세요!</p>
+            </div>
+          </div>
+        )}
       </Pc>
       <Mobile>
         <div className="detailPageWrapper-mobile">
