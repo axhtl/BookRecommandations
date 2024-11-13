@@ -109,7 +109,10 @@ const GenrePage = ({ genres, setGenres, genreOptions, submit, prevStep }) => {
   return (
     <div className="genrepageWrapper">
       <p className="title">좋아하는 장르가 있나요?</p>
-      <p>하나 이상 선택해주세요. 🙂‍↕️</p>
+      <p>
+        설문조사 기반 도서 추천 기능에 사용되는 내용이므로 신중하게 선택해
+        주세요. 🙂‍↕️
+      </p>
       <div className="genreOptionsWrapper">
         {genreOptions.map((genre) => (
           <label
