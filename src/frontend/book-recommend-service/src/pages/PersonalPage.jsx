@@ -197,13 +197,16 @@ const PersonalPage = () => {
             <div className="userProfile">
               <div className="userInfo">
                 <p>
-                  {nickname}
+                  <span style={{ fontWeight: "600" }}>{nickname}</span>
                   <span style={{ marginLeft: 1, fontWeight: "300" }}>님</span>
                 </p>
                 <p id="membername">{membername}</p>
                 <p>
-                  지금까지 {reviews !== undefined ? reviews.length : 0}권의 책을
-                  기록했어요! 😆
+                  지금까지{" "}
+                  <span style={{ fontWeight: "600" }}>
+                    {reviews !== undefined ? reviews.length : 0}
+                  </span>
+                  권의 책을 기록했어요! 😆
                 </p>
               </div>
               <div

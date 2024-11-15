@@ -307,7 +307,7 @@ const BookDetailPage = () => {
                         📚 이런 책은 어떠세요?
                       </p>
                       <p className="recommendByBookSubTitle">
-                        리딩플래너 AI가 사용자님의 후기를 기반으로 추천해 드려요
+                        방금 등록한 책과 유사한 책이에요.
                       </p>
                     </div>
                     <div className="recommendByBookBottomWrapper">
