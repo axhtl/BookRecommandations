@@ -33,6 +33,7 @@ const AdminPage = () => {
       }
 
       const responseData = await response.json();
+      console.log(responseData);
       setAdminName(responseData.nickname);
     } catch (error) {
       console.error("fetch error:", error);
