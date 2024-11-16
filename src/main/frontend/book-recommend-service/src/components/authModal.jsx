@@ -3,13 +3,13 @@ import { BasicButton } from "./basicButton";
 import { useNavigate } from "react-router-dom";
 import { Mobile, Pc } from "./reponsiveCheck";
 import { AuthInput } from "./inputComponents";
-import { useAuth } from "../contexts/AuthContext";
+import { ReactComponent as Person } from "../assets/person.svg";
+import { ReactComponent as Lock } from "../assets/lock.svg";
 
 export const AuthModal = ({ isClosed }) => {
   const navigation = useNavigate();
   const [membername, setMembername] = useState("");
   const [password, setPassword] = useState("");
-  const { signIn } = useAuth();
 
   const onClickSignUp = () => {
     navigation("/surveyintro");
@@ -38,20 +38,30 @@ export const AuthModal = ({ isClosed }) => {
         body: JSON.stringify(data),
       });
 
+      const responseData = await response.json();
+
       if (!response.ok) {
-        throw new Error("Error:" + response.statusText);
+        // HTTP 응답이 2xx가 아닌 경우 에러를 던짐
+        throw new Error(responseData.message || "Unknown error occurred");
       }
 
-      const responseData = await response.json();
       console.log("login successful:", responseData);
-      if (responseData.statusCode === 200) {
+      alert("로그인 성공! 메인 화면으로 이동합니다.");
+      if (responseData.statusCode === 200 && responseData.role !== "ADMIN") {
+        localStorage.setItem("memberId", responseData.memberId);
         localStorage.setItem("accessToken", responseData.accessToken);
         localStorage.setItem("refreshToken", responseData.refreshToken);
-        signIn(responseData.memberId);
         navigation("/home");
+      } else {
+        localStorage.setItem("role", responseData.role);
+        localStorage.setItem("memberId", responseData.memberId);
+        localStorage.setItem("accessToken", responseData.accessToken);
+        localStorage.setItem("refreshToken", responseData.refreshToken);
+        navigation("/admin");
       }
     } catch (error) {
-      console.error("fetch error:", error);
+      console.log("fetch error:", error);
+      alert(error.message || "알 수 없는 에러 발생.");
     }
   };
 
@@ -66,14 +76,16 @@ export const AuthModal = ({ isClosed }) => {
               </div>
               <div className="signInInfos">
                 <AuthInput
-                  placeholder={"아이디를 입력하세요."}
+                  placeholder={"아이디"}
                   isPassword={false}
                   onChange={onChangeUsername}
+                  Icon={<Person />}
                 />
                 <AuthInput
-                  placeholder={"비밀번호를 입력하세요."}
+                  placeholder={"비밀번호"}
                   isPassword={true}
                   onChange={onChangePassword}
+                  Icon={<Lock />}
                 />
               </div>
               <BasicButton text={"로그인"} onClick={handleLogin} />

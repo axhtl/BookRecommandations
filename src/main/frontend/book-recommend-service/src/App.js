@@ -6,18 +6,21 @@ import SurveyPage from './pages/SurveyPage';
 import SurveyIntroPage from './pages/SurveyIntroPage';
 import SearchPage from './pages/SearchPage';
 import PersonalPage from './pages/PersonalPage';
-import { SearchProvider } from './contexts/SearchContext';
 import SignUpPage from './pages/SignUpPage';
 import BookDetailPage from './pages/BookDetailPage';
 import AccessRequiredRoute from './routes/AccessRequiredRoute';
-import { AuthProvider } from './contexts/AuthContext';
+import NoAccessPage from './pages/NoAccessPage';
+import AdminPage from './pages/AdminPage';
+import AdminRoute from './routes/AdminRoute';
 
 function App() {
   return (
-    <AuthProvider>
-      <SearchProvider>
           <Routes>
             <Route path='/intro' element={<IntroPage/>}/>
+            <Route path='/no-access' element={<NoAccessPage/>}/>
+              <Route element={<AdminRoute auth={true}/>}>
+                <Route path='/admin' element={<AdminPage/>}/>
+              </Route>
               <Route element={<AccessRequiredRoute auth={false}/>}>
                 <Route path='/signup' element={<SignUpPage/>}/>
                 <Route path='/surveyintro' element={<SurveyIntroPage/>}/>
@@ -27,11 +30,9 @@ function App() {
                 <Route path='/home/*' element={<HomePage/>}/>
                 <Route path='/home/search' element={<SearchPage/>}/>
                 <Route path='/home/personal' element={<PersonalPage/>}/>
-                <Route path='/bookDetail/:id' element={<BookDetailPage/>}/>
+                <Route path='/bookDetail' element={<BookDetailPage/>}/>
               </Route>
         </Routes>
-      </SearchProvider>
-    </AuthProvider>
       
   );
 }
