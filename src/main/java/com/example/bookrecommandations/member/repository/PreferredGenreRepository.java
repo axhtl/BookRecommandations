@@ -1,5 +1,6 @@
 package com.example.bookrecommandations.member.repository;
 
+import com.example.bookrecommandations.member.domain.Member;
 import com.example.bookrecommandations.member.domain.PreferredGenre;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,5 +15,6 @@ public interface PreferredGenreRepository extends JpaRepository<PreferredGenre, 
 
     @Query("SELECT pg.genre FROM preferred_genre pg WHERE pg.member.memberId = :memberId")
     List<String> findGenresByMemberId(@Param("memberId") Long memberId);
+    List<PreferredGenre> findByMember(Member member);
 }
 

@@ -2,10 +2,7 @@ package com.example.bookrecommandations.member.controller;
 
 import com.example.bookrecommandations.member.dto.CreateMemberRequestDTO;
 import com.example.bookrecommandations.member.dto.SaveResponseDTO;
-import com.example.bookrecommandations.member.dto.admin.CreateAdminRequestDTO;
-import com.example.bookrecommandations.member.dto.admin.MemberDTO;
-import com.example.bookrecommandations.member.dto.admin.MemberReviewsWithKeywordsDTO;
-import com.example.bookrecommandations.member.dto.admin.MemberSurveyWithGenresDTO;
+import com.example.bookrecommandations.member.dto.admin.*;
 import com.example.bookrecommandations.member.service.AdminService;
 import com.example.bookrecommandations.member.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -47,6 +44,13 @@ public class AdminController {
     public ResponseEntity<List<MemberDTO>> getAllMembers() {
         List<MemberDTO> response = adminService.getAllMembers();
         return ResponseEntity.ok(response);
+    }
+
+    // 사용자 '모든 정보' 조회(통합)
+    @GetMapping("/total")
+    public ResponseEntity<List<TotalMemberDetailDTO>> getAllMemberDetails() {
+        List<TotalMemberDetailDTO> memberDetails = adminService.getAllMemberDetails();
+        return ResponseEntity.ok(memberDetails);
     }
 
     // 관리자 회원가입

@@ -2,6 +2,7 @@ package com.example.bookrecommandations.member.domain;
 
 import com.example.bookrecommandations.member.vo.MemberStatus;
 import com.example.bookrecommandations.member.vo.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,9 +43,11 @@ public class Member {
 
     private String refreshToken;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PreferredGenre> preferredGenres = new ArrayList<>();
 

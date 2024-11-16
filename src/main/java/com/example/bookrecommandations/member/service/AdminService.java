@@ -3,9 +3,7 @@ package com.example.bookrecommandations.member.service;
 import com.example.bookrecommandations.common.exception.DuplicatedMembernameException;
 import com.example.bookrecommandations.common.exception.DuplicatedNicknameException;
 import com.example.bookrecommandations.common.exception.ErrorCode;
-import com.example.bookrecommandations.member.domain.Member;
-import com.example.bookrecommandations.member.domain.Review;
-import com.example.bookrecommandations.member.domain.Survey;
+import com.example.bookrecommandations.member.domain.*;
 import com.example.bookrecommandations.member.dto.CreateMemberRequestDTO;
 import com.example.bookrecommandations.member.dto.admin.*;
 import com.example.bookrecommandations.member.repository.*;
@@ -18,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +28,7 @@ public class AdminService {
     private final PreferredGenreRepository preferredGenreRepository;
     private final ReviewRepository reviewRepository;
     private final PasswordEncoder passwordEncoder;
+    private final BookInfoRepository bookInfoRepository;
 
     @Transactional(readOnly = true)
     public List<MemberReviewsWithKeywordsDTO> getAllMembersReviewsWithKeywords() {
@@ -97,6 +97,37 @@ public class AdminService {
         }
 
         return result;
+    }
+
+    // 통합 조회
+    @Transactional
+    public List<TotalMemberDetailDTO> getAllMemberDetails() {
+        List<Member> members = memberRepository.findAll();
+
+        return members.stream().map(member -> {
+            List<PreferredGenre> preferredGenres = preferredGenreRepository.findByMember(member);
+            Survey survey = surveyRepository.findByMemberId(member.getMemberId()).orElse(null);
+            List<ReviewWithKeywordsAndBookInfoDTO> reviews = reviewRepository.findByMember(member).stream()
+                    .map(review -> {
+                        List<PreferredKeyword> preferredKeywords = preferredKeywordRepository.findByReviewId(review.getReviewId());
+                        BookInfo bookInfo = bookInfoRepository.findByReviewId(review.getReviewId()).orElse(null);
+                        return ReviewWithKeywordsAndBookInfoDTO.builder()
+                                .review(review)
+                                .preferredKeywords(preferredKeywords)
+                                .bookInfo(bookInfo)
+                                .build();
+                    })
+                    .collect(Collectors.toList());
+
+            return TotalMemberDetailDTO.builder()
+                    .memberId(member.getMemberId())
+                    .membername(member.getMembername())
+                    .nickname(member.getNickname())
+                    .preferredGenres(preferredGenres)
+                    .survey(survey)
+                    .reviews(reviews)
+                    .build();
+        }).collect(Collectors.toList());
     }
 
     @Transactional
