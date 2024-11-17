@@ -39,7 +39,7 @@ public class KeywordRecommendationService {
 
         // 파이썬 스크립트 실행
         String pythonExecutablePath = "C:\\Users\\axhtl\\anaconda3\\envs\\env1107\\python.exe";
-        String pythonScriptPath = "C:\\workspace\\1107backclone\\AI\\book_keyword.py";
+        String pythonScriptPath = "C:\\workspace\\1107backclone\\AI\\keyworda.py";
         String result;
 
         try {
