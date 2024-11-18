@@ -53,13 +53,13 @@ const BookDetailPage = () => {
     if (selectedKeywords && selectedKeywords.length > 1) {
       generateRef.current?.scrollIntoView({ behavior: "smooth" });
     }
-  }, [selectedKeywords]); // wordclouds 배열이 변경될 때마다 실행
+  }, [selectedKeywords]);
 
   useEffect(() => {
     if (loadingRecommendByKeyword) {
       keywordResRef.current?.scrollIntoView({ behavior: "smooth" });
     }
-  }, [loadingRecommendByKeyword]); // wordclouds 배열이 변경될 때마다 실행
+  }, [loadingRecommendByKeyword]);
 
   const hanldeDeleteReview = async () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {

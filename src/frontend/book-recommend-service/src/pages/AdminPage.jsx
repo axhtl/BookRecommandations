@@ -3,10 +3,12 @@ import {
   RecordListManage,
   SurveyManage,
   UserManage,
+  StatisticsPage,
 } from "../components/adminTabs";
 import { ReactComponent as Member } from "../assets/manage_accounts.svg";
 import { ReactComponent as Survey } from "../assets/fact_check.svg";
 import { ReactComponent as Record } from "../assets/analytics.svg";
+import { ReactComponent as Book } from "../assets/menu_book.svg";
 
 const AdminPage = () => {
   const [tabName, setTabName] = useState("userManage");
@@ -81,8 +83,17 @@ const AdminPage = () => {
             }
             onClick={() => handlePressTab("recordListManage")}
           >
-            <Record />
+            <Book />
             <p>도서기록 조회</p>
+          </div>
+          <div
+            className={
+              tabName === "statisticsPage" ? "selectedAdminTab" : "adminTab"
+            }
+            onClick={() => handlePressTab("statisticsPage")}
+          >
+            <Record />
+            <p>통계</p>
           </div>
         </div>
       </div>
@@ -90,6 +101,7 @@ const AdminPage = () => {
         {tabName === "userManage" && <UserManage />}
         {tabName === "surveyManage" && <SurveyManage />}
         {tabName === "recordListManage" && <RecordListManage />}
+        {tabName === "statisticsPage" && <StatisticsPage />}
       </div>
     </div>
   );

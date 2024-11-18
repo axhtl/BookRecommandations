@@ -3,6 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import BlockIcon from "@mui/icons-material/Block";
 import { IconButton } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { PieChart } from "@mui/x-charts/PieChart";
 
 export const UserManage = () => {
   const [memberList, setMemberList] = useState([]);
@@ -98,7 +99,6 @@ export const UserManage = () => {
           columns={columns}
           getRowId={(memberList) => memberList.memberId}
           checkboxSelection={true}
-          onCellClick={(e) => console.log(e)}
         />
       </div>
     </div>
@@ -282,6 +282,287 @@ export const RecordListManage = () => {
           columns={columns}
           checkboxSelection={true}
         />
+      </div>
+    </div>
+  );
+};
+
+export const StatisticsPage = () => {
+  const [genreCounts, setGenreCounts] = useState({});
+  const [genderStats, setGenderStats] = useState({ male: 0, female: 0 });
+  const [genderGenreStats, setGenderGenreStats] = useState({
+    male: {},
+    female: {},
+  });
+  const [ageGroupGenreStats, setAgeGroupGenreStats] = useState({
+    teens: {},
+    twenties: {},
+    thirties: {},
+    fortiesPlus: {},
+  });
+  const [userData, setUserData] = useState();
+  const token = localStorage.getItem("accessToken");
+
+  const fetchUserData = useCallback(async () => {
+    try {
+      const response = await fetch("/admin/total", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        // HTTP 응답이 2xx가 아닌 경우 에러를 던짐
+        throw new Error(responseData.message || "Unknown error occurred");
+      }
+
+      if (responseData) {
+        console.log(responseData);
+        setUserData(responseData);
+        console.log(userData);
+      }
+    } catch (error) {
+      console.log("fetch error:", error);
+      alert(error.message || "알 수 없는 에러 발생.");
+    }
+  }, [token, setUserData]);
+
+  useEffect(() => {
+    const genreCounter = {};
+    const genderCounter = { male: 0, female: 0 };
+    const genderGenreCounter = { male: {}, female: {} };
+    const ageGroupGenreCounter = {
+      teens: {},
+      twenties: {},
+      thirties: {},
+      fortiesPlus: {},
+    };
+
+    userData !== undefined &&
+      userData.forEach((user) => {
+        if (user.survey) {
+          const { gender, age } = user.survey;
+          const ageGroup = getAgeGroup(age);
+
+          // 성별 통계
+          if (gender === "M") {
+            genderCounter.male += 1;
+          } else if (gender === "F") {
+            genderCounter.female += 1;
+          }
+
+          // 장르별 통계
+          user.preferredGenres.forEach((genreObj) => {
+            const genre = genreObj.genre;
+
+            // 전체 장르 통계
+            genreCounter[genre] = (genreCounter[genre] || 0) + 1;
+
+            // 성별 장르 통계
+            if (gender === "M") {
+              genderGenreCounter.male[genre] =
+                (genderGenreCounter.male[genre] || 0) + 1;
+            } else if (gender === "F") {
+              genderGenreCounter.female[genre] =
+                (genderGenreCounter.female[genre] || 0) + 1;
+            }
+
+            // 나잇대별 장르 통계
+            ageGroupGenreCounter[ageGroup][genre] =
+              (ageGroupGenreCounter[ageGroup][genre] || 0) + 1;
+          });
+        }
+      });
+
+    setGenreCounts(genreCounter);
+    setGenderStats(genderCounter);
+    setGenderGenreStats(genderGenreCounter);
+    setAgeGroupGenreStats(ageGroupGenreCounter);
+  }, [userData]);
+
+  const PreferGenreChart = Object.entries(genreCounts).map(
+    ([genre, count]) => ({
+      label: genre,
+      value: count,
+    })
+  );
+
+  const GenderChart = Object.entries(genderStats).map(([genre, count]) => ({
+    label: genre,
+    value: count,
+  }));
+
+  const GenreMaleChart = Object.entries(genderGenreStats.male).map(
+    ([genre, count]) => ({
+      label: genre,
+      value: count,
+    })
+  );
+
+  const GenreFemaleChart = Object.entries(genderGenreStats.female).map(
+    ([genre, count]) => ({
+      label: genre,
+      value: count,
+    })
+  );
+
+  const Teens = Object.entries(ageGroupGenreStats.teens).map(
+    ([genre, count]) => ({
+      label: genre,
+      value: count,
+    })
+  );
+
+  const Twenties = Object.entries(ageGroupGenreStats.twenties).map(
+    ([genre, count]) => ({
+      label: genre,
+      value: count,
+    })
+  );
+
+  const Thirties = Object.entries(ageGroupGenreStats.thirties).map(
+    ([genre, count]) => ({
+      label: genre,
+      value: count,
+    })
+  );
+
+  const OverFourties = Object.entries(ageGroupGenreStats.fortiesPlus).map(
+    ([genre, count]) => ({
+      label: genre,
+      value: count,
+    })
+  );
+
+  const getAgeGroup = (age) => {
+    if (age < 20) return "teens";
+    if (age < 30) return "twenties";
+    if (age < 40) return "thirties";
+    return "fortiesPlus";
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, fetchUserData);
+
+  return (
+    <div className="statisticsWrapper">
+      <h1>서비스 통계 조회</h1>
+      <div className="chartsWrapper">
+        <div style={{ display: "flex", gap: 8 }}>
+          <div className="chartContainer">
+            <p className="chartTitle">사용자 선호 장르 통계</p>
+            <PieChart
+              series={[
+                {
+                  data: PreferGenreChart,
+                },
+              ]}
+              width={400}
+              height={200}
+            />
+          </div>
+          <div className="chartContainer">
+            <p className="chartTitle">성별 통계</p>
+            <PieChart
+              series={[
+                {
+                  data: GenderChart,
+                },
+              ]}
+              width={400}
+              height={200}
+            />
+          </div>
+        </div>
+        <div style={{ display: "flex", gap: 8 }}>
+          <div className="chartContainer">
+            <p className="chartTitle">성별 선호 장르 통계</p>
+            <div className="chartContainer-wrap">
+              <div className="leftSide">
+                <p>남성</p>
+                <PieChart
+                  series={[
+                    {
+                      data: GenreMaleChart,
+                    },
+                  ]}
+                  width={400}
+                  height={200}
+                />
+              </div>
+
+              <div className="rightSide">
+                <p>여성</p>
+                <PieChart
+                  series={[
+                    {
+                      data: GenreFemaleChart,
+                    },
+                  ]}
+                  width={400}
+                  height={200}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="chartContainer">
+            <p className="chartTitle">연령별 선호 장르 통계</p>
+            <div className="chartContainer-wrap">
+              <div>
+                <p>10대</p>
+                <PieChart
+                  series={[
+                    {
+                      data: Teens,
+                    },
+                  ]}
+                  width={400}
+                  height={200}
+                />
+              </div>
+              <div>
+                <p>20대</p>
+                <PieChart
+                  series={[
+                    {
+                      data: Twenties,
+                    },
+                  ]}
+                  width={400}
+                  height={200}
+                />
+              </div>
+              <div>
+                <p>30대</p>
+                <PieChart
+                  series={[
+                    {
+                      data: Thirties,
+                    },
+                  ]}
+                  width={400}
+                  height={200}
+                />
+              </div>
+              <div>
+                <p>40대 이상</p>
+                <PieChart
+                  series={[
+                    {
+                      data: OverFourties,
+                    },
+                  ]}
+                  width={400}
+                  height={200}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

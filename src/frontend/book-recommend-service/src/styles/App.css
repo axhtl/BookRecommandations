@@ -2604,7 +2604,8 @@ input[type="checkbox"]:checked + .custom-checkbox {
 /* adminTabs */
 .userManagePageWrapper,
 .surveyManagePageWrapper,
-.recordManageWrapper{
+.recordManageWrapper,
+.statisticsWrapper{
   display: flex;
   flex-direction: column;
   margin:40px 24px;
@@ -2612,7 +2613,8 @@ input[type="checkbox"]:checked + .custom-checkbox {
 
 .userManagePageWrapper h1,
 .surveyManagePageWrapper h1,
-.recordManageWrapper h1{
+.recordManageWrapper h1,
+.statisticsWrapper h1{
   margin:0px;
   font-weight: 600;
   font-size: 32px;
@@ -2792,4 +2794,43 @@ input[type="checkbox"]:checked + .custom-checkbox {
 
 .adminTabsWrapper .selectedAdminTab p{
   font-weight: 500;
+}
+
+/* statisticsWrapper */
+.chartsWrapper{
+  margin:16px;
+  display: flex;
+  flex-direction: column;
+  gap:16px;
+  /* display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; */
+}
+.chartsWrapper .chartContainer{
+  background-color: #fbfbfb;
+  width: min-content;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap:24px;
+  border: 1px solid #DDD;
+  border-radius: 8px;
+}
+
+.chartsWrapper .chartContainer-wrap{
+  display: flex;
+  flex-direction: column;
+  gap:32px;
+}
+
+.chartsWrapper .chartContainer p{
+  margin:0px;
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.chartsWrapper .chartContainer .chartTitle{
+  margin:0px;
+  font-size: 20px;
+  font-weight: 400;
 }
