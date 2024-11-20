@@ -1,12 +1,9 @@
 package com.example.bookrecommandations.member.controller;
 
-import com.example.bookrecommandations.member.domain.Satisfaction;
-import com.example.bookrecommandations.member.dto.CreateMemberRequestDTO;
 import com.example.bookrecommandations.member.dto.SaveResponseDTO;
 import com.example.bookrecommandations.member.dto.admin.*;
 import com.example.bookrecommandations.member.service.AdminService;
 import com.example.bookrecommandations.member.service.MemberService;
-import com.example.bookrecommandations.member.service.SatisfactionService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,7 +20,6 @@ public class AdminController {
 
     private final AdminService adminService;
     private final MemberService memberService;
-    private final SatisfactionService satisfactionService;
 
     // 전체 사용자 도서 기록 조회 (후기테이블, 선호키워드테이블)
     @Operation(summary = "모든 사용자의 리뷰와 관련 선호 키워드 조회")
@@ -54,16 +50,6 @@ public class AdminController {
     public ResponseEntity<List<TotalMemberDetailDTO>> getAllMemberDetails() {
         List<TotalMemberDetailDTO> memberDetails = adminService.getAllMemberDetails();
         return ResponseEntity.ok(memberDetails);
-    }
-
-    // 전체 사용자 만족도 조사 조회
-    @GetMapping("/satis")
-    public ResponseEntity<List<Satisfaction>> getAllSatisfaction() {
-        List<Satisfaction> satisfactions = satisfactionService.getAllSatisfactions();
-        if (satisfactions.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(satisfactions);
     }
 
     // 관리자 회원가입
