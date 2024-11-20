@@ -58,6 +58,8 @@ public class SurveyRecommendationService {
     }
 
     public String recommendBySurvey(SurveyResponseDTO surveyResponseDTO) {
+//        String pythonExecutablePath = "/usr/bin/python";
+//        String pythonScriptPath = "/home/t24210/svr/v0.7/AI/survey.py";
         String pythonExecutablePath = "C:\\Users\\axhtl\\anaconda3\\envs\\env1107\\python.exe";
         String pythonScriptPath = "C:\\workspace\\1107backclone\\AI\\survey.py";
 

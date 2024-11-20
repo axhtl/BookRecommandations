@@ -28,28 +28,30 @@ public class BookRecommendationService {
         // 조회된 값을 DTO에 매핑하여 반환
         return AladinResponseDTO.builder()
                 .summary(bookInfo.getDescription()) // summary는 description 필드로 매핑
-                .cid(Integer.parseInt(bookInfo.getCategoryId())) // cid는 categoryId로 매핑 (필요에 따라 변환)
+//                .cid(Integer.parseInt(bookInfo.getCategoryId())) // cid는 categoryId로 매핑 (필요에 따라 변환)
                 .build();
     }
 
     public String recommendByBooks(AladinResponseDTO aladinResponseDTO) {
         // 기존의 Python 스크립트 호출 로직 유지
+//        String pythonExecutablePath = "/usr/bin/python";
+//        String pythonScriptPath = "/home/t24210/svr/v0.7/AI/book.py";
         String pythonExecutablePath = "C:\\Users\\axhtl\\anaconda3\\envs\\env1107\\python.exe";
         String pythonScriptPath = "C:\\workspace\\1107backclone\\AI\\book.py";
         String result;
 
         try {
             String book_summary = aladinResponseDTO.getSummary();
-            String cid = String.valueOf(aladinResponseDTO.getCid());
+//            String cid = String.valueOf(aladinResponseDTO.getCid());
 
             logger.info("Generated book_summary: {}", book_summary);
-            logger.info("Generated cid: {}", cid);
+//            logger.info("Generated cid: {}", cid);
 
             ProcessBuilder pb = new ProcessBuilder(
                     pythonExecutablePath,
                     pythonScriptPath,
-                    book_summary,
-                    cid
+                    book_summary
+//                    cid
             );
 
             pb.redirectErrorStream(true);

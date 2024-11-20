@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class AladinResponseDTO {
     private String summary;
-    private int cid;
+//    private int cid;
 }

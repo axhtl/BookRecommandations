@@ -38,6 +38,8 @@ public class KeywordRecommendationService {
                 .collect(Collectors.toList());
 
         // 파이썬 스크립트 실행
+//        String pythonExecutablePath = "/usr/bin/python";
+//        String pythonScriptPath = "/home/t24210/svr/v0.7/AI/book_keyword.py";
         String pythonExecutablePath = "C:\\Users\\axhtl\\anaconda3\\envs\\env1107\\python.exe";
         String pythonScriptPath = "C:\\workspace\\1107backclone\\AI\\book_keyword.py";
         String result;
