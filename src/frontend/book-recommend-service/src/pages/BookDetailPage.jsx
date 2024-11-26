@@ -232,10 +232,8 @@ const BookDetailPage = () => {
       const responseData = await response.text();
       console.log("responsdata", responseData);
       const correctedData = responseData.replace(/'/g, '"');
-      console.log("corrected", correctedData);
       const isbnArray = JSON.parse(correctedData);
-      console.log("isbnarray", isbnArray);
-      getRecommendByBook(responseData);
+      getRecommendByBook(isbnArray);
     } catch (error) {
       console.error("fetch error:", error);
     }
