@@ -72,7 +72,7 @@ const SignUpPage = () => {
           Icon={<Face />}
         />
         <AuthInput
-          placeholder={"아이디 (5자 이상)"}
+          placeholder={"아이디 (4자 이상)"}
           isPassword={false}
           onChange={(e) => setMembername(e.target.value)}
           Icon={<Person />}

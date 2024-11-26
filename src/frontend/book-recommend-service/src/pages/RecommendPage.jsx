@@ -92,6 +92,10 @@ const RecommendPage = () => {
   }, [fetchMemberInfo]);
 
   useEffect(() => {
+    console.log(isbnList);
+  }, [isbnList]);
+
+  useEffect(() => {
     // 처음 컴포넌트가 마운트될 때만 호출되도록 처리
     handleGetListBySurvey();
   }, [handleGetListBySurvey]); // 의존성 배열에 handleGetListBySurvey 추가하여 새로고침 시 한 번만 호출

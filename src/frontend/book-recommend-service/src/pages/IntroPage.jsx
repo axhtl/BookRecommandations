@@ -110,8 +110,8 @@ const IntroPage = () => {
                   <p className="cardTitle">도서 기반 추천</p>
 
                   <p className="cardSubTitle">
-                    사용자님이 기록한 도서 후기를 분석하여, 유사한 카테고리와
-                    장르를 가지는 도서를 추천해 드려요.
+                    사용자님이 기록한 도서와 유사한 카테고리를 가지는 도서를
+                    추천해 드려요.
                   </p>
                 </CardContent>
               </Card>
