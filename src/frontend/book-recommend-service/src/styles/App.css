@@ -1664,6 +1664,7 @@ input::placeholder{
 
 .savedBooksBottom{
   display: flex;
+  flex-wrap: wrap;
   gap:16px;
 }
 
