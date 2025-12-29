@@ -5,7 +5,7 @@ project date : 2024.08 ~ 2024.12
 사용자의 연계 독서를 위한 3가지 도서 추천 AI 서비스.
 
 
-# Used Skills
+## 🚀 Used Skills
 **Language** : 
 <img src="https://img.shields.io/badge/Python-3776AB?logo=Python&logoColor=white"/>
 <img src="https://img.shields.io/badge/Java-#FF7800"/>
@@ -34,3 +34,8 @@ project date : 2024.08 ~ 2024.12
 <img src="https://img.shields.io/badge/OpenAPI(GPT, OpenAPI)-000000"/>
 <img src="https://img.shields.io/badge/WebCrawling(BeautifulSoup)-000000"/>
 
+
+## 📷 Screenshot
+![screenshot1](https://github.com/axhtl/BookRecommandations/blob/main/image.png)
+![screenshot2](https://github.com/axhtl/BookRecommandations/blob/main/image2.png)
+![screenshot2](https://github.com/axhtl/BookRecommandations/blob/main/image3.png)
