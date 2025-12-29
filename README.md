@@ -7,7 +7,7 @@ project date : 2024.08 ~ 2024.12
 
 ## 🚀 Used Skills
 **Language** : 
-<img src="https://img.shields.io/badge/Python-3776AB?logo=Python&logoColor=white"/>
+<img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white"/>
 <img src="https://img.shields.io/badge/Java-#FF7800"/>
 
 **Data** : 
