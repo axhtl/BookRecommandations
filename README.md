@@ -6,28 +6,31 @@ project date : 2024.08 ~ 2024.12
 
 
 # Used Skills
-**Language** : , Java
+**Language** : 
 <img src="https://img.shields.io/badge/Python-3776AB?logo=Python&logoColor=white"/>
 <img src="https://img.shields.io/badge/Java-#FF7800"/>
 
-**Data** : MariaDB, H2
+**Data** : 
 <img src="https://img.shields.io/badge/Pandas-150458?logo=pandas&logoColor=white"/>
 <img src="https://img.shields.io/badge/Numpy-013243?logo=numpy&logoColor=white"/>
+<img src="https://img.shields.io/badge/MariaDB-003545?logo=mariadb&logoColor=white"/>
+<img src="https://img.shields.io/badge/H2Database-09476B?logo=h2database&logoColor=white"/>
 
 **Front-End**
 
-**Backend** : Spring Boot, Gradle
-<img src="https://img.shields.io/badge/springboot-6DB33F?logo=springboot&logoColor=white"/>
-<img src="https://img.shields.io/badge/gradle-02303A?logo=gradle&logoColor=white"/>
+**Backend** : 
+<img src="https://img.shields.io/badge/SprinBboot-6DB33F?logo=springboot&logoColor=white"/>
+<img src="https://img.shields.io/badge/Gradle-02303A?logo=gradle&logoColor=white"/>
 
 **AI** : 
 <img src="https://img.shields.io/badge/Scikit_Learn-F7931E?logo=scikitlearn&logoColor=white"/>
 
 **NLP** : 
 <img src="https://img.shields.io/badge/KoNLPy-013243"/>
-<img src="https://img.shields.io/badge/Transformer(S-BERT)-FFD21E?logo=huggingface&logoColor=white"/>
-<img src="https://img.shields.io/badge/ANN (FAISS, ScaNN, ANNoy)(S-BERT)-FFD21E"/>
+<img src="https://img.shields.io/badge/Transformer(S__BERT)-FFD21E?logo=huggingface&logoColor=white"/>
+<img src="https://img.shields.io/badge/ANN (FAISS, ScaNN, ANNoy)-FFD21E"/>
 
 **Others** : 
 <img src="https://img.shields.io/badge/OpenAPI(GPT, OpenAPI)-000000"/>
 <img src="https://img.shields.io/badge/WebCrawling(BeautifulSoup)-000000"/>
+
