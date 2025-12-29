@@ -5,19 +5,19 @@ project date : 2024.08 ~ 2024.12
 사용자의 연계 독서를 위한 3가지 도서 추천 AI 서비스.
 
 ## 📁 폴더 소개
-#### 📁Backend
+#### ↳📁Backend
 Backend
 
-#### 📁kyobo_crawling_data_BakByeongSeok
+#### ↳📁kyobo_crawling_data_BakByeongSeok
 교보문고 Web Crawling을 통해 수집한 raw 데이터.
 
-#### 📁도서분석_AI_Data&Models
+#### ↳📁도서분석_AI_Data&Models
 LDA 알고리즘을 사용한 도서분석 AI 개발 폴더
 
-#### 📁설문조사_AI_Data&Models
+#### ↳📁설문조사_AI_Data&Models
 Matrix Factorization 알고리즘을 사용한 추천 시스템 개발 폴더
 
-#### 📁알라딘_베스트셀러_Top_1000_1999~2024
+#### ↳📁알라딘_베스트셀러_Top_1000_1999~2024
 알라딘 Open API를 사용해 만든 원시 데이터. 1999년부터 2024년까지 분기별 Top 1000 베스트셀러에 대한 정보.
 
 ## 🚀 Used Skills
