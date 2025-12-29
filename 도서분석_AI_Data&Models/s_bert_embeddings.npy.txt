@@ -1,0 +1,1 @@
+s_bert_embeddings.npy 용량 문제로 업로드 불가 (126 MB)

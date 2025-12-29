@@ -1,0 +1,10 @@
+10, Coherence Score : 0.5567909666275, Perplexity Score : -8.364340849541636
+20, Coherence Score : 0.5463449058350609, Perplexity Score : -9.673041052989237
+30, Coherence Score : 0.5416270017445367, Perplexity Score : -10.513024112659435
+40, Coherence Score : 0.5112419589048227, Perplexity Score : -11.34428492578721
+50, Coherence Score : 0.4878639624971842, Perplexity Score : -12.155354267162851
+60, Coherence Score : 0.48256344869684964, Perplexity Score : -12.98091272564309
+70, Coherence Score : 0.47199933520969006, Perplexity Score : -13.80262855606407
+80, Coherence Score : 0.4530085576141488, Perplexity Score : -14.62293233780893
+90, Coherence Score : 0.45018263545747, Perplexity Score : -15.457390407953921
+100, Coherence Score : 0.4619384525659912, Perplexity Score : -16.316336641648718
