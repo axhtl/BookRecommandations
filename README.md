@@ -34,7 +34,7 @@ Matrix Factorization 알고리즘을 사용한 추천 시스템 개발 폴더
 **Front-End**
 
 **Backend** : 
-<img src="https://img.shields.io/badge/SprinBboot-6DB33F?logo=springboot&logoColor=white"/>
+<img src="https://img.shields.io/badge/SpringBoot-6DB33F?logo=springboot&logoColor=white"/>
 <img src="https://img.shields.io/badge/Gradle-02303A?logo=gradle&logoColor=white"/>
 
 **AI** : 
